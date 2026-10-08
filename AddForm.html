@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{font-family:Prompt,system-ui,sans-serif;color:#18353b;background:#fff;font-size:14px}
+    *{box-sizing:border-box}body{margin:0;padding:20px 22px 24px}p{margin:0}.hint{font-size:12px;color:#637b80;margin-bottom:18px}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.field{min-width:0}
+    label{display:block;font-weight:500;margin-bottom:6px}label span{color:#b93d32}
+    input{width:100%;min-width:0;height:45px;border:1px solid #c9dcdf;border-radius:11px;padding:0 12px;font:inherit;outline:0}
+    input:focus{border-color:#268491;box-shadow:0 0 0 3px #def3f0}input:disabled,button:disabled{opacity:.65;cursor:not-allowed}
+    .full{grid-column:1/-1}.check{display:flex;align-items:flex-start;gap:10px;margin:4px 0;padding:12px;background:#f1f8f6;border-radius:12px}
+    .check input{width:18px;height:18px;flex:none;margin:2px 0 0;accent-color:#17636d}.check label{margin:0;font-weight:500}
+    .check small{display:block;color:#5e7679;font-size:11px;font-weight:400}
+    .buttons{display:flex;align-items:center;gap:10px;justify-content:flex-end;margin-top:18px}
+    button{background:#17636d;color:#fff;padding:11px 24px;border:0;border-radius:11px;font:600 14px Prompt;cursor:pointer}
+    button:hover:not(:disabled){background:#114d54}.notice{font-size:12px;padding:11px 13px;border-radius:11px;margin:14px 0;white-space:pre-wrap}
+    .error{background:#fff2f0;color:#a23b31;border:1px solid #f0d0c9}.success{background:#eaf8f1;color:#186a4c;border:1px solid #c6e7d8}
+    .privacy{margin-top:14px;font-size:11px;color:#6c8386}
+    @media(max-width:470px){body{padding:16px}.grid{grid-template-columns:1fr}.full{grid-column:1}}
+  </style>
+</head>
+<body>
+  <p class="hint">กรอกข้อมูลบุคลากร ช่องเครื่องหมาย <b style="color:#b93d32">*</b> เท่านั้นที่บังคับ ส่วน LINE ID ไม่จำเป็นต้องกรอก</p>
+  <form id="contactForm" autocomplete="off">
+    <div class="grid">
+      <div class="field"><label for="firstName">ชื่อ <span>*</span></label><input id="firstName" name="firstName" required maxlength="100" autocomplete="given-name" placeholder="ชื่อ"></div>
+      <div class="field"><label for="lastName">นามสกุล <span>*</span></label><input id="lastName" name="lastName" required maxlength="100" autocomplete="family-name" placeholder="นามสกุล"></div>
+      <div class="field full"><label for="phone">เบอร์โทรศัพท์ <span>*</span></label><input id="phone" name="phone" required type="tel" maxlength="32" inputmode="tel" placeholder="เช่น 0891234567" autocomplete="tel"></div>
+      <div class="field"><label for="lineId">LINE ID (ไม่บังคับ)</label><input id="lineId" name="lineId" maxlength="100" placeholder="เช่น myline123"></div>
+      <div class="field"><label for="department">ฝ่าย/แผนก (ไม่บังคับ)</label><input id="department" name="department" maxlength="100" placeholder="ฝ่าย/แผนก"></div>
+      <div class="field full"><label for="position">ตำแหน่ง (ไม่บังคับ)</label><input id="position" name="position" maxlength="100" placeholder="ตำแหน่ง"></div>
+      <div class="field full"><div class="check"><input type="checkbox" id="published" name="published"><label for="published">เผยแพร่รายชื่อนี้ทันที<small>ติ๊กเฉพาะเมื่อได้รับอนุญาตให้แสดงข้อมูลบนเว็บไซต์สาธารณะแล้ว ถ้าไม่ติ๊กข้อมูลจะอยู่ใน Sheets แต่ไม่แสดงบนเว็บ</small></label></div></div>
+      <div class="field full"><label for="adminPassword">รหัสผู้ดูแลระบบ <span>*</span></label><input id="adminPassword" name="adminPassword" type="password" required autocomplete="off" placeholder="รหัสที่ตั้งใน Apps Script"></div>
+    </div>
+    <div id="feedback" role="status" aria-live="polite" hidden></div>
+    <div class="buttons"><button type="submit" id="submitBtn">บันทึกข้อมูล</button></div>
+  </form>
+  <p class="privacy">รหัสผู้ดูแลจะใช้ตรวจสอบสิทธิ์การบันทึก และไม่ถูกเก็บใน Google Sheets หรือ GitHub</p>
+  <script>
+  'use strict';
+  const form=document.getElementById('contactForm'),feedback=document.getElementById('feedback'),btn=document.getElementById('submitBtn');
+  function message(text,success){feedback.textContent=text;feedback.className='notice '+(success?'success':'error');feedback.hidden=false;}
+  function done(){btn.disabled=false;btn.textContent='บันทึกข้อมูล';}
+  form.addEventListener('submit',event=>{
+    event.preventDefault();
+    if(!form.reportValidity()) return;
+    const fields=Object.fromEntries(new FormData(form).entries());
+    fields.published=document.getElementById('published').checked;
+    ['firstName','lastName','phone'].forEach(key=>fields[key]=String(fields[key]||'').trim());
+    if(!fields.firstName||!fields.lastName||!fields.phone){message('กรุณากรอกชื่อ นามสกุล และเบอร์โทรศัพท์',false);return;}
+    const digits=fields.phone.replace(/\D/g,'');
+    if(!/^\+?[0-9\s().-]+$/.test(fields.phone)||digits.length<6||digits.length>15){message('กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง (6–15 หลัก)',false);return;}
+    btn.disabled=true;btn.textContent='กำลังบันทึก...';feedback.hidden=true;
+    google.script.run.withSuccessHandler(result=>{
+      done();
+      if(!result||!result.ok){message(result?.message||'บันทึกไม่สำเร็จ',false);return;}
+      form.reset();
+      message('✓ '+result.message+'\nปิดหน้าต่างนี้เพื่อกลับไปยังสมุดโทรศัพท์',true);
+      // ส่งเฉพาะสถานะ ไม่มีข้อมูลส่วนตัวหรือรหัสผ่าน
+      try{window.top.postMessage({type:'phonebook:contact-added'},'*');}catch(err){}
+    }).withFailureHandler(err=>{done();message(err?.message||'บันทึกไม่สำเร็จ กรุณาลองอีกครั้ง',false);})
+      .addPhonebookContact(fields);
+  });
+  </script>
+</body>
+</html>
