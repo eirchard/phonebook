@@ -63,7 +63,7 @@
       <!-- เมนูแยกสำหรับหน้าสาธารณะและผู้ดูแลระบบ (ไม่ปะปนกับเครื่องมือค้นหา) -->
       <nav class="headerSwitcher" aria-label="เมนูหลัก">
         <a class="switcherItem switcherActive" href="./" aria-current="page">สมุดโทรศัพท์</a>
-        <a class="switcherItem" id="adminBtn" href="?page=admin" title="ไปหน้าผู้ดูแลระบบ">ผู้ดูแลระบบ</a>
+        <a class="switcherItem" id="adminBtn" href="./admin.html" title="ไปหน้าผู้ดูแลระบบ">ผู้ดูแลระบบ</a>
       </nav>
     </div>
   </header>
@@ -362,22 +362,8 @@
     }
   }
   $('addBtn').addEventListener('click',openAddModal);
-  // ใช้ลิงก์จริงแทน window.open() เพื่อไม่ให้ถูกบล็อกป๊อปอัป
-  // หากมีการเปลี่ยน URL ของ Apps Script ใน CONFIG จะเปลี่ยนลิงก์ Admin ให้ตรงกันอัตโนมัติ
-  if(CONFIG.apiUrl.trim()){
-    try{
-      const adminUrl=new URL(CONFIG.apiUrl.trim());
-      adminUrl.searchParams.set('page','admin');
-      $('adminBtn').href=adminUrl.toString();
-    }catch(error){
-      console.error('URL Apps Script ไม่ถูกต้อง:',error);
-      $('adminBtn').removeAttribute('href');
-      $('adminBtn').addEventListener('click',e=>{e.preventDefault();showNotice('โปรดตรวจสอบ CONFIG.apiUrl','error');});
-    }
-  }else{
-    $('adminBtn').removeAttribute('href');
-    $('adminBtn').addEventListener('click',e=>{e.preventDefault();showNotice('กรุณาตั้งค่า apiUrl ก่อนเปิดหน้า Admin','error');});
-  }
+  // v7: หน้า Admin อยู่ที่ GitHub Pages โดยตรง
+  $('adminBtn').href='./admin.html';
   $('contactForm').addEventListener('submit',submitContact);
   $('cancelContactBtn').addEventListener('click',closeAddModal);
   $('closeModalBtn').addEventListener('click',closeAddModal);
