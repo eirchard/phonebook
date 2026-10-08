@@ -53,7 +53,28 @@
     @media(max-width:760px){.headerSwitcher{gap:2px;padding:4px;border-radius:13px}.switcherItem{min-height:39px;padding:8px 12px;font-size:12px}}
     @media(max-width:540px){.topbarInner{flex-direction:column;align-items:stretch;gap:0;padding-top:13px;padding-bottom:12px}.brand{align-self:flex-start}.headerSwitcher{align-self:flex-end;margin-top:10px}.switcherItem{min-height:36px;padding:7px 12px;font-size:12px}}
     @media print{.headerSwitcher{display:none!important}}
-  </style>
+  
+    /* v10: feedback for asynchronous operations */
+    [hidden]{display:none!important}
+    .syncStatus{display:inline-flex;align-items:center;gap:9px;margin-bottom:12px;font-size:12px;color:#476b71;background:#eaf5f4;border:1px solid #d1e7e4;border-radius:100px;padding:6px 12px}
+    .syncStatus .miniSpinner,.btnWaiting .miniSpinner{width:15px;height:15px;border:2px solid #a9d3d1;border-top-color:var(--teal);border-radius:50%;display:inline-block;animation:spin .7s linear infinite}
+    .notice .noticeActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:7px}
+    .noticeAction{background:#fff;border:1px solid #e5b9ac;color:#844536;border-radius:9px;padding:4px 10px;font:inherit;cursor:pointer}
+    .noticeAction:hover{background:#fff1ec}
+    .modalPanel{position:relative}
+    .saveProgress{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(255,255,255,.96);text-align:center}
+    .saveProgressCard{width:100%;max-width:380px;display:flex;flex-direction:column;align-items:center;gap:12px}
+    .saveProgressSpinner{width:50px;height:50px;border:4px solid #d6eae9;border-top-color:var(--teal);border-radius:50%;animation:spin .7s linear infinite}
+    .saveProgressTitle{font-size:18px;font-weight:600;color:var(--ink)}
+    .saveProgressDetail{font-size:12px;color:var(--muted);line-height:1.75}
+    .progressSteps{display:flex;align-items:center;gap:8px;margin-top:6px;width:100%;justify-content:center}
+    .progressStep{display:flex;align-items:center;gap:5px;font-size:11px;color:#9aa8ab;white-space:nowrap}
+    .progressStep::before{content:'';width:9px;height:9px;border-radius:50%;background:#d8e3e3}
+    .progressStep.done{color:#22795b}.progressStep.done::before{background:#32a279}
+    .progressStep.active{color:var(--teal);font-weight:600}.progressStep.active::before{background:var(--teal);box-shadow:0 0 0 4px #cde8e5}
+    @media(max-width:480px){.progressSteps{gap:5px}.progressStep{font-size:10px}}
+    @media(prefers-reduced-motion:reduce){.saveProgressSpinner,.syncStatus .miniSpinner{animation-duration:1.8s}}
+</style>
 </head>
 <body>
   <header class="topbar">
@@ -74,6 +95,7 @@
       <div><div class="eyebrow">STAFF DIRECTORY</div><h2>ค้นหาเบอร์โทรศัพท์</h2><p>ค้นหารายชื่อและติดต่อบุคลากรได้อย่างรวดเร็ว</p></div>
       <div class="stats"><div class="stat"><b id="totalCount">—</b><span>รายชื่อทั้งหมด</span></div><div class="stat"><b id="deptCount">—</b><span>ฝ่าย/แผนก</span></div></div>
     </section>
+    <div id="syncStatus" class="syncStatus" role="status" aria-live="polite" hidden><span class="miniSpinner" aria-hidden="true"></span><span id="syncStatusText">กำลังเชื่อมต่อข้อมูล...</span></div>
     <div id="notice" class="notice" hidden></div>
     <section class="panel" aria-label="รายชื่อบุคลากร">
       <div class="toolbar">
@@ -113,6 +135,18 @@
           <p class="formTip">ช่องที่มี * จำเป็นต้องกรอก · การบันทึกจะเผยแพร่ชื่อ นามสกุล และเบอร์โทรศัพท์ให้ผู้เข้าชมเว็บเห็นทันที</p>
         </form>
       </div>
+      <div id="saveProgress" class="saveProgress" role="status" aria-live="polite" aria-atomic="true" hidden>
+        <div class="saveProgressCard">
+          <div class="saveProgressSpinner" aria-hidden="true"></div>
+          <div class="saveProgressTitle" id="saveProgressTitle">กำลังส่งข้อมูล...</div>
+          <div class="saveProgressDetail" id="saveProgressDetail">กำลังติดต่อ Google Apps Script โปรดรอสักครู่</div>
+          <div class="progressSteps" aria-hidden="true">
+            <span id="saveStep1" class="progressStep active">ส่งข้อมูล</span>
+            <span id="saveStep2" class="progressStep">ยืนยันการบันทึก</span>
+            <span id="saveStep3" class="progressStep">แสดงรายชื่อ</span>
+          </div>
+        </div>
+      </div>
     </section>
   </div>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
@@ -127,7 +161,7 @@
     apiUrl: 'https://script.google.com/macros/s/AKfycbzbkJsy5Qs8oVvckvRYxYNJLDDUQLHp9BOZYi6orFVODLKg33_0aHrPp5Jwuxeu8ob2/exec',
     organizationName: 'วิทยาลัยการอาชีพนครยะลา',
     pageSize: 12,
-    timeoutMs: 20000
+    timeoutMs: 16000
   };
 
   const SAMPLE = [
@@ -153,6 +187,17 @@
     if (!message){el.hidden=true;return;}
     const ico=document.createElement('span');ico.innerHTML=icons.info;
     const txt=document.createElement('div');txt.textContent=message;
+    if(type==='error'){
+      const buttons=document.createElement('div');buttons.className='noticeActions';
+      const retry=document.createElement('button');retry.type='button';retry.className='noticeAction';retry.textContent='↻ ลองโหลดใหม่';
+      retry.addEventListener('click',()=>loadContacts({force:true}));buttons.appendChild(retry);
+      if(CONFIG.apiUrl.trim()){
+        const test=document.createElement('a');test.className='noticeAction';test.target='_blank';test.rel='noopener noreferrer';
+        const u=new URL(CONFIG.apiUrl);u.searchParams.set('action','health');test.href=u.href;
+        test.textContent='ทดสอบการเชื่อมต่อ';buttons.appendChild(test);
+      }
+      txt.appendChild(buttons);
+    }
     el.append(ico,txt);el.className='notice'+(type==='error'?' error':'');el.hidden=false;
   }
   let toastTimer;
@@ -218,14 +263,27 @@
     $('prevBtn').disabled=state.page===1;$('nextBtn').disabled=state.page>=pages;
     $('csvBtn').disabled=state.filtered.length===0;$('printBtn').disabled=state.filtered.length===0;
   }
+  function showSyncStatus(text){
+    $('syncStatusText').textContent=text;
+    $('syncStatus').hidden=false;
+  }
+  function hideSyncStatus(){$('syncStatus').hidden=true}
   function showLoading(){
     state.loading=true;$('refreshBtn').disabled=true;
-    // หากมีรายชื่อจากแคช ให้ผู้ใช้ค้นหาและโทรได้ระหว่างซิงก์ ไม่ล้างตาราง
+    showSyncStatus(state.hasData?'กำลังตรวจสอบรายชื่อใหม่...':'กำลังเชื่อมต่อ Google Sheets...');
+    // มีข้อมูลจากแคชแล้ว: ให้ค้นหาและโทรได้โดยไม่ล้างรายการ
     if(state.hasData)return;
     $('directoryBody').replaceChildren();
-    const area=$('statusArea');area.hidden=false;area.className='loading';area.innerHTML='<div class="loader" role="status"></div>กำลังโหลดรายชื่อครั้งแรก...';
+    const area=$('statusArea');area.hidden=false;area.className='loading';
+    area.innerHTML='<div class="loader" role="status"></div>กำลังโหลดรายชื่อจาก Google Sheets...';
   }
-  function finishLoading(){state.loading=false;$('refreshBtn').disabled=false}
+  function finishLoading(){state.loading=false;$('refreshBtn').disabled=false;hideSyncStatus()}
+  function showSaveProgress(step,title,detail){
+    const overlay=$('saveProgress');overlay.hidden=false;
+    $('saveProgressTitle').textContent=title;$('saveProgressDetail').textContent=detail;
+    [1,2,3].forEach(i=>{$('saveStep'+i).className='progressStep'+(i<step?' done':i===step?' active':'')});
+  }
+  function hideSaveProgress(){$('saveProgress').hidden=true}
   function getCachedDirectory(){
     if(!CONFIG.apiUrl.trim())return null;
     try{
@@ -272,7 +330,7 @@
       setData(cached.contacts);
     }
     if(cached&&!force&&Date.now()-cached.savedAt<CACHE_FRESH_MS){
-      showNotice('');
+      showNotice('');finishLoading();
       return; // เปิดหน้าเดิมภายใน 1 นาทีโดยไม่เรียก API ซ้ำ
     }
     showLoading();
@@ -292,9 +350,11 @@
     }catch(err){
       if(request!==state.requestNumber)return;
       if(state.hasData){
-        showNotice('ยังแสดงรายชื่อที่เคยโหลดไว้ แต่ตรวจสอบข้อมูลล่าสุดไม่ได้: '+(err.message||'การเชื่อมต่อขัดข้อง'),'error');
+        showNotice('ยังแสดงข้อมูลที่โหลดไว้ก่อนหน้าอยู่ แต่ตรวจสอบรายการล่าสุดไม่ได้: '+(err.message||'การเชื่อมต่อขัดข้อง'),'error');
       }else{
-        setData([]);showNotice(err.message||'โหลดข้อมูลไม่สำเร็จ','error');
+        const area=$('statusArea');area.hidden=false;area.className='empty';
+        area.textContent='ยังโหลดรายชื่อไม่ได้ กดลองโหลดใหม่ด้านบน';
+        showNotice(err.message||'โหลดข้อมูลไม่สำเร็จ','error');
       }
     }finally{if(request===state.requestNumber)finishLoading()}
   }
@@ -311,7 +371,7 @@
     const csv='\ufeff'+cells.map(row=>row.map(protect).join(',')).join('\r\n');
     const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'}),url=URL.createObjectURL(blob);
     const a=document.createElement('a');a.href=url;a.download='phonebook_'+new Date().toISOString().slice(0,10)+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
-    toast('ส่งออกไฟล์ CSV เรียบร้อย');
+    toast('สร้างไฟล์ CSV เรียบร้อย');
   }
   let printState=null;
   window.addEventListener('beforeprint',()=>{
@@ -323,7 +383,7 @@
     if(!printState)return;
     CONFIG.pageSize=printState.pageSize;state.page=printState.page;printState=null;render();
   });
-  function printAllFiltered(){window.print()}
+  function printAllFiltered(){toast('กำลังเตรียมหน้าเอกสารสำหรับพิมพ์ / PDF...');requestAnimationFrame(()=>window.print())}
   // แบบฟอร์มอยู่บน GitHub Pages โดยตรง (ไม่ฝัง iframe ของ Apps Script)
   // ส่ง POST ผ่าน iframe ที่ซ่อนไว้ และใช้ JSONP สอบถามสถานะด้วยรหัสสุ่ม
   // แบบฟอร์มสาธารณะไม่มีรหัสผ่าน บันทึกแล้วเผยแพร่ทันที
@@ -366,15 +426,21 @@
   }
   async function waitForSave(requestId){
     const deadline=Date.now()+35000;
+    let attempts=0;
     while(Date.now()<deadline){
-      await new Promise(resolve=>setTimeout(resolve,1500));
+      await new Promise(resolve=>setTimeout(resolve,attempts===0?650:1100));
+      attempts++;
       try{
-        const remaining=Math.max(1000,Math.min(4500,deadline-Date.now()));
+        const remaining=Math.max(1000,Math.min(4000,deadline-Date.now()));
         const result=await loadJSONP(CONFIG.apiUrl.trim(),remaining,{action:'status',requestId});
         if(result && result.pending===false)return result;
-      }catch(err){ /* ติดขัดชั่วคราว รอแล้วตรวจซ้ำ */ }
+      }catch(err){
+        // อาจมีปัญหาข้ามบัญชี Google หรือเครือข่าย: ห้ามถือว่า POST ล้มเหลวหรือส่งซ้ำ
+      }
+      if(attempts===3)showSaveProgress(2,'กำลังตรวจสอบผลการบันทึก...',
+        'Google Apps Script ยังประมวลผลอยู่ ระบบจะตรวจสอบต่อโดยอัตโนมัติ ไม่ต้องกดบันทึกซ้ำ');
     }
-    throw new Error('ยังยืนยันผลการบันทึกไม่ได้ กรุณาตรวจ Google Sheets ก่อนกดบันทึกซ้ำ และตรวจว่า Deploy Apps Script เวอร์ชันล่าสุดแล้ว');
+    throw new Error('ยังยืนยันผลการบันทึกไม่ได้ (อาจบันทึกไปแล้ว) กรุณาตรวจ Google Sheets ก่อนกดอีกครั้ง และตรวจสิทธิ์/Deployment ของ Apps Script');
   }
   async function submitContact(event){
     event.preventDefault();
@@ -387,16 +453,19 @@
     fields.action='submit';fields.website='';
     fields.requestId=newRequestId();
     formBusy=true;$('saveContactBtn').disabled=true;$('saveContactBtn').textContent='กำลังบันทึก...';
+    showSaveProgress(1,'กำลังส่งข้อมูล...','ระบบกำลังส่งข้อมูลไป Google Apps Script อย่างปลอดภัย');
     $('cancelContactBtn').disabled=true;$('closeModalBtn').disabled=true;
     setFormMessage('กำลังส่งข้อมูลและตรวจสอบผล โปรดรอสักครู่','success');
     let cleanup=()=>{};
     let resultSaved=false;
     try{
       cleanup=sendPostInBackground(fields);
+      showSaveProgress(2,'กำลังยืนยันการบันทึก...','กำลังรอ Google Sheets ยืนยันข้อมูล โปรดอย่ากดปุ่มซ้ำ');
       const result=await waitForSave(fields.requestId);
       if(!result.ok)throw new Error(result.message||'บันทึกไม่สำเร็จ');
       // ป้องกันการอัปเดตเฉพาะ GitHub แต่ลืม Deploy Code.gs: v8 ยังบันทึกแบบรออนุมัติ
       if(result.published!==true || !result.id)throw new Error('บันทึกลง Google Sheets แล้ว แต่ Apps Script ยังใช้โค้ดเวอร์ชันเดิม จึงอาจยังไม่เผยแพร่ กรุณา Deploy Code.gs v9 ก่อน (ไม่ต้องกดบันทึกซ้ำ)');
+      showSaveProgress(3,'บันทึกสำเร็จ!','กำลังแสดงรายชื่อที่เพิ่มใหม่...');
       // แสดงรายชื่อใหม่บนหน้าจอทันทีโดยไม่รอ Apps Script โหลดรายชื่อทั้งชุดซ้ำ
       state.requestNumber++;
       finishLoading(); // หากมีการโหลดเดิมค้างอยู่ ให้คำขอใหม่เริ่มได้เสมอ
@@ -413,7 +482,7 @@
       setTimeout(()=>loadContacts({force:true}),200);
     }catch(err){setFormMessage(err.message||'ไม่สามารถบันทึกข้อมูลได้','error');}
     finally{
-      cleanup();formBusy=false;$('saveContactBtn').disabled=false;
+      cleanup();hideSaveProgress();formBusy=false;$('saveContactBtn').disabled=false;
       $('saveContactBtn').textContent='บันทึกข้อมูล';$('cancelContactBtn').disabled=false;
       $('closeModalBtn').disabled=false;
       if(resultSaved)closeAddModal();
