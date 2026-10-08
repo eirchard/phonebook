@@ -46,7 +46,7 @@
     .headerSwitcher{display:inline-flex;align-items:center;gap:3px;padding:5px;background:#fff;border:1px solid rgba(255,255,255,.68);border-radius:16px;box-shadow:0 8px 24px rgba(6,36,40,.17);flex-shrink:0}
     .switcherItem{display:inline-flex;align-items:center;justify-content:center;min-height:43px;padding:9px 17px;border:0;border-radius:12px;background:transparent;color:#45676c;font-size:13px;font-weight:500;line-height:1.3;text-align:center;white-space:nowrap;transition:background-color .16s,color .16s}
     .switcherItem.switcherActive{background:#e8f2ec;color:#124e45;font-weight:600;cursor:default}
-    .headerSwitcher button.switcherItem:hover{background:#eff7f5;color:#145e62}
+    .headerSwitcher a.switcherItem:not(.switcherActive):hover{background:#eff7f5;color:#145e62}
     .headerSwitcher button.switcherItem:focus-visible,.headerSwitcher a.switcherItem:focus-visible{outline:3px solid #edca6e;outline-offset:2px}
     @media(max-width:760px){.headerSwitcher{gap:2px;padding:4px;border-radius:13px}.switcherItem{min-height:39px;padding:8px 12px;font-size:12px}}
     @media(max-width:540px){.topbarInner{flex-direction:column;align-items:stretch;gap:0;padding-top:13px;padding-bottom:12px}.brand{align-self:flex-start}.headerSwitcher{align-self:flex-end;margin-top:10px}.switcherItem{min-height:36px;padding:7px 12px;font-size:12px}}
@@ -63,7 +63,7 @@
       <!-- เมนูแยกสำหรับหน้าสาธารณะและผู้ดูแลระบบ (ไม่ปะปนกับเครื่องมือค้นหา) -->
       <nav class="headerSwitcher" aria-label="เมนูหลัก">
         <a class="switcherItem switcherActive" href="./" aria-current="page">สมุดโทรศัพท์</a>
-        <button class="switcherItem" id="adminBtn" type="button" title="เปิดหน้าผู้ดูแลระบบ">ผู้ดูแลระบบ</button>
+        <a class="switcherItem" id="adminBtn" href="https://script.google.com/macros/s/AKfycbzbkJsy5Qs8oVvckvRYxYNJLDDUQLHp9BOZYi6orFVODLKg33_0aHrPp5Jwuxeu8ob2/exec?page=admin" title="ไปหน้าผู้ดูแลระบบ">ผู้ดูแลระบบ</a>
       </nav>
     </div>
   </header>
@@ -362,11 +362,22 @@
     }
   }
   $('addBtn').addEventListener('click',openAddModal);
-  $('adminBtn').addEventListener('click',()=>{
-    if(!CONFIG.apiUrl.trim()){showNotice('กรุณาตั้งค่า apiUrl ก่อนเปิดหน้า Admin','error');return;}
-    const url=new URL(CONFIG.apiUrl.trim());url.searchParams.set('page','admin');
-    window.open(url.toString(),'_blank','noopener,noreferrer');
-  });
+  // ใช้ลิงก์จริงแทน window.open() เพื่อไม่ให้ถูกบล็อกป๊อปอัป
+  // หากมีการเปลี่ยน URL ของ Apps Script ใน CONFIG จะเปลี่ยนลิงก์ Admin ให้ตรงกันอัตโนมัติ
+  if(CONFIG.apiUrl.trim()){
+    try{
+      const adminUrl=new URL(CONFIG.apiUrl.trim());
+      adminUrl.searchParams.set('page','admin');
+      $('adminBtn').href=adminUrl.toString();
+    }catch(error){
+      console.error('URL Apps Script ไม่ถูกต้อง:',error);
+      $('adminBtn').removeAttribute('href');
+      $('adminBtn').addEventListener('click',e=>{e.preventDefault();showNotice('โปรดตรวจสอบ CONFIG.apiUrl','error');});
+    }
+  }else{
+    $('adminBtn').removeAttribute('href');
+    $('adminBtn').addEventListener('click',e=>{e.preventDefault();showNotice('กรุณาตั้งค่า apiUrl ก่อนเปิดหน้า Admin','error');});
+  }
   $('contactForm').addEventListener('submit',submitContact);
   $('cancelContactBtn').addEventListener('click',closeAddModal);
   $('closeModalBtn').addEventListener('click',closeAddModal);
