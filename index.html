@@ -1,431 +1,405 @@
-<!doctype html>
-<html lang="th">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#13616b">
-  <meta name="description" content="สมุดโทรศัพท์บุคลากร ค้นหาชื่อและหมายเลขโทรศัพท์ได้อย่างสะดวก">
-  <title>สมุดโทรศัพท์บุคลากร</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://script.google.com" crossorigin>
-  <link rel="preconnect" href="https://script.googleusercontent.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root{color-scheme:light;--teal:#17636d;--teal2:#104b54;--tealSoft:#e8f5f4;--ink:#172a37;--muted:#677984;--line:#dce7e9;--bg:#f5f8fa;--white:#fff;--shadow:0 12px 34px rgba(19,65,78,.07);--radius:20px}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.7 "Prompt",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-    button,input,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}a{color:inherit;text-decoration:none}.container{max-width:1100px;margin:auto;padding:0 22px}
-    .topbar{background:var(--teal2);color:white;border-bottom:4px solid #dabf6c;box-shadow:0 6px 22px rgba(10,54,64,.1)}.topbarInner{min-height:92px;display:flex;align-items:center;justify-content:space-between;gap:22px}.brand{display:flex;align-items:center;gap:15px}.logo{width:56px;height:56px;border-radius:17px;background:#ffffff1f;border:1px solid #ffffff39;display:grid;place-items:center;flex-shrink:0}.logo svg{width:28px;height:28px}.brand h1{margin:0;font-size:24px;font-weight:600;letter-spacing:-.4px;line-height:1.35}.brand p{margin:2px 0 0;color:#dbeded;font-size:12px;font-weight:300}.topTag{border-radius:100px;background:#ffffff17;border:1px solid #ffffff33;padding:8px 15px;font-size:12px;white-space:nowrap}
-    .main{padding-top:32px;padding-bottom:65px}.intro{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:21px}.eyebrow{font-size:12px;font-weight:600;color:#397f83;letter-spacing:.04em}.intro h2{margin:3px 0;font-size:26px;font-weight:600;line-height:1.45}.intro p{color:var(--muted);margin:0;font-size:13px}.stats{display:flex;gap:10px;align-items:stretch}.stat{min-width:112px;border:1px solid var(--line);border-radius:15px;background:white;padding:12px 17px;box-shadow:var(--shadow)}.stat b{font-size:26px;line-height:1.2;display:block;font-weight:600;color:var(--teal)}.stat span{display:block;color:var(--muted);font-size:11px;margin-top:4px}
-    .panel{background:white;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}.toolbar{padding:20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}.search{position:relative;flex:1 1 290px}.search input{padding:12px 44px 12px 16px;border-radius:12px;border:1px solid #cbdadd;background:#fbfdfd;width:100%;outline:none;transition:border .15s,box-shadow .15s}.search input:focus,select:focus{border-color:#479ea4;box-shadow:0 0 0 4px #429fa21b}.search svg{position:absolute;right:16px;top:50%;transform:translateY(-50%);color:#67858e;width:19px;height:19px;pointer-events:none}select{border:1px solid #cbdadd;background:#fff;outline:none;border-radius:12px;padding:12px 12px;min-width:174px;max-width:230px;color:var(--ink)}.btn{display:inline-flex;justify-content:center;align-items:center;gap:8px;padding:11px 13px;background:white;border:1px solid #d5e3e5;border-radius:12px;color:#345d65;font-weight:500;white-space:nowrap}.btn:hover{background:#f1f8f9}.btn svg,.smallBtn svg{width:17px;height:17px}.iconBtn{width:45px;height:45px;padding:0}.btnPrimary{background:var(--teal);border-color:var(--teal);color:#fff}.btnPrimary:hover{background:var(--teal2)}.actionbar{display:flex;gap:8px;align-items:center}.tableWrap{overflow-x:auto}table{width:100%;border-collapse:collapse;text-align:left}thead{background:var(--teal);color:#fff}thead th{font-size:14px;font-weight:500;padding:13px 26px}thead th:last-child{width:42%}tbody tr{border-bottom:1px solid #eaf0f2}tbody tr:last-child{border-bottom:0}tbody tr:hover{background:#f9fcfc}tbody td{padding:16px 26px;vertical-align:middle}.staff{display:flex;align-items:center;gap:12px}.avatar{width:43px;height:43px;flex-shrink:0;background:#e6f2f2;color:#23666a;border-radius:13px;display:grid;place-items:center;font-weight:600;font-size:15px}.staffName{font-weight:500;line-height:1.45;font-size:14px}.staffDetail{color:var(--muted);font-size:12px;font-weight:300;margin-top:3px}.phoneCell{display:flex;align-items:center;justify-content:space-between;gap:12px}.phoneText{font-size:16px;font-weight:500;letter-spacing:.3px;font-variant-numeric:tabular-nums;white-space:nowrap}.phoneActions{display:flex;align-items:center;gap:8px}.smallBtn{min-width:39px;height:37px;padding:0 9px;display:inline-flex;gap:6px;justify-content:center;align-items:center;border:1px solid #dae6e7;color:#416f77;background:white;border-radius:10px;font-size:12px}.smallBtn:hover{background:var(--tealSoft)}.callBtn{background:#e5f4ef;border-color:#cbe7dd;color:#147153;padding:0 12px}.callBtn:hover{background:#d7f0e6}
-    .footerPanel{min-height:65px;border-top:1px solid #eaf0f2;padding:15px 21px;display:flex;align-items:center;justify-content:space-between;gap:12px;color:var(--muted);font-size:12px}.pagination{display:flex;gap:7px;align-items:center}.pagination button{border-radius:9px;background:white;border:1px solid #dce7e9;min-width:35px;height:34px;padding:0 8px;color:var(--teal)}.pagination button:hover:not(:disabled){background:var(--tealSoft)}.pagination span{padding:0 7px}.empty,.loading{padding:66px 20px;text-align:center;color:var(--muted)}.empty svg{width:44px;height:44px;color:#8caaac}.empty strong{display:block;color:var(--ink);font-size:16px;margin-top:11px}.empty p{margin-top:5px;font-size:13px}.loader{width:34px;height:34px;border:3px solid #dbeceb;border-top-color:var(--teal);border-radius:50%;animation:spin .75s linear infinite;margin:0 auto 12px}@keyframes spin{to{transform:rotate(360deg)}}
-    .notice{border-radius:12px;padding:11px 16px;margin-bottom:18px;font-size:12px;border:1px solid #d4e1e4;background:#eff7f8;color:#35676f;display:flex;align-items:flex-start;gap:9px}.notice svg{flex:none;width:18px;height:18px;margin-top:2px}.notice.error{background:#fff4f1;border-color:#f1d2c8;color:#a5442e}.notice strong{font-weight:600}.notice a{text-decoration:underline}.credits{text-align:center;margin:22px 0 0;color:#8a969b;font-size:11px}.toast{position:fixed;bottom:23px;left:50%;transform:translate(-50%,24px);opacity:0;transition:.2s;z-index:10;color:white;background:#1a4249;border-radius:11px;padding:9px 16px;pointer-events:none;box-shadow:var(--shadow);font-size:13px}.toast.visible{opacity:1;transform:translate(-50%,0)}
-    @media(max-width:760px){.topbarInner{min-height:78px}.brand h1{font-size:19px}.brand p{font-size:11px}.logo{height:47px;width:47px;border-radius:13px}.topTag{display:none}.main{padding-top:22px}.intro{align-items:stretch}.intro h2{font-size:21px}.intro p{font-size:12px}.stats{gap:7px}.stat{min-width:82px;padding:10px}.stat b{font-size:20px}.stat span{font-size:10px}.toolbar{padding:14px;gap:9px}.search{flex-basis:100%}select{flex:1;min-width:0;max-width:none}.actionbar{width:100%;justify-content:flex-end}.tableWrap{overflow:visible}thead{display:none}tbody{display:block;padding:0 14px 4px}tbody tr{display:flex;flex-direction:column;padding:14px 0;gap:10px}tbody td{display:block;padding:0}tbody td:first-child{width:100%}.phoneCell{padding-left:55px}.phoneText{font-size:16px}.footerPanel{padding:13px 15px}.container{padding:0 14px}}
-    @media(max-width:480px){.intro{display:block}.stats{margin-top:16px}.stat{flex:1}.brand h1{font-size:17px}.intro h2{font-size:21px}.phoneCell{padding-left:0}.phoneActions{gap:6px}.callBtn span{display:none}.staffDetail{font-size:11px}.btn{font-size:12px}.footerPanel{flex-direction:column;gap:10px}.footerPanel .pagination{align-self:flex-end}}
-    .modalOverlay{position:fixed;inset:0;background:rgba(9,34,41,.58);z-index:50;display:flex;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(3px)}
-    .modalOverlay[hidden]{display:none!important}.modalPanel{background:white;border-radius:19px;box-shadow:0 25px 80px rgba(0,0,0,.18);width:min(680px,100%);height:min(735px,94dvh);display:flex;flex-direction:column;overflow:hidden}
-    .modalHeader{padding:17px 21px 14px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:14px;align-items:center}.modalHeader h3{margin:0;font-size:18px;font-weight:600}.modalHeader p{margin:3px 0 0;font-size:11px;color:var(--muted)}
-    .modalClose{width:37px;height:37px;border:1px solid var(--line);border-radius:10px;font:28px/1 sans-serif;color:#4c676c;background:white}.modalClose:hover{background:var(--tealSoft)}
-    .modalPanel{height:auto;max-height:min(780px,95dvh)}
-    .modalBody{padding:20px 22px 23px;overflow-y:auto;overscroll-behavior:contain}
-    .formGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-    .formField{min-width:0}.formField.full{grid-column:1/-1}
-    .formField label{display:block;font-size:13px;font-weight:500;margin-bottom:5px}
-    .formField label .req{color:#b3332b}
-    .formField input{width:100%;height:44px;border:1px solid #cbdbdf;border-radius:11px;padding:9px 12px;background:#fff;outline:0}
-    .formField input:focus{border-color:#268491;box-shadow:0 0 0 3px #e1f3f1}
-    .btn[hidden]{display:none!important}
-    .formFeedback{margin-top:15px;padding:10px 14px;border-radius:11px;font-size:12px;white-space:pre-wrap}
-    .formFeedback.error{background:#fff2f0;color:#a23b31;border:1px solid #f0d0c9}
-    .formFeedback.success{background:#eaf8f1;color:#186a4c;border:1px solid #c6e7d8}
-    .formActions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px;flex-wrap:wrap}
-    .formTip{font-size:11px;color:var(--muted);margin-top:9px}
-    body.modalOpen{overflow:hidden}
-    @media(max-width:520px){.modalOverlay{padding:8px}.modalPanel{max-height:96dvh;border-radius:14px}.modalHeader{padding:14px}.modalHeader h3{font-size:16px}.modalBody{padding:16px}.formGrid{grid-template-columns:1fr}.formField.full{grid-column:1}}
-    @media print{body{background:#fff;font-size:12px}.topbar{color:#111;background:#fff;border:0;box-shadow:none}.topbarInner{min-height:auto;padding-top:10px;padding-bottom:8px}.logo,.topTag,.toolbar,.stats,.notice,.phoneActions,.pagination,.credits,.toast,.modalOverlay{display:none!important}.main{padding-top:8px;padding-bottom:0}.intro{margin-bottom:10px}.intro h2{font-size:17px}.panel{border-radius:0;box-shadow:none;border:0}table{display:table!important}thead{display:table-header-group!important;background:#17636d!important;color:white!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}tbody{display:table-row-group!important;padding:0}tbody tr{display:table-row!important;break-inside:avoid}tbody td{display:table-cell!important;padding:7px 12px}.phoneCell{padding-left:0}.avatar{display:none}.staffName{font-size:12px}.staffDetail{font-size:10px}.footerPanel{padding:10px 0}.container{max-width:none}thead th{padding:8px 12px}.intro p{display:none}}
-  
-    /* V5: เมนูสลับด้านขวาบนตามรูปตัวอย่าง */
-    .headerSwitcher{display:inline-flex;align-items:center;gap:3px;padding:5px;background:#fff;border:1px solid rgba(255,255,255,.68);border-radius:16px;box-shadow:0 8px 24px rgba(6,36,40,.17);flex-shrink:0}
-    .switcherItem{display:inline-flex;align-items:center;justify-content:center;min-height:43px;padding:9px 17px;border:0;border-radius:12px;background:transparent;color:#45676c;font-size:13px;font-weight:500;line-height:1.3;text-align:center;white-space:nowrap;transition:background-color .16s,color .16s}
-    .switcherItem.switcherActive{background:#e8f2ec;color:#124e45;font-weight:600;cursor:default}
-    .headerSwitcher a.switcherItem:not(.switcherActive):hover{background:#eff7f5;color:#145e62}
-    .headerSwitcher button.switcherItem:focus-visible,.headerSwitcher a.switcherItem:focus-visible{outline:3px solid #edca6e;outline-offset:2px}
-    @media(max-width:760px){.headerSwitcher{gap:2px;padding:4px;border-radius:13px}.switcherItem{min-height:39px;padding:8px 12px;font-size:12px}}
-    @media(max-width:540px){.topbarInner{flex-direction:column;align-items:stretch;gap:0;padding-top:13px;padding-bottom:12px}.brand{align-self:flex-start}.headerSwitcher{align-self:flex-end;margin-top:10px}.switcherItem{min-height:36px;padding:7px 12px;font-size:12px}}
-    @media print{.headerSwitcher{display:none!important}}
-  </style>
-</head>
-<body>
-  <header class="topbar">
-    <div class="container topbarInner">
-      <div class="brand">
-        <div class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.19 18a19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.09 3.18 2 2 0 0 1 4.08 1h3a2 2 0 0 1 2 1.72c.12.96.35 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.04 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.56 2.81.68A2 2 0 0 1 22 16.92z"/></svg></div>
-        <div><h1>สมุดโทรศัพท์บุคลากร</h1><p id="organizationText">ระบบค้นหาข้อมูลการติดต่อ</p></div>
-      </div>
-      <!-- เมนูแยกสำหรับหน้าสาธารณะและผู้ดูแลระบบ (ไม่ปะปนกับเครื่องมือค้นหา) -->
-      <nav class="headerSwitcher" aria-label="เมนูหลัก">
-        <a class="switcherItem switcherActive" href="./" aria-current="page">สมุดโทรศัพท์</a>
-        <a class="switcherItem" id="adminBtn" href="./admin.html" title="ไปหน้าผู้ดูแลระบบ">ผู้ดูแลระบบ</a>
-      </nav>
-    </div>
-  </header>
-  <main class="container main">
-    <section class="intro">
-      <div><div class="eyebrow">STAFF DIRECTORY</div><h2>ค้นหาเบอร์โทรศัพท์</h2><p>ค้นหารายชื่อและติดต่อบุคลากรได้อย่างรวดเร็ว</p></div>
-      <div class="stats"><div class="stat"><b id="totalCount">—</b><span>รายชื่อทั้งหมด</span></div><div class="stat"><b id="deptCount">—</b><span>ฝ่าย/แผนก</span></div></div>
-    </section>
-    <div id="notice" class="notice" hidden></div>
-    <section class="panel" aria-label="รายชื่อบุคลากร">
-      <div class="toolbar">
-        <label class="search"><input type="search" id="searchInput" placeholder="ค้นหาชื่อ นามสกุล หรือเบอร์โทรศัพท์..." autocomplete="off" aria-label="ค้นหารายชื่อ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></label>
-        <select id="departmentSelect" aria-label="เลือกฝ่ายหรือแผนก"><option value="">ทุกฝ่าย / ทุกแผนก</option></select>
-        <div class="actionbar">
-          <button class="btn btnPrimary" id="addBtn" type="button" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>เพิ่มข้อมูล</button>
-          <button class="btn iconBtn" id="refreshBtn" title="อัปเดตข้อมูล" aria-label="อัปเดตข้อมูล"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15.36-6.36L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.36 6.36L3 16"/><path d="M8 16H3v5"/></svg></button>
-          <button class="btn" id="csvBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v12m0 0-4-4m4 4 4-4"/><path d="M5 17v3h14v-3"/></svg>CSV</button>
-          <button class="btn btnPrimary" id="printBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>พิมพ์ / PDF</button>
-        </div>
-      </div>
-      <div class="tableWrap">
-        <table><thead><tr><th>ชื่อ - นามสกุล</th><th>เบอร์โทรศัพท์</th></tr></thead><tbody id="directoryBody"></tbody></table>
-        <div id="statusArea" class="loading"><div class="loader" role="status"></div>กำลังโหลดรายชื่อ...</div>
-      </div>
-      <div class="footerPanel"><div id="resultText">—</div><div class="pagination"><button id="prevBtn" aria-label="หน้าก่อนหน้า">‹</button><span id="pageText">1 / 1</span><button id="nextBtn" aria-label="หน้าถัดไป">›</button></div></div>
-    </section>
-    <p class="credits">ข้อมูลแสดงเฉพาะรายชื่อที่ผู้ดูแลอนุญาตให้เผยแพร่ · พัฒนาเพื่อใช้เป็นสมุดโทรศัพท์ออนไลน์</p>
-  </main>
-  <div id="addModal" class="modalOverlay" hidden>
-    <section class="modalPanel" role="dialog" aria-modal="true" aria-labelledby="addModalTitle">
-      <div class="modalHeader"><div><h3 id="addModalTitle">เพิ่มรายชื่อบุคลากร</h3><p>บันทึกรายชื่อเพื่อรอผู้ดูแลตรวจสอบก่อนเผยแพร่</p></div>
-      <button class="modalClose" id="closeModalBtn" type="button" aria-label="ปิดหน้าต่างเพิ่มข้อมูล">×</button></div>
-      <div class="modalBody">
-        <form id="contactForm" autocomplete="off">
-          <div class="formGrid">
-            <div class="formField"><label for="contactFirst">ชื่อ <span class="req">*</span></label><input id="contactFirst" name="firstName" required maxlength="100" autocomplete="given-name" placeholder="กรอกชื่อ"></div>
-            <div class="formField"><label for="contactLast">นามสกุล <span class="req">*</span></label><input id="contactLast" name="lastName" required maxlength="100" autocomplete="family-name" placeholder="กรอกนามสกุล"></div>
-            <div class="formField full"><label for="contactPhone">เบอร์โทรศัพท์ <span class="req">*</span></label><input id="contactPhone" name="phone" required type="tel" inputmode="tel" maxlength="32" autocomplete="tel" placeholder="เช่น 0891234567"></div>
-            <div class="formField"><label for="contactLine">LINE ID (ไม่บังคับ)</label><input id="contactLine" name="lineId" maxlength="100" placeholder="LINE ID"></div>
-            <div class="formField"><label for="contactDept">ฝ่าย/แผนก (ไม่บังคับ)</label><input id="contactDept" name="department" maxlength="100" placeholder="ฝ่าย/แผนก"></div>
-            <div class="formField full"><label for="contactPosition">ตำแหน่ง (ไม่บังคับ)</label><input id="contactPosition" name="position" maxlength="100" placeholder="ตำแหน่ง"></div>
-          </div>
-          <div id="formFeedback" class="formFeedback" role="status" aria-live="polite" hidden></div>
-          <div class="formActions"><button id="cancelContactBtn" class="btn" type="button">ยกเลิก</button><button id="saveContactBtn" class="btn btnPrimary" type="submit">บันทึกข้อมูล</button></div>
-          <p class="formTip">ช่องที่มี * จำเป็นต้องกรอก · รายชื่อใหม่จะแสดงบนเว็บไซต์หลังผู้ดูแลอนุมัติ</p>
-        </form>
-      </div>
-    </section>
-  </div>
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script>
-  'use strict';
-  /* ==============================================================
-   * ตั้งค่าเพียง 2 จุด: apiUrl และ organizationName
-   * URL ต้องเป็น Web App ที่ Deploy จากไฟล์ Code.gs ในชุดนี้เท่านั้น
-   * อย่านำลิงก์จากระบบ Google Apps Script อื่นมาใส่
-   * ============================================================= */
-  const CONFIG = {
-    apiUrl: 'https://script.google.com/macros/s/AKfycbzbkJsy5Qs8oVvckvRYxYNJLDDUQLHp9BOZYi6orFVODLKg33_0aHrPp5Jwuxeu8ob2/exec',
-    organizationName: 'วิทยาลัยการอาชีพนครยะลา',
-    pageSize: 12,
-    timeoutMs: 20000
-  };
+/**
+ * สมุดโทรศัพท์บุคลากร v8 Fast Load (หน้าสาธารณะและ Admin บน GitHub Pages)
+ * - หน้าเว็บสาธารณะอ่านเฉพาะรายชื่อที่อนุมัติแล้ว และส่งคำขอเพิ่มรายชื่อได้โดยไม่ต้องใส่รหัส
+ * - คำขอเพิ่มจากสาธารณะจะเป็น 'ยังไม่เผยแพร่' เสมอ
+ * - หน้า Admin อยู่บน GitHub Pages; ทุกคำสั่ง Admin ต้องตรวจ session ฝั่งนี้
+ * - ห้ามเผยแพร่รหัสผู้ดูแลหรือ session token บน GitHub
+ */
+const PHONEBOOK_SHEET_NAME = 'รายชื่อ';
+const PHONEBOOK_HEADERS = ['รหัส','ชื่อ','นามสกุล','เบอร์โทรศัพท์','ฝ่าย/แผนก','ตำแหน่ง','เผยแพร่','LINE ID'];
+const PHONEBOOK_PROPERTY_KEY = 'PHONEBOOK_SPREADSHEET_ID';
+const PHONEBOOK_ADMIN_SALT_KEY = 'PHONEBOOK_ADMIN_SALT';
+const PHONEBOOK_ADMIN_HASH_KEY = 'PHONEBOOK_ADMIN_HASH';
+const PHONEBOOK_SETTINGS_KEY = 'PHONEBOOK_SETTINGS_V4';
+const PHONEBOOK_STATUS_PREFIX = 'phonebook_save_';
+const PHONEBOOK_SESSION_PREFIX = 'phonebook_session_';
+const PHONEBOOK_SESSION_SECONDS = 1800;
+const PHONEBOOK_SESSION_VERSION_KEY = 'PHONEBOOK_SESSION_VERSION';
+// แคชเฉพาะรายชื่อที่อนุมัติให้เผยแพร่บนเว็บ ไม่มีข้อมูล Admin
+const PHONEBOOK_PUBLIC_CACHE_KEY = 'phonebook_public_v8';
+const PHONEBOOK_PUBLIC_CACHE_SECONDS = 90;
 
-  const SAMPLE = [
-    {id:'demo-1',firstName:'สมชาย',lastName:'ตัวอย่าง',phone:'08X-XXX-XXXX',department:'ฝ่ายบริหาร',position:'บุคลากร'},
-    {id:'demo-2',firstName:'สมหญิง',lastName:'ตัวอย่าง',phone:'09X-XXX-XXXX',department:'งานทะเบียน',position:'เจ้าหน้าที่'},
-    {id:'demo-3',firstName:'กมล',lastName:'ตัวอย่าง',phone:'02-XXX-XXXX',department:'งานวิชาการ',position:'บุคลากร'},
-    {id:'demo-4',firstName:'นภา',lastName:'ตัวอย่าง',phone:'08X-XXX-XXXX',department:'งานทะเบียน',position:'เจ้าหน้าที่'}
-  ];
-  const $ = (id) => document.getElementById(id);
-  // แสดงรายชื่อสาธารณะที่เคยโหลดไว้ทันที แล้วค่อยตรวจข้อมูลใหม่เมื่อครบระยะเวลา
-  // ไม่เก็บข้อมูลของ Admin หรือรายการรออนุมัติไว้ในแคชนี้
-  const PUBLIC_CACHE_KEY = 'phonebook-public-v8';
-  const CACHE_FRESH_MS = 60 * 1000;
-  const CACHE_MAX_MS = 5 * 60 * 1000;
-  const state = {contacts:[], filtered:[], page:1, loading:false, requestNumber:0, hasData:false};
-  const icons = {
-    call:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9V20a2 2 0 0 1-2.18 2A19.8 19.8 0 0 1 11.2 18a19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.8A2 2 0 0 1 4.1 1h3A2 2 0 0 1 9 2.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 8.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.5 2.8.6A2 2 0 0 1 22 16.9z"/></svg>',
-    copy:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg>',
-    info:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/></svg>'
+function phonebookInvalidatePublicCache_() {
+  try { CacheService.getScriptCache().remove(PHONEBOOK_PUBLIC_CACHE_KEY); }
+  catch (err) { console.warn('Cache clear: '+err); }
+}
+
+function phonebookGetPublicPayload_() {
+  const cache=CacheService.getScriptCache();
+  try {
+    const saved=cache.get(PHONEBOOK_PUBLIC_CACHE_KEY);
+    if(saved) return JSON.parse(saved);
+  } catch(err) { console.warn('Cache read: '+err); }
+  const contacts=phonebookReadPublic_();
+  const payload={ok:true,contacts,count:contacts.length,settings:phonebookGetSettings_(),updatedAt:new Date().toISOString()};
+  try {
+    const json=JSON.stringify(payload);
+    // Apps Script จำกัด CacheService ไว้ที่ประมาณ 100 KB ต่อค่า; ข้อมูลใหญ่ข้ามแคชไปได้
+    if(Utilities.newBlob(json).getBytes().length<90000)
+      cache.put(PHONEBOOK_PUBLIC_CACHE_KEY,json,PHONEBOOK_PUBLIC_CACHE_SECONDS);
+  } catch(err) { console.warn('Cache write: '+err); }
+  return payload;
+}
+
+function onOpen() {
+  SpreadsheetApp.getUi().createMenu('สมุดโทรศัพท์')
+    .addItem('ติดตั้ง / ตรวจสอบตาราง', 'setupPhonebook')
+    .addItem('ตั้ง / รีเซ็ตรหัสผู้ดูแล', 'setPhonebookAdminPassword')
+    .addItem('นับรายชื่อที่เผยแพร่', 'phonebookStatistics')
+    .addToUi();
+}
+
+/** รันใน Apps Script ที่เปิดจาก Google Sheets เดิมเท่านั้น (ไม่ลบข้อมูลเดิม) */
+function setupPhonebook() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  if (!ss) throw new Error('ต้องเปิด Apps Script จากเมนู ส่วนขยาย > Apps Script ของ Google Sheets');
+  let sheet = ss.getSheetByName(PHONEBOOK_SHEET_NAME);
+  if (!sheet) sheet = ss.insertSheet(PHONEBOOK_SHEET_NAME);
+  if (sheet.getMaxColumns() < 8) sheet.insertColumnsAfter(sheet.getMaxColumns(),8-sheet.getMaxColumns());
+  const header = sheet.getRange(1,1,1,8);
+  const existing = header.getValues()[0];
+  if (existing.slice(0,7).every(v=>String(v).trim()==='')) {
+    header.setValues([PHONEBOOK_HEADERS]);
+  } else {
+    if (PHONEBOOK_HEADERS.slice(0,7).some((h,i)=>existing[i]!==h))
+      throw new Error('หัวตาราง A–G ไม่ตรงตามระบบ กรุณาสำรองข้อมูลและตรวจสอบก่อนติดตั้ง');
+    if (String(existing[7]).trim() && existing[7]!==PHONEBOOK_HEADERS[7])
+      throw new Error('พบหัวคอลัมน์ H อื่นอยู่แล้ว ระบบจะไม่ทับข้อมูลเดิม');
+    sheet.getRange(1,8).setValue(PHONEBOOK_HEADERS[7]);
+  }
+  header.setBackground('#17636d').setFontColor('#fff').setFontWeight('bold')
+    .setHorizontalAlignment('center').setVerticalAlignment('middle');
+  sheet.setFrozenRows(1);sheet.setRowHeight(1,40);
+  [140,175,175,170,180,160,115,170].forEach((w,i)=>sheet.setColumnWidth(i+1,w));
+  const n=Math.max(1,sheet.getMaxRows()-1);
+  sheet.getRange(2,4,n,1).setNumberFormat('@');
+  sheet.getRange(2,8,n,1).setNumberFormat('@');
+  sheet.getRange(2,7,n,1).setDataValidation(SpreadsheetApp.newDataValidation().requireCheckbox().build());
+  PropertiesService.getScriptProperties().setProperty(PHONEBOOK_PROPERTY_KEY,ss.getId());
+  phonebookInvalidatePublicCache_();
+  SpreadsheetApp.getUi().alert('ติดตั้งเรียบร้อยแล้ว ข้อมูลเดิมไม่ถูกลบ\nคอลัมน์ H ใช้เก็บ LINE ID');
+}
+
+function setPhonebookAdminPassword() {
+  const ui=SpreadsheetApp.getUi();
+  const response=ui.prompt('ตั้ง/รีเซ็ตรหัส Admin','ตั้งรหัสอย่างน้อย 12 ตัวอักษร (รหัสจะแสดงระหว่างพิมพ์ในหน้าต่างนี้) ห้ามใช้รหัส Gmail',ui.ButtonSet.OK_CANCEL);
+  if(response.getSelectedButton()!==ui.Button.OK)return;
+  phonebookSetPassword_(response.getResponseText());
+  ui.alert('ตั้งรหัส Admin สำเร็จ เซสชันเก่าจะถูกยกเลิก');
+}
+function phonebookSetPassword_(secret) {
+  if(typeof secret!=='string'||secret.length<12||secret.length>128)
+    throw new Error('รหัสผู้ดูแลต้องมี 12–128 ตัวอักษร');
+  const salt=Utilities.getUuid();
+  PropertiesService.getScriptProperties().setProperties({
+    [PHONEBOOK_ADMIN_SALT_KEY]:salt,[PHONEBOOK_ADMIN_HASH_KEY]:phonebookDigest_(salt+':'+secret),
+    [PHONEBOOK_SESSION_VERSION_KEY]:Utilities.getUuid()
+  });
+}
+function phonebookDigest_(s) {
+  return Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256,s,Utilities.Charset.UTF_8)
+    .map(b=>('0'+(b&255).toString(16)).slice(-2)).join('');
+}
+function phonebookVerifyPassword_(secret) {
+  const props=PropertiesService.getScriptProperties();
+  const salt=props.getProperty(PHONEBOOK_ADMIN_SALT_KEY);
+  const hash=props.getProperty(PHONEBOOK_ADMIN_HASH_KEY);
+  if(!salt||!hash)throw new Error('ยังไม่ได้ตั้งรหัสผู้ดูแล ให้เจ้าของระบบรัน setPhonebookAdminPassword');
+  const actual=phonebookDigest_(salt+':'+String(secret||''));
+  let diff=hash.length^actual.length;
+  for(let i=0;i<Math.max(hash.length,actual.length);i++)diff|=(hash.charCodeAt(i)||0)^(actual.charCodeAt(i)||0);
+  if(diff)throw new Error('รหัสผู้ดูแลไม่ถูกต้อง');
+}
+function phonebookStatistics() {
+  SpreadsheetApp.getUi().alert('รายชื่อที่เผยแพร่: '+phonebookReadPublic_().length);
+}
+
+function phonebookGetSettings_() {
+  const defaults={organizationName:'วิทยาลัยการอาชีพนครยะลา',pageSize:12,accent:'#17636d',allowSubmissions:true};
+  const raw=PropertiesService.getScriptProperties().getProperty(PHONEBOOK_SETTINGS_KEY);
+  if(!raw)return defaults;
+  try {return Object.assign({},defaults,JSON.parse(raw));}catch(e){return defaults;}
+}
+function phonebookValidateSettings_(x) {
+  const organizationName=String(x.organizationName||'').trim();
+  const pageSize=Number(x.pageSize);
+  const accent=String(x.accent||'').toLowerCase();
+  if(!organizationName||organizationName.length>120)throw new Error('ชื่อหน่วยงานต้องมี 1–120 ตัวอักษร');
+  if(!Number.isInteger(pageSize)||pageSize<5||pageSize>100)throw new Error('จำนวนต่อหน้าต้องอยู่ระหว่าง 5–100');
+  if(!/^#[a-f0-9]{6}$/.test(accent))throw new Error('รูปแบบสีหลักไม่ถูกต้อง');
+  return {organizationName,pageSize,accent,allowSubmissions:x.allowSubmissions===true};
+}
+
+function doGet(e) {
+  const p=e&&e.parameter||{};
+  // v7: หน้า Admin อยู่ที่ GitHub Pages: ./admin.html (ไม่ต้องสร้าง Admin.html ใน Apps Script)
+  const callback=String(p.callback||'');
+  let payload;
+  try {
+    const action=String(p.action||'list');
+    if(action==='list') {
+      payload=phonebookGetPublicPayload_();
+    } else if(action==='status') {
+      const requestId=String(p.requestId||'');
+      if(!/^[a-f0-9]{32}$/.test(requestId))throw new Error('requestId ไม่ถูกต้อง');
+      const cached=CacheService.getScriptCache().get(PHONEBOOK_STATUS_PREFIX+requestId);
+      payload=cached?JSON.parse(cached):{ok:true,pending:true};
+    } else throw new Error('ไม่รองรับคำสั่ง');
+  }catch(err){
+    console.error('Phonebook GET: '+(err&&err.stack||err));
+    payload={ok:false,contacts:[],message:'ไม่สามารถอ่านข้อมูลได้ กรุณาตรวจสอบ Google Sheets และ Deployment'};
+  }
+  if(callback&&!/^[A-Za-z_$][A-Za-z0-9_$]{0,79}$/.test(callback))
+    return ContentService.createTextOutput(JSON.stringify({ok:false,message:'callback ไม่ถูกต้อง'})).setMimeType(ContentService.MimeType.JSON);
+  const json=JSON.stringify(payload).replace(/</g,'\\u003c').replace(/\u2028/g,'\\u2028').replace(/\u2029/g,'\\u2029');
+  return callback?ContentService.createTextOutput(callback+'('+json+');').setMimeType(ContentService.MimeType.JAVASCRIPT):
+    ContentService.createTextOutput(json).setMimeType(ContentService.MimeType.JSON);
+}
+
+/** สาธารณะส่งได้เฉพาะคำขอเพิ่มรายชื่อที่ 'รออนุมัติ' เท่านั้น */
+function doPost(e) {
+  const p=e&&e.parameter||{};
+  const requestId=String(p.requestId||'');
+  if(!/^[a-f0-9]{32}$/.test(requestId))
+    return ContentService.createTextOutput('INVALID REQUEST').setMimeType(ContentService.MimeType.TEXT);
+  let status;
+  try {
+    const action=String(p.action||'');
+    if (action==='submit') {
+      if(!phonebookGetSettings_().allowSubmissions)throw new Error('ผู้ดูแลปิดรับการเพิ่มรายชื่อชั่วคราว');
+      if(String(p.website||'').trim())throw new Error('ข้อมูลไม่ถูกต้อง');
+      phonebookAdd_(p,false,false);
+      status={ok:true,pending:false,message:'ส่งข้อมูลเรียบร้อยแล้ว กรุณารอผู้ดูแลอนุมัติ'};
+    } else {
+      // คำสั่ง Admin ทุกคำสั่งต้องตรวจ session ที่ Server ก่อนอ่านหรือแก้ไขข้อมูล
+      const token=String(p.token||'');
+      if(action==='adminLogin') {
+        const login=phonebookAdminLogin(String(p.password||''));
+        status={ok:true,pending:false,token:login.token,expiresInMinutes:login.expiresInMinutes};
+      } else if (action==='adminLogout') {
+        status=Object.assign({pending:false},phonebookAdminLogout(token));
+      } else if(action==='adminDashboard') {
+        const offset=Math.max(0,Number(p.offset)||0);
+        if(!Number.isSafeInteger(offset)||offset>20000)throw new Error('ช่วงข้อมูลไม่ถูกต้อง');
+        status=Object.assign({ok:true,pending:false},phonebookAdminDashboard(token,offset));
+      } else if(action==='adminAdd') {
+        status=Object.assign({pending:false},phonebookAdminAdd(token,phonebookParseInput_(p.payload)));
+      } else if(action==='adminUpdate') {
+        status=Object.assign({pending:false},phonebookAdminUpdate(token,String(p.id||''),phonebookParseInput_(p.payload)));
+      } else if(action==='adminPublish') {
+        status=Object.assign({pending:false},phonebookAdminPublish(token,String(p.id||''),p.published==='true'));
+      } else if(action==='adminDelete') {
+        status=Object.assign({pending:false},phonebookAdminDelete(token,String(p.id||'')));
+      } else if(action==='adminSettings') {
+        status=Object.assign({pending:false},phonebookAdminSaveSettings(token,phonebookParseInput_(p.payload)));
+      } else if(action==='adminChangePassword') {
+        status=Object.assign({pending:false},phonebookAdminChangePassword(token,String(p.oldPassword||''),String(p.newPassword||'')));
+      } else throw new Error('ไม่รองรับคำสั่งนี้ กรุณาใช้ Code.gs เวอร์ชัน v7');
+    }
+  }catch(err){
+    console.error('Phonebook POST '+String(p.action||'')+': '+(err&&err.stack||err));
+    status={ok:false,pending:false,message:String(err&&err.message||'ไม่สามารถดำเนินการได้')};
+  }
+  if(status&&status.ok===true&&['adminAdd','adminUpdate','adminPublish','adminDelete','adminSettings'].includes(String(p.action||'')))
+    phonebookInvalidatePublicCache_();
+  CacheService.getScriptCache().put(PHONEBOOK_STATUS_PREFIX+requestId,JSON.stringify(status),120);
+  return ContentService.createTextOutput('RECEIVED').setMimeType(ContentService.MimeType.TEXT);
+}
+function phonebookGetSheet_() {
+  const id=PropertiesService.getScriptProperties().getProperty(PHONEBOOK_PROPERTY_KEY);
+  if(!id)throw new Error('ยังไม่ได้รัน setupPhonebook เพื่อบันทึก Spreadsheet ID');
+  const sheet=SpreadsheetApp.openById(id).getSheetByName(PHONEBOOK_SHEET_NAME);
+  if(!sheet)throw new Error('ไม่พบชีต '+PHONEBOOK_SHEET_NAME);
+  if(sheet.getRange(1,8).getDisplayValue()!==PHONEBOOK_HEADERS[7])
+    throw new Error('โปรดรัน setupPhonebook เพื่อสร้างคอลัมน์ LINE ID');
+  return sheet;
+}
+function phonebookReadAll_() {
+  const sheet=phonebookGetSheet_();
+  if(sheet.getLastRow()<2)return [];
+  const count=sheet.getLastRow()-1;
+  const texts=sheet.getRange(2,1,count,8).getDisplayValues();
+  const checkboxes=sheet.getRange(2,7,count,1).getValues();
+  return texts.reduce((out,r,i)=>{
+    const firstName=String(r[1]||'').trim(),lastName=String(r[2]||'').trim();
+    if(!firstName&&!lastName)return out;
+    const published=checkboxes[i][0]===true||String(checkboxes[i][0]).toUpperCase()==='TRUE';
+    out.push({id:String(r[0]||'row-'+(i+2)),firstName,lastName,phone:String(r[3]||''),
+      department:String(r[4]||''),position:String(r[5]||''),published,lineId:String(r[7]||'')});
+    return out;
+  },[]);
+}
+function phonebookReadPublic_() {
+  return phonebookReadAll_().filter(c=>c.published).map(c=>({id:c.id,firstName:c.firstName,
+    lastName:c.lastName,phone:c.phone,department:c.department,position:c.position,lineId:c.lineId}));
+}
+function phonebookCleanInput_(x) {
+  if(!x||typeof x!=='object')throw new Error('ไม่ได้รับข้อมูล');
+  const field=(key,max)=>{
+    const val=String(x[key]||'').trim();
+    if(val.length>max||/[\x00-\x08\x0B-\x1F\x7F]/.test(val))throw new Error('ข้อมูล '+key+' ไม่ถูกต้องหรือยาวเกินกำหนด');
+    return val;
   };
-  function showNotice(message, type='info') {
-    const el=$('notice'); el.replaceChildren();
-    if (!message){el.hidden=true;return;}
-    const ico=document.createElement('span');ico.innerHTML=icons.info;
-    const txt=document.createElement('div');txt.textContent=message;
-    el.append(ico,txt);el.className='notice'+(type==='error'?' error':'');el.hidden=false;
-  }
-  let toastTimer;
-  function toast(message){const el=$('toast');el.textContent=message;el.classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('visible'),2400)}
-  function normalizeContact(c){return {
-    id:String(c.id ?? ''),firstName:String(c.firstName ?? '').trim(),lastName:String(c.lastName ?? '').trim(),
-    phone:String(c.phone ?? '').trim(),department:String(c.department ?? '').trim(),position:String(c.position ?? '').trim(),lineId:String(c.lineId ?? '').trim()
-  }}
-  function canCall(phone){const value=phone.replace(/[\s\-().]/g,'');return /^\+?\d{6,15}$/.test(value)}
-  function normalizeDigits(text){return text.replace(/[\s\-().]/g,'')}
-  function setData(contacts){
-    state.contacts=contacts.map(normalizeContact).filter(c=>c.firstName||c.lastName);
-    state.hasData=true;
-    state.contacts.sort((a,b)=>`${a.firstName} ${a.lastName}`.localeCompare(`${b.firstName} ${b.lastName}`,'th'));
-    const allDepartments=[...new Set(state.contacts.map(c=>c.department).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'th'));
-    const select=$('departmentSelect'),previous=select.value;
-    select.replaceChildren(new Option('ทุกฝ่าย / ทุกแผนก',''));
-    allDepartments.forEach(x=>select.add(new Option(x,x)));
-    if(allDepartments.includes(previous))select.value=previous;
-    $('totalCount').textContent=state.contacts.length.toLocaleString('th-TH');
-    $('deptCount').textContent=allDepartments.length.toLocaleString('th-TH');
-    state.page=1;applyFilters();
-  }
-  function applyFilters(){
-    const q=$('searchInput').value.trim().toLocaleLowerCase('th').replace(/\s+/g,' '),dept=$('departmentSelect').value;
-    state.filtered=state.contacts.filter(c=>{
-      const fields=[c.firstName,c.lastName,`${c.firstName} ${c.lastName}`,c.phone,c.department,c.position,c.lineId];
-      return (!dept||c.department===dept)&&(!q||fields.some(x=>x.toLocaleLowerCase('th').includes(q))||normalizeDigits(c.phone).includes(normalizeDigits(q)));
-    });
-    state.page=Math.min(state.page,Math.max(1,Math.ceil(state.filtered.length/CONFIG.pageSize)));
-    render();
-  }
-  function createContactRow(c){
-    const row=document.createElement('tr');
-    const person=document.createElement('td');const staff=document.createElement('div');staff.className='staff';
-    const av=document.createElement('div');av.className='avatar';av.textContent=(c.firstName[0]||c.lastName[0]||'?');
-    const info=document.createElement('div');const nm=document.createElement('div');nm.className='staffName';nm.textContent=[c.firstName,c.lastName].filter(Boolean).join(' ');
-    const details=document.createElement('div');details.className='staffDetail';details.textContent=[c.department,c.position].filter(Boolean).join(' • ')||'บุคลากร';
-    info.append(nm,details);
-    if(c.lineId){const line=document.createElement('div');line.className='staffDetail';line.textContent='LINE ID: '+c.lineId;info.append(line)}
-    staff.append(av,info);person.append(staff);
-    const phoneTd=document.createElement('td');const wrapper=document.createElement('div');wrapper.className='phoneCell';
-    const phoneText=document.createElement('span');phoneText.className='phoneText';phoneText.textContent=c.phone||'—';
-    const actions=document.createElement('div');actions.className='phoneActions';
-    if(c.phone){
-      const copy=document.createElement('button');copy.className='smallBtn';copy.title='คัดลอกเบอร์โทรศัพท์';copy.setAttribute('aria-label','คัดลอกเบอร์ของ '+nm.textContent);copy.innerHTML=icons.copy;
-      copy.addEventListener('click',()=>copyText(c.phone));actions.append(copy);
-      if(canCall(c.phone)){
-        const dial=document.createElement('a');dial.className='smallBtn callBtn';dial.href='tel:'+normalizeDigits(c.phone);dial.setAttribute('aria-label','โทรหา '+nm.textContent);dial.innerHTML=icons.call+'<span>โทรออก</span>';actions.append(dial);
-      }
+  const c={firstName:field('firstName',100),lastName:field('lastName',100),phone:field('phone',32),
+    department:field('department',100),position:field('position',100),lineId:field('lineId',100)};
+  if(!c.firstName||!c.lastName||!c.phone)throw new Error('กรุณากรอกชื่อ นามสกุล และเบอร์โทรศัพท์');
+  const digits=c.phone.replace(/\D/g,'');
+  if(!/^\+?[0-9\s().-]+$/.test(c.phone)||digits.length<6||digits.length>15)
+    throw new Error('เบอร์โทรศัพท์ต้องเป็นตัวเลข 6–15 หลัก');
+  return c;
+}
+function phonebookSafeSheet_(s) {
+  return /^[=+\-@]/.test(s)?"'"+s:s; // กัน CSV/Spreadsheet formula injection
+}
+function phonebookFindRow_(sheet,id) {
+  const last=sheet.getLastRow();
+  if(last<2)throw new Error('ไม่พบข้อมูล');
+  const ids=sheet.getRange(2,1,last-1,1).getDisplayValues();
+  const index=ids.findIndex((r,i)=>String(r[0]||'row-'+(i+2))===String(id));
+  if(index<0)throw new Error('ไม่พบรายชื่อที่ระบุ หรือรายการถูกแก้ไขไปแล้ว');
+  return index+2;
+}
+function phonebookCheckDuplicate_(sheet,c,exceptRow) {
+  const last=sheet.getLastRow();
+  if(last<2)return;
+  const values=sheet.getRange(2,2,last-1,3).getDisplayValues();
+  const duplicate=values.some((r,i)=>i+2!==exceptRow&&r[0].trim().toLowerCase()===c.firstName.toLowerCase()&&
+    r[1].trim().toLowerCase()===c.lastName.toLowerCase()&&r[2].replace(/\D/g,'')===c.phone.replace(/\D/g,''));
+  if(duplicate)throw new Error('ชื่อ นามสกุล และเบอร์โทรศัพท์นี้มีอยู่แล้ว');
+}
+/** trusted=true แปลว่าเรียกหลังตรวจ session ผู้ดูแลแล้วเท่านั้น */
+function phonebookAdd_(input,published,trusted) {
+  const c=phonebookCleanInput_(input);
+  const lock=LockService.getScriptLock();lock.waitLock(20000);
+  try {
+    const sheet=phonebookGetSheet_();
+    phonebookCheckDuplicate_(sheet,c,0);
+    if(!trusted){
+      const prop=PropertiesService.getScriptProperties();
+      const today=Utilities.formatDate(new Date(),Session.getScriptTimeZone(),'yyyy-MM-dd');
+      const key='PHONEBOOK_SUBMISSIONS_'+today;
+      const total=Number(prop.getProperty(key)||'0');
+      if(total>=40)throw new Error('ระบบรับคำขอเพิ่มข้อมูลครบจำนวนสำหรับวันนี้แล้ว กรุณาติดต่อผู้ดูแล');
+      const pending=phonebookReadAll_().filter(x=>!x.published).length;
+      if(pending>=100)throw new Error('รายการรออนุมัติเต็ม กรุณาติดต่อผู้ดูแลระบบ');
+      prop.setProperty(key,String(total+1));
     }
-    wrapper.append(phoneText,actions);phoneTd.append(wrapper);row.append(person,phoneTd);return row;
+    const row=sheet.getLastRow()+1;
+    if(row>sheet.getMaxRows())sheet.insertRowsAfter(sheet.getMaxRows(),1);
+    sheet.getRange(row,4).setNumberFormat('@');sheet.getRange(row,8).setNumberFormat('@');
+    sheet.getRange(row,1,1,8).setValues([[Utilities.getUuid(),
+      phonebookSafeSheet_(c.firstName),phonebookSafeSheet_(c.lastName),phonebookSafeSheet_(c.phone),
+      phonebookSafeSheet_(c.department),phonebookSafeSheet_(c.position),published===true,phonebookSafeSheet_(c.lineId)]]);
+    SpreadsheetApp.flush();
+    return {ok:true};
+  }finally{lock.releaseLock();}
+}
+function onEdit(e) {
+  if(!e||!e.range)return;
+  const r=e.range,sheet=r.getSheet();
+  if(sheet.getName()!==PHONEBOOK_SHEET_NAME||r.getRow()<2)return;
+  // แก้เบอร์โทร, เช็กบ็อกซ์ 'เผยแพร่' หรือข้อมูลอื่นในชีต ก็อัปเดตแคชทันที
+  phonebookInvalidatePublicCache_();
+  if(r.getColumn()>3||r.getLastColumn()<2)return;
+  for(let i=0;i<r.getNumRows();i++){
+    const row=r.getRow()+i,cell=sheet.getRange(row,1);
+    const names=sheet.getRange(row,2,1,2).getDisplayValues()[0];
+    if(!cell.getValue()&&names.some(x=>String(x).trim()))cell.setValue(Utilities.getUuid());
   }
-  function render(){
-    const body=$('directoryBody');body.replaceChildren();const area=$('statusArea');
-    const pages=Math.max(1,Math.ceil(state.filtered.length/CONFIG.pageSize));state.page=Math.min(state.page,pages);
-    const start=(state.page-1)*CONFIG.pageSize,items=state.filtered.slice(start,start+CONFIG.pageSize);
-    items.forEach(c=>body.append(createContactRow(c)));
-    area.hidden=state.filtered.length!==0;
-    if(!area.hidden){area.className='empty';area.replaceChildren();const h=document.createElement('strong');h.textContent='ไม่พบรายชื่อ';const p=document.createElement('p');p.textContent='ลองใช้คำค้นหาใหม่ หรือเปลี่ยนฝ่าย/แผนก';area.append(h,p)}
-    $('resultText').textContent=`แสดง ${state.filtered.length ? start+1 : 0}–${Math.min(start+CONFIG.pageSize,state.filtered.length)} จาก ${state.filtered.length} รายชื่อ`;
-    $('pageText').textContent=`${state.page} / ${pages}`;
-    $('prevBtn').disabled=state.page===1;$('nextBtn').disabled=state.page>=pages;
-    $('csvBtn').disabled=state.filtered.length===0;$('printBtn').disabled=state.filtered.length===0;
-  }
-  function showLoading(){
-    state.loading=true;$('refreshBtn').disabled=true;
-    // หากมีรายชื่อจากแคช ให้ผู้ใช้ค้นหาและโทรได้ระหว่างซิงก์ ไม่ล้างตาราง
-    if(state.hasData)return;
-    $('directoryBody').replaceChildren();
-    const area=$('statusArea');area.hidden=false;area.className='loading';area.innerHTML='<div class="loader" role="status"></div>กำลังโหลดรายชื่อครั้งแรก...';
-  }
-  function finishLoading(){state.loading=false;$('refreshBtn').disabled=false}
-  function getCachedDirectory(){
-    if(!CONFIG.apiUrl.trim())return null;
-    try{
-      const x=JSON.parse(localStorage.getItem(PUBLIC_CACHE_KEY)||'null');
-      if(!x||x.version!==1||x.apiUrl!==CONFIG.apiUrl.trim()||!Array.isArray(x.contacts) ||
-        !Number.isFinite(x.savedAt)||x.savedAt>Date.now()+60000||Date.now()-x.savedAt>CACHE_MAX_MS)return null;
-      return x;
-    }catch(_){return null;}
-  }
-  function saveCachedDirectory(result){
-    try{
-      // JSONP ตอบกลับเฉพาะข้อมูลที่อนุมัติให้เผยแพร่แล้ว
-      localStorage.setItem(PUBLIC_CACHE_KEY,JSON.stringify({version:1,apiUrl:CONFIG.apiUrl.trim(),savedAt:Date.now(),contacts:result.contacts,settings:result.settings||{}}));
-    }catch(_){/* บางเครื่องปิด storage หรือพื้นที่เต็ม: ยังใช้งานเว็บออนไลน์ได้ตามปกติ */}
-  }
-  function applyDirectorySettings(x){
-    if(!x||typeof x!=='object')return;
-    if(typeof x.organizationName==='string'&&x.organizationName)CONFIG.organizationName=x.organizationName;
-    const count=Number(x.pageSize);if(Number.isInteger(count)&&count>=5&&count<=100)CONFIG.pageSize=count;
-    if(/^#[0-9a-fA-F]{6}$/.test(String(x.accent||'')))document.documentElement.style.setProperty('--teal',x.accent);
-    $('organizationText').textContent=CONFIG.organizationName;
-    $('addBtn').hidden=x.allowSubmissions===false;
-  }
-  function loadJSONP(url,timeoutMs,query={}){
-    return new Promise((resolve,reject)=>{
-      const callbackName='phonebookCallback_'+Date.now()+'_'+Math.random().toString(36).slice(2);
-      const script=document.createElement('script');let settled=false;
-      const cleanup=()=>{delete window[callbackName];script.remove();clearTimeout(timer)};
-      const ok=data=>{if(settled)return;settled=true;cleanup();resolve(data)};
-      const fail=err=>{if(settled)return;settled=true;cleanup();reject(err)};
-      const timer=setTimeout(()=>fail(new Error('ใช้เวลาโหลดข้อมูลนานเกินไป กรุณาลองใหม่')),timeoutMs);
-      window[callbackName]=ok;script.onerror=()=>fail(new Error('ไม่สามารถติดต่อ Google Apps Script ได้ กรุณาตรวจสอบ URL และการเผยแพร่ Web App'));
-      const u=new URL(url);u.searchParams.set('action',query.action||'list');if(query.requestId)u.searchParams.set('requestId',query.requestId);u.searchParams.set('callback',callbackName);u.searchParams.set('_',Date.now());
-      script.src=u.href;document.head.appendChild(script);
-    });
-  }
-  async function loadContacts(options={}){
-    if(state.loading)return;
-    const force=options&&options.force===true;
-    const request=++state.requestNumber;
-    const cached=getCachedDirectory();
-    if(cached&&!state.hasData){
-      applyDirectorySettings(cached.settings);
-      setData(cached.contacts);
-    }
-    if(cached&&!force&&Date.now()-cached.savedAt<CACHE_FRESH_MS){
-      showNotice('');
-      return; // เปิดหน้าเดิมภายใน 1 นาทีโดยไม่เรียก API ซ้ำ
-    }
-    showLoading();
-    if(!state.hasData)showNotice('');
-    try{
-      if(!CONFIG.apiUrl.trim()){
-        setData(SAMPLE);showNotice('กำลังแสดงรายชื่อจำลองเพื่อทดลองหน้าตาเว็บ กรุณาใส่ URL ของ Apps Script ใน CONFIG.apiUrl เพื่อใช้ข้อมูลจริง');
-      }else{
-        const result=await loadJSONP(CONFIG.apiUrl.trim(),CONFIG.timeoutMs);
-        if(request!==state.requestNumber)return;
-        if(!result||result.ok!==true||!Array.isArray(result.contacts))throw new Error(result?.message||'ข้อมูลที่ได้รับไม่ถูกต้อง');
-        applyDirectorySettings(result.settings);
-        setData(result.contacts);
-        saveCachedDirectory(result);
-        showNotice('');
-      }
-    }catch(err){
-      if(request!==state.requestNumber)return;
-      if(state.hasData){
-        showNotice('ยังแสดงรายชื่อที่เคยโหลดไว้ แต่ตรวจสอบข้อมูลล่าสุดไม่ได้: '+(err.message||'การเชื่อมต่อขัดข้อง'),'error');
-      }else{
-        setData([]);showNotice(err.message||'โหลดข้อมูลไม่สำเร็จ','error');
-      }
-    }finally{if(request===state.requestNumber)finishLoading()}
-  }
-  async function copyText(text){
-    try{
-      if(navigator.clipboard?.writeText&&window.isSecureContext){await navigator.clipboard.writeText(text)}
-      else{const input=document.createElement('textarea');input.value=text;input.style.position='fixed';input.style.opacity='0';document.body.append(input);input.select();const successful=document.execCommand('copy');input.remove();if(!successful)throw new Error('copy failed')}
-      toast('คัดลอกเบอร์โทรศัพท์แล้ว');
-    }catch{toast('ไม่สามารถคัดลอกอัตโนมัติได้')}
-  }
-  function downloadCSV(){
-    const cells=[['ชื่อ','นามสกุล','เบอร์โทรศัพท์','ฝ่าย/แผนก','ตำแหน่ง','LINE ID'],...state.filtered.map(c=>[c.firstName,c.lastName,c.phone,c.department,c.position,c.lineId])];
-    const protect=x=>{let s=String(x??'');if(/^[=+@\-\t\r]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"'};
-    const csv='\ufeff'+cells.map(row=>row.map(protect).join(',')).join('\r\n');
-    const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'}),url=URL.createObjectURL(blob);
-    const a=document.createElement('a');a.href=url;a.download='phonebook_'+new Date().toISOString().slice(0,10)+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
-    toast('ส่งออกไฟล์ CSV เรียบร้อย');
-  }
-  let printState=null;
-  window.addEventListener('beforeprint',()=>{
-    if(printState)return;
-    printState={page:state.page,pageSize:CONFIG.pageSize};
-    CONFIG.pageSize=Math.max(1,state.filtered.length);state.page=1;render();
-  });
-  window.addEventListener('afterprint',()=>{
-    if(!printState)return;
-    CONFIG.pageSize=printState.pageSize;state.page=printState.page;printState=null;render();
-  });
-  function printAllFiltered(){window.print()}
-  // แบบฟอร์มอยู่บน GitHub Pages โดยตรง (ไม่ฝัง iframe ของ Apps Script)
-  // ส่ง POST ผ่าน iframe ที่ซ่อนไว้ และใช้ JSONP สอบถามสถานะด้วยรหัสสุ่ม
-  // แบบฟอร์มสาธารณะไม่มีรหัสผ่าน ข้อมูลใหม่ต้องรออนุมัติใน Admin
-  let modalReturnFocus=null;
-  let formBusy=false;
-  function setFormMessage(text,type='error'){
-    const el=$('formFeedback');el.textContent=text;el.className='formFeedback '+type;el.hidden=!text;
-  }
-  function openAddModal(){
-    if(!CONFIG.apiUrl.trim()){showNotice('โปรดใส่ URL ของ Google Apps Script ก่อนเพิ่มข้อมูล','error');return;}
-    modalReturnFocus=document.activeElement;
-    $('addModal').hidden=false;document.body.classList.add('modalOpen');
-    setFormMessage('');$('contactFirst').focus();
-  }
-  function closeAddModal(){
-    if(formBusy){setFormMessage('กำลังตรวจสอบผลการบันทึก กรุณารอให้เสร็จก่อน','error');return;}
-    $('addModal').hidden=true;document.body.classList.remove('modalOpen');
-    setFormMessage('');
-    if(modalReturnFocus?.focus)modalReturnFocus.focus();
-  }
-  function newRequestId(){
-    const bytes=new Uint8Array(16);crypto.getRandomValues(bytes);
-    return Array.from(bytes,b=>b.toString(16).padStart(2,'0')).join('');
-  }
-  // POST มาตรฐานของเบราว์เซอร์ ไม่ใช้ fetch/CORS และไม่ต้องฝังหน้าฟอร์มของ Google
-  function sendPostInBackground(fields){
-    const frame=document.createElement('iframe');
-    frame.name='phonebook_save_'+fields.requestId;
-    frame.title='ส่งข้อมูลสมุดโทรศัพท์';frame.hidden=true;frame.tabIndex=-1;
-    frame.style.display='none';document.body.append(frame);
-    const submission=document.createElement('form');
-    submission.method='POST';submission.action=CONFIG.apiUrl.trim();
-    submission.target=frame.name;submission.acceptCharset='UTF-8';submission.style.display='none';
-    Object.entries(fields).forEach(([key,value])=>{
-      const input=document.createElement('input');input.type='hidden';input.name=key;input.value=String(value);submission.append(input);
-    });
-    document.body.append(submission);submission.submit();submission.remove();
-    // ซ่อนปลายทางตอบกลับ เพราะ Google อาจไม่ให้ฝังหน้าเว็บข้ามโดเมน
-    return ()=>frame.remove();
-  }
-  async function waitForSave(requestId){
-    const deadline=Date.now()+35000;
-    while(Date.now()<deadline){
-      await new Promise(resolve=>setTimeout(resolve,1500));
-      try{
-        const remaining=Math.max(1000,Math.min(4500,deadline-Date.now()));
-        const result=await loadJSONP(CONFIG.apiUrl.trim(),remaining,{action:'status',requestId});
-        if(result && result.pending===false)return result;
-      }catch(err){ /* ติดขัดชั่วคราว รอแล้วตรวจซ้ำ */ }
-    }
-    throw new Error('ยังยืนยันผลการบันทึกไม่ได้ กรุณาตรวจ Google Sheets ก่อนกดบันทึกซ้ำ และตรวจว่า Deploy Apps Script เวอร์ชันล่าสุดแล้ว');
-  }
-  async function submitContact(event){
-    event.preventDefault();
-    if(formBusy||!$('contactForm').reportValidity())return;
-    const fields=Object.fromEntries(new FormData($('contactForm')).entries());
-    for(const key of ['firstName','lastName','phone'])fields[key]=String(fields[key]||'').trim();
-    if(!fields.firstName||!fields.lastName||!fields.phone){setFormMessage('กรุณากรอกชื่อ นามสกุล และเบอร์โทรศัพท์');return;}
-    const digits=fields.phone.replace(/\D/g,'');
-    if(!/^\+?[0-9\s().-]+$/.test(fields.phone)||digits.length<6||digits.length>15){setFormMessage('กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง (6–15 หลัก)');return;}
-    fields.action='submit';fields.website='';
-    fields.requestId=newRequestId();
-    formBusy=true;$('saveContactBtn').disabled=true;$('saveContactBtn').textContent='กำลังบันทึก...';
-    $('cancelContactBtn').disabled=true;$('closeModalBtn').disabled=true;
-    setFormMessage('กำลังส่งข้อมูลและตรวจสอบผล โปรดรอสักครู่','success');
-    let cleanup=()=>{};
-    try{
-      cleanup=sendPostInBackground(fields);
-      const result=await waitForSave(fields.requestId);
-      if(!result.ok)throw new Error(result.message||'บันทึกไม่สำเร็จ');
-      $('contactForm').reset();
-      setFormMessage(result.message||'บันทึกสำเร็จแล้ว','success');
-      toast('บันทึกข้อมูลเรียบร้อย');
-      // รออนุมัติ: ไม่ควรแสดงรายชื่อทันทีบนหน้าเว็บสาธารณะ
-      await loadContacts({force:true});
-    }catch(err){setFormMessage(err.message||'ไม่สามารถบันทึกข้อมูลได้','error');}
-    finally{
-      cleanup();formBusy=false;$('saveContactBtn').disabled=false;
-      $('saveContactBtn').textContent='บันทึกข้อมูล';$('cancelContactBtn').disabled=false;
-      $('closeModalBtn').disabled=false;
-    }
-  }
-  $('addBtn').addEventListener('click',openAddModal);
-  // v7: หน้า Admin อยู่ที่ GitHub Pages โดยตรง
-  $('adminBtn').href='./admin.html';
-  $('contactForm').addEventListener('submit',submitContact);
-  $('cancelContactBtn').addEventListener('click',closeAddModal);
-  $('closeModalBtn').addEventListener('click',closeAddModal);
-  $('addModal').addEventListener('click',e=>{if(e.target===$('addModal'))closeAddModal()});
-  $('organizationText').textContent=CONFIG.organizationName;
-  $('searchInput').addEventListener('input',()=>{state.page=1;applyFilters()});
-  $('departmentSelect').addEventListener('change',()=>{state.page=1;applyFilters()});
-  $('refreshBtn').addEventListener('click',()=>loadContacts({force:true}));
-  $('prevBtn').addEventListener('click',()=>{state.page--;render()});
-  $('nextBtn').addEventListener('click',()=>{state.page++;render()});
-  $('csvBtn').addEventListener('click',downloadCSV);
-  $('printBtn').addEventListener('click',printAllFiltered);
-  document.addEventListener('keydown',e=>{
-    if(e.key==='Escape'&&!$('addModal').hidden){e.preventDefault();closeAddModal();return;}
-    if(e.key==='/'&&$('addModal').hidden&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)){e.preventDefault();$('searchInput').focus();}
-  });
-  loadContacts();
-  </script>
-</body>
-</html>
+}
+
+/** Admin HTML page - google.script.run; every state-changing method must check session server side */
+function phonebookParseInput_(text) {
+  if(!text||String(text).length>14000)throw new Error('ข้อมูลที่ส่งไม่ถูกต้องหรือมีขนาดใหญ่เกินไป');
+  let value;
+  try { value=JSON.parse(String(text)); }catch(e){throw new Error('รูปแบบข้อมูลไม่ถูกต้อง');}
+  if(!value||typeof value!=='object'||Array.isArray(value))throw new Error('รูปแบบข้อมูลไม่ถูกต้อง');
+  return value;
+}
+function phonebookAdminLogin(password) {
+  const cache=CacheService.getScriptCache();
+  const key='phonebook_failed_logins';
+  const lock=LockService.getScriptLock();lock.waitLock(20000);
+  try {
+    const attempts=Number(cache.get(key)||'0');
+    if(attempts>=20)throw new Error('มีการลองรหัสหลายครั้ง โปรดลองใหม่ในอีก 10 นาที');
+    try{phonebookVerifyPassword_(password);}
+    catch(err){cache.put(key,String(attempts+1),600);throw err;}
+    cache.remove(key);
+  }finally{lock.releaseLock();}
+  const token=Utilities.getUuid().replace(/-/g,'')+Utilities.getUuid().replace(/-/g,'');
+  const version=PropertiesService.getScriptProperties().getProperty(PHONEBOOK_SESSION_VERSION_KEY)||'initial';
+  cache.put(PHONEBOOK_SESSION_PREFIX+token,version,PHONEBOOK_SESSION_SECONDS);
+  return {token,expiresInMinutes:30};
+}
+function phonebookAdminCheck_(token) {
+  if(!/^[0-9a-f]{64}$/.test(String(token||'')))
+    throw new Error('ยังไม่ได้เข้าสู่ระบบ Admin กรุณาเข้าสู่ระบบใหม่');
+  const version=PropertiesService.getScriptProperties().getProperty(PHONEBOOK_SESSION_VERSION_KEY)||'initial';
+  if(CacheService.getScriptCache().get(PHONEBOOK_SESSION_PREFIX+String(token))!==version)
+    throw new Error('เซสชันหมดอายุหรือรหัสถูกเปลี่ยน กรุณาเข้าสู่ระบบ Admin ใหม่');
+}
+function phonebookAdminLogout(token) {
+  phonebookAdminCheck_(token);
+  CacheService.getScriptCache().remove(PHONEBOOK_SESSION_PREFIX+token);
+  return {ok:true};
+}
+function phonebookAdminDashboard(token,offset) {
+  phonebookAdminCheck_(token);
+  const contacts=phonebookReadAll_();
+  const start=Math.max(0,Number(offset)||0);
+  // Chunk prevents CacheService's 100KB-per-value limit for larger directories
+  const page=contacts.slice(start,start+60);
+  return {contacts:page,offset:start,hasMore:start+60<contacts.length,
+    settings:phonebookGetSettings_(),total:contacts.length,pending:contacts.filter(c=>!c.published).length};
+}
+function phonebookAdminAdd(token,input) {
+  phonebookAdminCheck_(token);
+  phonebookAdd_(input,input.published===true,true);
+  return {ok:true,message:'เพิ่มข้อมูลสำเร็จ'};
+}
+function phonebookAdminUpdate(token,id,input) {
+  phonebookAdminCheck_(token);
+  const c=phonebookCleanInput_(input);
+  const lock=LockService.getScriptLock();lock.waitLock(20000);
+  try {
+    const sheet=phonebookGetSheet_(),row=phonebookFindRow_(sheet,id);
+    phonebookCheckDuplicate_(sheet,c,row);
+    sheet.getRange(row,4).setNumberFormat('@');sheet.getRange(row,8).setNumberFormat('@');
+    sheet.getRange(row,2,1,7).setValues([[
+      phonebookSafeSheet_(c.firstName),phonebookSafeSheet_(c.lastName),phonebookSafeSheet_(c.phone),
+      phonebookSafeSheet_(c.department),phonebookSafeSheet_(c.position),input.published===true,phonebookSafeSheet_(c.lineId)]]);
+    return {ok:true,message:'แก้ไขข้อมูลสำเร็จ'};
+  }finally{lock.releaseLock();}
+}
+function phonebookAdminPublish(token,id,published) {
+  phonebookAdminCheck_(token);
+  const lock=LockService.getScriptLock();lock.waitLock(20000);
+  try {
+    const sheet=phonebookGetSheet_(),row=phonebookFindRow_(sheet,id);
+    sheet.getRange(row,7).setValue(published===true);
+    return {ok:true,message:published?'อนุมัติเผยแพร่แล้ว':'ซ่อนรายชื่อจากหน้าเว็บแล้ว'};
+  }finally{lock.releaseLock();}
+}
+function phonebookAdminDelete(token,id) {
+  phonebookAdminCheck_(token);
+  const lock=LockService.getScriptLock();lock.waitLock(20000);
+  try {
+    const sheet=phonebookGetSheet_(),row=phonebookFindRow_(sheet,id);
+    sheet.deleteRow(row);
+    return {ok:true,message:'ลบข้อมูลสำเร็จ'};
+  }finally{lock.releaseLock();}
+}
+function phonebookAdminSaveSettings(token,input) {
+  phonebookAdminCheck_(token);
+  const x=phonebookValidateSettings_(input);
+  PropertiesService.getScriptProperties().setProperty(PHONEBOOK_SETTINGS_KEY,JSON.stringify(x));
+  return {ok:true,message:'บันทึกการตั้งค่าเรียบร้อยแล้ว',settings:x};
+}
+function phonebookAdminChangePassword(token,oldPassword,newPassword) {
+  phonebookAdminCheck_(token);
+  phonebookVerifyPassword_(oldPassword);
+  phonebookSetPassword_(newPassword);
+  CacheService.getScriptCache().remove(PHONEBOOK_SESSION_PREFIX+token);
+  return {ok:true,message:'เปลี่ยนรหัสผู้ดูแลแล้ว กรุณาเข้าสู่ระบบใหม่'};
+}
