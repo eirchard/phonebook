@@ -24,9 +24,33 @@
     .modalOverlay[hidden]{display:none!important}.modalPanel{background:white;border-radius:19px;box-shadow:0 25px 80px rgba(0,0,0,.18);width:min(680px,100%);height:min(735px,94dvh);display:flex;flex-direction:column;overflow:hidden}
     .modalHeader{padding:17px 21px 14px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:14px;align-items:center}.modalHeader h3{margin:0;font-size:18px;font-weight:600}.modalHeader p{margin:3px 0 0;font-size:11px;color:var(--muted)}
     .modalClose{width:37px;height:37px;border:1px solid var(--line);border-radius:10px;font:28px/1 sans-serif;color:#4c676c;background:white}.modalClose:hover{background:var(--tealSoft)}
-    #addFormFrame{display:block;flex:1;border:0;width:100%;min-height:0;background:white}body.modalOpen{overflow:hidden}
-    @media(max-width:520px){.modalOverlay{padding:8px}.modalPanel{height:min(790px,96dvh);border-radius:14px}.modalHeader{padding:14px}.modalHeader h3{font-size:16px}}
+    .modalPanel{height:auto;max-height:min(780px,95dvh)}
+    .modalBody{padding:20px 22px 23px;overflow-y:auto;overscroll-behavior:contain}
+    .formGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .formField{min-width:0}.formField.full{grid-column:1/-1}
+    .formField label{display:block;font-size:13px;font-weight:500;margin-bottom:5px}
+    .formField label .req{color:#b3332b}
+    .formField input{width:100%;height:44px;border:1px solid #cbdbdf;border-radius:11px;padding:9px 12px;background:#fff;outline:0}
+    .formField input:focus{border-color:#268491;box-shadow:0 0 0 3px #e1f3f1}
+    .btn[hidden]{display:none!important}
+    .formFeedback{margin-top:15px;padding:10px 14px;border-radius:11px;font-size:12px;white-space:pre-wrap}
+    .formFeedback.error{background:#fff2f0;color:#a23b31;border:1px solid #f0d0c9}
+    .formFeedback.success{background:#eaf8f1;color:#186a4c;border:1px solid #c6e7d8}
+    .formActions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px;flex-wrap:wrap}
+    .formTip{font-size:11px;color:var(--muted);margin-top:9px}
+    body.modalOpen{overflow:hidden}
+    @media(max-width:520px){.modalOverlay{padding:8px}.modalPanel{max-height:96dvh;border-radius:14px}.modalHeader{padding:14px}.modalHeader h3{font-size:16px}.modalBody{padding:16px}.formGrid{grid-template-columns:1fr}.formField.full{grid-column:1}}
     @media print{body{background:#fff;font-size:12px}.topbar{color:#111;background:#fff;border:0;box-shadow:none}.topbarInner{min-height:auto;padding-top:10px;padding-bottom:8px}.logo,.topTag,.toolbar,.stats,.notice,.phoneActions,.pagination,.credits,.toast,.modalOverlay{display:none!important}.main{padding-top:8px;padding-bottom:0}.intro{margin-bottom:10px}.intro h2{font-size:17px}.panel{border-radius:0;box-shadow:none;border:0}table{display:table!important}thead{display:table-header-group!important;background:#17636d!important;color:white!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}tbody{display:table-row-group!important;padding:0}tbody tr{display:table-row!important;break-inside:avoid}tbody td{display:table-cell!important;padding:7px 12px}.phoneCell{padding-left:0}.avatar{display:none}.staffName{font-size:12px}.staffDetail{font-size:10px}.footerPanel{padding:10px 0}.container{max-width:none}thead th{padding:8px 12px}.intro p{display:none}}
+  
+    /* V5: เมนูสลับด้านขวาบนตามรูปตัวอย่าง */
+    .headerSwitcher{display:inline-flex;align-items:center;gap:3px;padding:5px;background:#fff;border:1px solid rgba(255,255,255,.68);border-radius:16px;box-shadow:0 8px 24px rgba(6,36,40,.17);flex-shrink:0}
+    .switcherItem{display:inline-flex;align-items:center;justify-content:center;min-height:43px;padding:9px 17px;border:0;border-radius:12px;background:transparent;color:#45676c;font-size:13px;font-weight:500;line-height:1.3;text-align:center;white-space:nowrap;transition:background-color .16s,color .16s}
+    .switcherItem.switcherActive{background:#e8f2ec;color:#124e45;font-weight:600;cursor:default}
+    .headerSwitcher button.switcherItem:hover{background:#eff7f5;color:#145e62}
+    .headerSwitcher button.switcherItem:focus-visible,.headerSwitcher a.switcherItem:focus-visible{outline:3px solid #edca6e;outline-offset:2px}
+    @media(max-width:760px){.headerSwitcher{gap:2px;padding:4px;border-radius:13px}.switcherItem{min-height:39px;padding:8px 12px;font-size:12px}}
+    @media(max-width:540px){.topbarInner{flex-direction:column;align-items:stretch;gap:0;padding-top:13px;padding-bottom:12px}.brand{align-self:flex-start}.headerSwitcher{align-self:flex-end;margin-top:10px}.switcherItem{min-height:36px;padding:7px 12px;font-size:12px}}
+    @media print{.headerSwitcher{display:none!important}}
   </style>
 </head>
 <body>
@@ -36,7 +60,11 @@
         <div class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.19 18a19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.09 3.18 2 2 0 0 1 4.08 1h3a2 2 0 0 1 2 1.72c.12.96.35 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.04 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.56 2.81.68A2 2 0 0 1 22 16.92z"/></svg></div>
         <div><h1>สมุดโทรศัพท์บุคลากร</h1><p id="organizationText">ระบบค้นหาข้อมูลการติดต่อ</p></div>
       </div>
-      <div class="topTag">PHONE DIRECTORY</div>
+      <!-- เมนูแยกสำหรับหน้าสาธารณะและผู้ดูแลระบบ (ไม่ปะปนกับเครื่องมือค้นหา) -->
+      <nav class="headerSwitcher" aria-label="เมนูหลัก">
+        <a class="switcherItem switcherActive" href="./" aria-current="page">สมุดโทรศัพท์</a>
+        <button class="switcherItem" id="adminBtn" type="button" title="เปิดหน้าผู้ดูแลระบบ">ผู้ดูแลระบบ</button>
+      </nav>
     </div>
   </header>
   <main class="container main">
@@ -66,9 +94,23 @@
   </main>
   <div id="addModal" class="modalOverlay" hidden>
     <section class="modalPanel" role="dialog" aria-modal="true" aria-labelledby="addModalTitle">
-      <div class="modalHeader"><div><h3 id="addModalTitle">เพิ่มรายชื่อบุคลากร</h3><p>กรอกชื่อ นามสกุล เบอร์โทรศัพท์ และข้อมูลอื่น (ถ้ามี) · <a id="formNewTab" href="#" target="_blank" rel="noopener noreferrer" style="color:#17636d;text-decoration:underline">เปิดฟอร์มในแท็บใหม่</a></p></div>
+      <div class="modalHeader"><div><h3 id="addModalTitle">เพิ่มรายชื่อบุคลากร</h3><p>บันทึกรายชื่อเพื่อรอผู้ดูแลตรวจสอบก่อนเผยแพร่</p></div>
       <button class="modalClose" id="closeModalBtn" type="button" aria-label="ปิดหน้าต่างเพิ่มข้อมูล">×</button></div>
-      <iframe id="addFormFrame" title="แบบฟอร์มเพิ่มรายชื่อ" referrerpolicy="no-referrer" loading="eager"></iframe>
+      <div class="modalBody">
+        <form id="contactForm" autocomplete="off">
+          <div class="formGrid">
+            <div class="formField"><label for="contactFirst">ชื่อ <span class="req">*</span></label><input id="contactFirst" name="firstName" required maxlength="100" autocomplete="given-name" placeholder="กรอกชื่อ"></div>
+            <div class="formField"><label for="contactLast">นามสกุล <span class="req">*</span></label><input id="contactLast" name="lastName" required maxlength="100" autocomplete="family-name" placeholder="กรอกนามสกุล"></div>
+            <div class="formField full"><label for="contactPhone">เบอร์โทรศัพท์ <span class="req">*</span></label><input id="contactPhone" name="phone" required type="tel" inputmode="tel" maxlength="32" autocomplete="tel" placeholder="เช่น 0891234567"></div>
+            <div class="formField"><label for="contactLine">LINE ID (ไม่บังคับ)</label><input id="contactLine" name="lineId" maxlength="100" placeholder="LINE ID"></div>
+            <div class="formField"><label for="contactDept">ฝ่าย/แผนก (ไม่บังคับ)</label><input id="contactDept" name="department" maxlength="100" placeholder="ฝ่าย/แผนก"></div>
+            <div class="formField full"><label for="contactPosition">ตำแหน่ง (ไม่บังคับ)</label><input id="contactPosition" name="position" maxlength="100" placeholder="ตำแหน่ง"></div>
+          </div>
+          <div id="formFeedback" class="formFeedback" role="status" aria-live="polite" hidden></div>
+          <div class="formActions"><button id="cancelContactBtn" class="btn" type="button">ยกเลิก</button><button id="saveContactBtn" class="btn btnPrimary" type="submit">บันทึกข้อมูล</button></div>
+          <p class="formTip">ช่องที่มี * จำเป็นต้องกรอก · รายชื่อใหม่จะแสดงบนเว็บไซต์หลังผู้ดูแลอนุมัติ</p>
+        </form>
+      </div>
     </section>
   </div>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
@@ -173,7 +215,7 @@
     const area=$('statusArea');area.hidden=false;area.className='loading';area.innerHTML='<div class="loader" role="status"></div>กำลังโหลดรายชื่อ...';
   }
   function finishLoading(){state.loading=false;$('refreshBtn').disabled=false}
-  function loadJSONP(url,timeoutMs){
+  function loadJSONP(url,timeoutMs,query={}){
     return new Promise((resolve,reject)=>{
       const callbackName='phonebookCallback_'+Date.now()+'_'+Math.random().toString(36).slice(2);
       const script=document.createElement('script');let settled=false;
@@ -182,7 +224,7 @@
       const fail=err=>{if(settled)return;settled=true;cleanup();reject(err)};
       const timer=setTimeout(()=>fail(new Error('ใช้เวลาโหลดข้อมูลนานเกินไป กรุณาลองใหม่')),timeoutMs);
       window[callbackName]=ok;script.onerror=()=>fail(new Error('ไม่สามารถติดต่อ Google Apps Script ได้ กรุณาตรวจสอบ URL และการเผยแพร่ Web App'));
-      const u=new URL(url);u.searchParams.set('action','list');u.searchParams.set('callback',callbackName);u.searchParams.set('_',Date.now());
+      const u=new URL(url);u.searchParams.set('action',query.action||'list');if(query.requestId)u.searchParams.set('requestId',query.requestId);u.searchParams.set('callback',callbackName);u.searchParams.set('_',Date.now());
       script.src=u.href;document.head.appendChild(script);
     });
   }
@@ -196,6 +238,14 @@
         const result=await loadJSONP(CONFIG.apiUrl.trim(),CONFIG.timeoutMs);
         if(request!==state.requestNumber)return;
         if(!result||result.ok!==true||!Array.isArray(result.contacts))throw new Error(result?.message||'ข้อมูลที่ได้รับไม่ถูกต้อง');
+        if(result.settings){
+          const x=result.settings;
+          if(typeof x.organizationName==='string' && x.organizationName)CONFIG.organizationName=x.organizationName;
+          const count=Number(x.pageSize);if(Number.isInteger(count)&&count>=5&&count<=100)CONFIG.pageSize=count;
+          if(/^#[0-9a-fA-F]{6}$/.test(String(x.accent||'')))document.documentElement.style.setProperty('--teal',x.accent);
+          $('organizationText').textContent=CONFIG.organizationName;
+          $('addBtn').hidden=x.allowSubmissions===false;
+        }
         setData(result.contacts);
       }
     }catch(err){
@@ -229,29 +279,98 @@
     CONFIG.pageSize=printState.pageSize;state.page=printState.page;printState=null;render();
   });
   function printAllFiltered(){window.print()}
+  // แบบฟอร์มอยู่บน GitHub Pages โดยตรง (ไม่ฝัง iframe ของ Apps Script)
+  // ส่ง POST ผ่าน iframe ที่ซ่อนไว้ และใช้ JSONP สอบถามสถานะด้วยรหัสสุ่ม
+  // แบบฟอร์มสาธารณะไม่มีรหัสผ่าน ข้อมูลใหม่ต้องรออนุมัติใน Admin
   let modalReturnFocus=null;
+  let formBusy=false;
+  function setFormMessage(text,type='error'){
+    const el=$('formFeedback');el.textContent=text;el.className='formFeedback '+type;el.hidden=!text;
+  }
   function openAddModal(){
     if(!CONFIG.apiUrl.trim()){showNotice('โปรดใส่ URL ของ Google Apps Script ก่อนเพิ่มข้อมูล','error');return;}
     modalReturnFocus=document.activeElement;
-    const u=new URL(CONFIG.apiUrl.trim());u.searchParams.set('page','add');
-    $('addFormFrame').src=u.href;$('formNewTab').href=u.href;
-    $('addModal').hidden=false;document.body.classList.add('modalOpen');$('closeModalBtn').focus();
+    $('addModal').hidden=false;document.body.classList.add('modalOpen');
+    setFormMessage('');$('contactFirst').focus();
   }
   function closeAddModal(){
+    if(formBusy){setFormMessage('กำลังตรวจสอบผลการบันทึก กรุณารอให้เสร็จก่อน','error');return;}
     $('addModal').hidden=true;document.body.classList.remove('modalOpen');
-    $('addFormFrame').removeAttribute('src'); // clear password field in iframe
+    setFormMessage('');
     if(modalReturnFocus?.focus)modalReturnFocus.focus();
-    loadContacts();
+  }
+  function newRequestId(){
+    const bytes=new Uint8Array(16);crypto.getRandomValues(bytes);
+    return Array.from(bytes,b=>b.toString(16).padStart(2,'0')).join('');
+  }
+  // POST มาตรฐานของเบราว์เซอร์ ไม่ใช้ fetch/CORS และไม่ต้องฝังหน้าฟอร์มของ Google
+  function sendPostInBackground(fields){
+    const frame=document.createElement('iframe');
+    frame.name='phonebook_save_'+fields.requestId;
+    frame.title='ส่งข้อมูลสมุดโทรศัพท์';frame.hidden=true;frame.tabIndex=-1;
+    frame.style.display='none';document.body.append(frame);
+    const submission=document.createElement('form');
+    submission.method='POST';submission.action=CONFIG.apiUrl.trim();
+    submission.target=frame.name;submission.acceptCharset='UTF-8';submission.style.display='none';
+    Object.entries(fields).forEach(([key,value])=>{
+      const input=document.createElement('input');input.type='hidden';input.name=key;input.value=String(value);submission.append(input);
+    });
+    document.body.append(submission);submission.submit();submission.remove();
+    // ซ่อนปลายทางตอบกลับ เพราะ Google อาจไม่ให้ฝังหน้าเว็บข้ามโดเมน
+    return ()=>frame.remove();
+  }
+  async function waitForSave(requestId){
+    const deadline=Date.now()+35000;
+    while(Date.now()<deadline){
+      await new Promise(resolve=>setTimeout(resolve,1500));
+      try{
+        const remaining=Math.max(1000,Math.min(4500,deadline-Date.now()));
+        const result=await loadJSONP(CONFIG.apiUrl.trim(),remaining,{action:'status',requestId});
+        if(result && result.pending===false)return result;
+      }catch(err){ /* ติดขัดชั่วคราว รอแล้วตรวจซ้ำ */ }
+    }
+    throw new Error('ยังยืนยันผลการบันทึกไม่ได้ กรุณาตรวจ Google Sheets ก่อนกดบันทึกซ้ำ และตรวจว่า Deploy Apps Script เวอร์ชันล่าสุดแล้ว');
+  }
+  async function submitContact(event){
+    event.preventDefault();
+    if(formBusy||!$('contactForm').reportValidity())return;
+    const fields=Object.fromEntries(new FormData($('contactForm')).entries());
+    for(const key of ['firstName','lastName','phone'])fields[key]=String(fields[key]||'').trim();
+    if(!fields.firstName||!fields.lastName||!fields.phone){setFormMessage('กรุณากรอกชื่อ นามสกุล และเบอร์โทรศัพท์');return;}
+    const digits=fields.phone.replace(/\D/g,'');
+    if(!/^\+?[0-9\s().-]+$/.test(fields.phone)||digits.length<6||digits.length>15){setFormMessage('กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง (6–15 หลัก)');return;}
+    fields.action='submit';fields.website='';
+    fields.requestId=newRequestId();
+    formBusy=true;$('saveContactBtn').disabled=true;$('saveContactBtn').textContent='กำลังบันทึก...';
+    $('cancelContactBtn').disabled=true;$('closeModalBtn').disabled=true;
+    setFormMessage('กำลังส่งข้อมูลและตรวจสอบผล โปรดรอสักครู่','success');
+    let cleanup=()=>{};
+    try{
+      cleanup=sendPostInBackground(fields);
+      const result=await waitForSave(fields.requestId);
+      if(!result.ok)throw new Error(result.message||'บันทึกไม่สำเร็จ');
+      $('contactForm').reset();
+      setFormMessage(result.message||'บันทึกสำเร็จแล้ว','success');
+      toast('บันทึกข้อมูลเรียบร้อย');
+      // รออนุมัติ: ไม่ควรแสดงรายชื่อทันทีบนหน้าเว็บสาธารณะ
+      await loadContacts();
+    }catch(err){setFormMessage(err.message||'ไม่สามารถบันทึกข้อมูลได้','error');}
+    finally{
+      cleanup();formBusy=false;$('saveContactBtn').disabled=false;
+      $('saveContactBtn').textContent='บันทึกข้อมูล';$('cancelContactBtn').disabled=false;
+      $('closeModalBtn').disabled=false;
+    }
   }
   $('addBtn').addEventListener('click',openAddModal);
+  $('adminBtn').addEventListener('click',()=>{
+    if(!CONFIG.apiUrl.trim()){showNotice('กรุณาตั้งค่า apiUrl ก่อนเปิดหน้า Admin','error');return;}
+    const url=new URL(CONFIG.apiUrl.trim());url.searchParams.set('page','admin');
+    window.open(url.toString(),'_blank','noopener,noreferrer');
+  });
+  $('contactForm').addEventListener('submit',submitContact);
+  $('cancelContactBtn').addEventListener('click',closeAddModal);
   $('closeModalBtn').addEventListener('click',closeAddModal);
   $('addModal').addEventListener('click',e=>{if(e.target===$('addModal'))closeAddModal()});
-  window.addEventListener('message',e=>{
-    if(!e.data||e.data.type!=='phonebook:contact-added')return;
-    // Only display status and reload data: never accept contact fields or credentials via postMessage.
-    if(e.origin!=='https://script.google.com' && !/^https:\/\/[a-zA-Z0-9-]+\.googleusercontent\.com$/.test(e.origin))return;
-    toast('บันทึกข้อมูลแล้ว');loadContacts();
-  });
   $('organizationText').textContent=CONFIG.organizationName;
   $('searchInput').addEventListener('input',()=>{state.page=1;applyFilters()});
   $('departmentSelect').addEventListener('change',()=>{state.page=1;applyFilters()});
