@@ -174,9 +174,9 @@
   // แสดงรายชื่อสาธารณะที่เคยโหลดไว้ทันที แล้วค่อยตรวจข้อมูลใหม่เมื่อครบระยะเวลา
   // ไม่เก็บข้อมูลของ Admin ไว้ในแคชนี้
   const PUBLIC_CACHE_KEY = 'phonebook-public-v8';
-  const CACHE_FRESH_MS = 60 * 1000;
+  const CACHE_FRESH_MS = 0;
   const CACHE_MAX_MS = 5 * 60 * 1000;
-  const state = {contacts:[], filtered:[], page:1, loading:false, requestNumber:0, hasData:false};
+  const state = {contacts:[], filtered:[], page:1, loading:false, requestNumber:0, hasData:false,settings:{}};
   const icons = {
     call:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9V20a2 2 0 0 1-2.18 2A19.8 19.8 0 0 1 11.2 18a19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.8A2 2 0 0 1 4.1 1h3A2 2 0 0 1 9 2.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 8.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.5 2.8.6A2 2 0 0 1 22 16.9z"/></svg>',
     copy:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg>',
@@ -209,6 +209,7 @@
   function canCall(phone){const value=phone.replace(/[\s\-().]/g,'');return /^\+?\d{6,15}$/.test(value)}
   function normalizeDigits(text){return text.replace(/[\s\-().]/g,'')}
   function setData(contacts){
+    if(printState){setTimeout(()=>setData(contacts),250);return;}
     state.contacts=contacts.map(normalizeContact).filter(c=>c.firstName||c.lastName);
     state.hasData=true;
     state.contacts.sort((a,b)=>`${a.firstName} ${a.lastName}`.localeCompare(`${b.firstName} ${b.lastName}`,'th'));
@@ -225,7 +226,7 @@
     const q=$('searchInput').value.trim().toLocaleLowerCase('th').replace(/\s+/g,' '),dept=$('departmentSelect').value;
     state.filtered=state.contacts.filter(c=>{
       const fields=[c.firstName,c.lastName,`${c.firstName} ${c.lastName}`,c.phone,c.department,c.position,c.lineId];
-      return (!dept||c.department===dept)&&(!q||fields.some(x=>x.toLocaleLowerCase('th').includes(q))||normalizeDigits(c.phone).includes(normalizeDigits(q)));
+      return (!dept||c.department===dept)&&(!q||fields.some(x=>x.toLocaleLowerCase('th').includes(q))||(normalizeDigits(q)!==''&&normalizeDigits(c.phone).includes(normalizeDigits(q))));
     });
     state.page=Math.min(state.page,Math.max(1,Math.ceil(state.filtered.length/CONFIG.pageSize)));
     render();
@@ -301,6 +302,7 @@
   }
   function applyDirectorySettings(x){
     if(!x||typeof x!=='object')return;
+    state.settings={...state.settings,...x};
     if(typeof x.organizationName==='string'&&x.organizationName)CONFIG.organizationName=x.organizationName;
     const count=Number(x.pageSize);if(Number.isInteger(count)&&count>=5&&count<=100)CONFIG.pageSize=count;
     if(/^#[0-9a-fA-F]{6}$/.test(String(x.accent||'')))document.documentElement.style.setProperty('--teal',x.accent);
@@ -389,11 +391,13 @@
   // แบบฟอร์มสาธารณะไม่มีรหัสผ่าน บันทึกแล้วเผยแพร่ทันที
   let modalReturnFocus=null;
   let formBusy=false;
+  let pendingSubmission=null;
   function setFormMessage(text,type='error'){
     const el=$('formFeedback');el.textContent=text;el.className='formFeedback '+type;el.hidden=!text;
   }
   function openAddModal(){
     if(!CONFIG.apiUrl.trim()){showNotice('โปรดใส่ URL ของ Google Apps Script ก่อนเพิ่มข้อมูล','error');return;}
+    if(state.settings.allowSubmissions===false){showNotice('ผู้ดูแลปิดรับการเพิ่มรายชื่อชั่วคราว','error');return;}
     modalReturnFocus=document.activeElement;
     $('addModal').hidden=false;document.body.classList.add('modalOpen');
     setFormMessage('');$('contactFirst').focus();
@@ -425,7 +429,7 @@
     return ()=>frame.remove();
   }
   async function waitForSave(requestId){
-    const deadline=Date.now()+35000;
+    const deadline=Date.now()+60000;
     let attempts=0;
     while(Date.now()<deadline){
       await new Promise(resolve=>setTimeout(resolve,attempts===0?650:1100));
@@ -451,7 +455,11 @@
     const digits=fields.phone.replace(/\D/g,'');
     if(!/^\+?[0-9\s().-]+$/.test(fields.phone)||digits.length<6||digits.length>15){setFormMessage('กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง (6–15 หลัก)');return;}
     fields.action='submit';fields.website='';
-    fields.requestId=newRequestId();
+    const signature=JSON.stringify(fields);
+    const retry=pendingSubmission&&pendingSubmission.signature===signature;
+    fields.requestId=retry?pendingSubmission.requestId:newRequestId();
+    if(pendingSubmission&&!retry){setFormMessage('ยังมีคำขอก่อนหน้าที่ไม่ทราบผล กรุณาตรวจ Google Sheets หรือส่งข้อมูลเดิมเพื่อตรวจผลอีกครั้ง');return;}
+    pendingSubmission={signature,requestId:fields.requestId};
     formBusy=true;$('saveContactBtn').disabled=true;$('saveContactBtn').textContent='กำลังบันทึก...';
     showSaveProgress(1,'กำลังส่งข้อมูล...','ระบบกำลังส่งข้อมูลไป Google Apps Script อย่างปลอดภัย');
     $('cancelContactBtn').disabled=true;$('closeModalBtn').disabled=true;
@@ -459,9 +467,10 @@
     let cleanup=()=>{};
     let resultSaved=false;
     try{
-      cleanup=sendPostInBackground(fields);
+      if(!retry)cleanup=sendPostInBackground(fields);
       showSaveProgress(2,'กำลังยืนยันการบันทึก...','กำลังรอ Google Sheets ยืนยันข้อมูล โปรดอย่ากดปุ่มซ้ำ');
       const result=await waitForSave(fields.requestId);
+      pendingSubmission=null;
       if(!result.ok)throw new Error(result.message||'บันทึกไม่สำเร็จ');
       // ป้องกันการอัปเดตเฉพาะ GitHub แต่ลืม Deploy Code.gs: v8 ยังบันทึกแบบรออนุมัติ
       if(result.published!==true || !result.id)throw new Error('บันทึกลง Google Sheets แล้ว แต่ Apps Script ยังใช้โค้ดเวอร์ชันเดิม จึงอาจยังไม่เผยแพร่ กรุณา Deploy Code.gs v9 ก่อน (ไม่ต้องกดบันทึกซ้ำ)');
@@ -473,7 +482,7 @@
       $('departmentSelect').value='';
       const added=normalizeContact({...fields,id:result.id});
       setData([added,...state.contacts.filter(c=>c.id!==added.id)]);
-      saveCachedDirectory({contacts:state.contacts,settings:{organizationName:CONFIG.organizationName,pageSize:CONFIG.pageSize,allowSubmissions:true}});
+      saveCachedDirectory({contacts:state.contacts,settings:state.settings});
       $('contactForm').reset();
       setFormMessage(result.message||'บันทึกสำเร็จแล้ว','success');
       toast('เพิ่มรายชื่อและเผยแพร่เรียบร้อยแล้ว');
