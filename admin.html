@@ -28,9 +28,9 @@ main{padding:34px 0 68px}.eyebrow{color:#43858a;font-size:11px;letter-spacing:.0
 </style>
 </head>
 <body>
-<header class="header"><div class="container headInner"><div class="brand"><div class="brandIcon" aria-hidden="true">☏</div><div><h1>สมุดโทรศัพท์บุคลากร</h1><p id="orgHeader">ระบบบริหารจัดการข้อมูลบุคลากร</p><span class="versionTag">v13</span></div></div><nav class="switcher" aria-label="เมนูหลัก"><a href="./index.html">สมุดโทรศัพท์</a><a href="./admin.html" class="active" aria-current="page">ผู้ดูแลระบบ</a></nav></div></header>
+<header class="header"><div class="container headInner"><div class="brand"><div class="brandIcon" aria-hidden="true">☏</div><div><h1>สมุดโทรศัพท์บุคลากร</h1><p id="orgHeader">ระบบบริหารจัดการข้อมูลบุคลากร</p><span class="versionTag">v14</span></div></div><nav class="switcher" aria-label="เมนูหลัก"><a href="./index.html">สมุดโทรศัพท์</a><a href="./admin.html" class="active" aria-current="page">ผู้ดูแลระบบ</a></nav></div></header>
 <main class="container">
-<section id="loginView" class="card loginCard"><div class="loginIcon">♙</div><h2>เข้าสู่ระบบผู้ดูแล</h2><p>เข้าสู่ระบบด้วยบัญชี Admin หรือ Staff เพื่อจัดการสมุดโทรศัพท์</p><form id="loginForm"><div class="field"><label for="username">ชื่อผู้ใช้งาน</label><input id="username" name="username" autocomplete="username" value="admin" required maxlength="30" placeholder="admin หรือชื่อบัญชีเจ้าหน้าที่"></div><div class="field" style="margin-top:13px"><label for="password">รหัสผ่าน</label><input id="password" name="password" type="password" autocomplete="current-password" minlength="12" maxlength="128" required placeholder="กรอกรหัสผ่าน"></div><div id="loginMsg" class="message" hidden role="alert"></div><button id="loginButton" type="submit" class="btn btnPrimary" style="width:100%;margin-top:19px">เข้าสู่ระบบ →</button><div id="loginWait" class="loginWait" hidden><span class="spinner" aria-hidden="true"></span><span id="loginWaitText">กำลังตรวจสอบสิทธิ์...</span></div></form><p class="hint">เวอร์ชัน v13 · หน้าเข้าสู่ระบบแสดงทันที และเลิกใช้ Loading บังหน้าจอ<br>เจ้าของระบบตั้งรหัสใน Apps Script ด้วยฟังก์ชัน setPhonebookAdminPassword<br>รหัสผ่านไม่ถูกบันทึกไว้ใน GitHub และจะออกจากระบบเมื่อรีเฟรชหน้า</p></section>
+<section id="loginView" class="card loginCard"><div class="loginIcon">♙</div><h2>เข้าสู่ระบบผู้ดูแล</h2><p>เข้าสู่ระบบด้วยบัญชี Admin หรือ Staff เพื่อจัดการสมุดโทรศัพท์</p><form id="loginForm"><div class="field"><label for="username">ชื่อผู้ใช้งาน</label><input id="username" name="username" autocomplete="username" value="admin" required maxlength="30" placeholder="admin หรือชื่อบัญชีเจ้าหน้าที่"></div><div class="field" style="margin-top:13px"><label for="password">รหัสผ่าน</label><input id="password" name="password" type="password" autocomplete="current-password" minlength="12" maxlength="128" required placeholder="กรอกรหัสผ่าน"></div><div id="loginMsg" class="message" hidden role="alert"></div><button id="loginButton" type="submit" class="btn btnPrimary" style="width:100%;margin-top:19px">เข้าสู่ระบบ →</button><div id="loginWait" class="loginWait" hidden><span class="spinner" aria-hidden="true"></span><span id="loginWaitText">กำลังตรวจสอบสิทธิ์...</span></div></form><p class="hint">เวอร์ชัน v14 · หน้าเข้าสู่ระบบแสดงทันที และเลิกใช้ Loading บังหน้าจอ<br>เจ้าของระบบตั้งรหัสใน Apps Script ด้วยฟังก์ชัน setPhonebookAdminPassword<br>รหัสผ่านไม่ถูกบันทึกไว้ใน GitHub และจะออกจากระบบเมื่อรีเฟรชหน้า</p></section>
 <section id="dashboardView" hidden>
 <div class="intro"><div><div class="eyebrow">PHONEBOOK MANAGEMENT</div><h2>จัดการสมุดโทรศัพท์</h2><p><span id="welcomeRole">ผู้ใช้งาน</span> · จัดการรายชื่อบุคลากร</p></div><div class="btnRow"><button id="reloadBtn" class="btn" type="button">↻ อัปเดตข้อมูล</button><button id="logoutBtn" class="btn btnDanger" type="button">ออกจากระบบ</button></div></div>
 <div id="globalMsg" class="message" hidden role="status" aria-live="polite"></div><div id="workStatus" class="workStatus" hidden><span class="spinner" aria-hidden="true"></span><span id="workStatusText">กำลังโหลดข้อมูล...</span></div>
@@ -47,7 +47,7 @@ main{padding:34px 0 68px}.eyebrow{color:#43858a;font-size:11px;letter-spacing:.0
 // ใช้ Deployment ของระบบสมุดโทรศัพท์เดียวกับหน้า index.html; ไม่มีรหัสลับในไฟล์นี้
 const API_URL='https://script.google.com/macros/s/AKfycbzbkJsy5Qs8oVvckvRYxYNJLDDUQLHp9BOZYi6orFVODLKg33_0aHrPp5Jwuxeu8ob2/exec';
 const $=id=>document.getElementById(id);
-const state={token:null,username:'',role:'',contacts:[],settings:null,dataLoaded:false,tab:'all',page:1,editId:null,busy:false,users:null,userEditUsername:'',userEditMode:''};
+const state={token:null,username:'',role:'',contacts:[],settings:null,dataLoaded:false,loadError:'',tab:'all',page:1,editId:null,busy:false,users:null,userEditUsername:'',userEditMode:''};
 let perPage=12;
 function msg(id,text,type='error'){const el=$(id);el.textContent=text||'';el.className='message '+type;el.hidden=!text}
 function setBusy(isBusy,title='กำลังดำเนินการ...'){
@@ -99,6 +99,17 @@ function post(fields){
   return {rid,fast,cleanup:()=>{window.removeEventListener('message',onMessage);iframe.remove()}};
 }
 function sleep(ms){return new Promise(resolve=>setTimeout(resolve,ms))}
+function normalizeAdminReply(reply,action){
+  // Compatibility with old deployments: dashboard.pending used to contain a count.
+  // Restrict conversion to a complete dashboard response; never coerce pending:true.
+  if(action==='adminDashboard'&&reply&&reply.ok===true&&
+     Number.isSafeInteger(reply.pending)&&reply.pending>=0&&
+     Array.isArray(reply.contacts)&&typeof reply.hasMore==='boolean'&&
+     Number.isSafeInteger(reply.total)&&reply.total>=0){
+    return {...reply,pendingCount:reply.pending,pending:false};
+  }
+  return reply;
+}
 const uncertainRequests=new Map();
 async function api(action,fields={}){
   const data={...fields,action};if(state.token&&!Object.prototype.hasOwnProperty.call(data,'token'))data.token=state.token;
@@ -116,7 +127,7 @@ async function api(action,fields={}){
     while(!closed&&Date.now()<until){
       await sleep(delay);if(closed)break;
       try{
-        const reply=await jsonp({action:'status',requestId:rid},Math.min(6500,Math.max(1000,until-Date.now())));
+        const reply=normalizeAdminReply(await jsonp({action:'status',requestId:rid},Math.min(6500,Math.max(1000,until-Date.now()))),action);
         if(closed)break;
         if(reply&&reply.pending===false)return reply;
       }catch(error){
@@ -127,7 +138,7 @@ async function api(action,fields={}){
     throw new Error('Google Apps Script ยังไม่ยืนยันผลภายใน 60 วินาที กรุณาตรวจสอบก่อนกดซ้ำ');
   })();
   try{
-    const result=await Promise.race([fast,poll]);
+    const result=normalizeAdminReply(await Promise.race([fast,poll]),action);
     confirmed=!!result&&result.pending===false;
     if(confirmed)uncertainRequests.delete(signature);
     if(result&&result.ok===false){
@@ -164,7 +175,7 @@ function applyPermissions(){
   if(!isAdmin&&['settings','users'].includes(state.tab))state.tab='all';
   $('published').disabled=!isAdmin;
 }
-function logoutLocal(){uncertainRequests.clear();dashboardLoadNumber++;state.token=null;state.role='';state.username='';state.contacts=[];state.settings=null;state.dataLoaded=false;state.users=null;state.tab='all';$('dashboardView').hidden=true;$('loginView').hidden=false;msg('loginMsg','');$('password').value='';$('contactModal').hidden=true;$('userActionModal').hidden=true;state.editId=null;state.userEditUsername='';state.userEditMode='';
+function logoutLocal(){uncertainRequests.clear();dashboardLoadNumber++;state.token=null;state.role='';state.username='';state.contacts=[];state.settings=null;state.dataLoaded=false;state.loadError='';state.users=null;state.tab='all';$('dashboardView').hidden=true;$('loginView').hidden=false;msg('loginMsg','');$('password').value='';$('contactModal').hidden=true;$('userActionModal').hidden=true;state.editId=null;state.userEditUsername='';state.userEditMode='';
 ['changePasswordForm','createUserForm','userActionForm','contactForm'].forEach(id=>$(id).reset());
 $('search').value='';$('usersRows').replaceChildren();msg('globalMsg','');tab('all');setBusy(false)}
 async function logout(){const token=state.token;logoutLocal();if(token){try{await api('adminLogout',{token})}catch(e){/* session expires automatically */}}}
@@ -172,6 +183,7 @@ let dashboardLoadNumber=0;
 async function loadDashboard(){
   if(!state.token)return;
   const loadId=++dashboardLoadNumber, token=state.token;
+  state.loadError='';render();
   let warningTimer;
   const showProgress=(text)=>{
     clearTimeout(warningTimer);
@@ -197,11 +209,12 @@ async function loadDashboard(){
       contacts.push(...reply.contacts);offset=contacts.length;
       if(offset>20000)throw new Error('จำนวนรายชื่อเกินขีดจำกัด');
     }
-    state.contacts=contacts;state.settings=settings;state.dataLoaded=true;
+    state.contacts=contacts;state.settings=settings;state.dataLoaded=true;state.loadError='';
     if(role)state.role=role;
     applyPermissions();applySettings();render();msg('globalMsg','');return true;
   }catch(err){
     if(loadId!==dashboardLoadNumber||state.token!==token)return;
+    state.loadError=err.message||'โหลดข้อมูลไม่สำเร็จ';render();
     msg('globalMsg',(err.message||'โหลดข้อมูลไม่สำเร็จ')+' · สามารถกด ↻ อัปเดตข้อมูล อีกครั้ง');
     return false;
   }finally{
@@ -216,9 +229,9 @@ function visibleContacts(){const q=$('search').value.trim().toLocaleLowerCase('t
 }
 function make(tag,cls,txt){const el=document.createElement(tag);if(cls)el.className=cls;if(txt!==undefined)el.textContent=String(txt);return el}
 function btn(label,cls,click){const el=make('button','btn btnTiny '+cls,label);el.type='button';el.addEventListener('click',click);return el}
-function render(){const pending=state.contacts.filter(c=>!c.published).length;$('totalStat').textContent=state.contacts.length;$('activeStat').textContent=state.contacts.length-pending;$('pendingStat').textContent=pending;$('pendingTag').textContent=pending?'('+pending+')':'';
-  const rows=visibleContacts();const pages=Math.max(1,Math.ceil(rows.length/perPage));state.page=Math.min(Math.max(1,state.page),pages);$('pagesText').textContent=state.page+' / '+pages;$('prevBtn').disabled=state.busy||state.page<=1;$('nextBtn').disabled=state.busy||state.page>=pages;$('countText').textContent='แสดง '+rows.length+' รายการ';
-  const tbody=$('rows');tbody.replaceChildren();if(rows.length===0){const tr=make('tr');const td=make('td','empty');td.colSpan=5;td.append(make('strong','',!state.dataLoaded?'กำลังดึงรายชื่อจากระบบ...':(state.tab==='pending'?'ไม่มีรายการยังไม่เผยแพร่':'ไม่พบข้อมูลตามเงื่อนไข')));tr.append(td);tbody.append(tr);return}
+function render(){const pending=state.contacts.filter(c=>!c.published).length;$('totalStat').textContent=state.dataLoaded?state.contacts.length:'—';$('activeStat').textContent=state.dataLoaded?state.contacts.length-pending:'—';$('pendingStat').textContent=state.dataLoaded?pending:'—';$('pendingTag').textContent=pending?'('+pending+')':'';
+  const rows=visibleContacts();const pages=Math.max(1,Math.ceil(rows.length/perPage));state.page=Math.min(Math.max(1,state.page),pages);$('pagesText').textContent=state.page+' / '+pages;$('prevBtn').disabled=state.busy||state.page<=1;$('nextBtn').disabled=state.busy||state.page>=pages;$('countText').textContent=state.dataLoaded?'แสดง '+rows.length+' รายการ':(state.loadError?'ยังโหลดข้อมูลไม่สำเร็จ':'กำลังโหลด...');
+  const tbody=$('rows');tbody.replaceChildren();if(rows.length===0){const tr=make('tr');const td=make('td','empty');td.colSpan=5;td.append(make('strong','',!state.dataLoaded?(state.loadError?'โหลดรายชื่อไม่สำเร็จ กรุณากดอัปเดตข้อมูลอีกครั้ง':'กำลังดึงรายชื่อจากระบบ...'):(state.tab==='pending'?'ไม่มีรายการยังไม่เผยแพร่':'ไม่พบข้อมูลตามเงื่อนไข')));tr.append(td);tbody.append(tr);return}
   rows.slice((state.page-1)*perPage,state.page*perPage).forEach(c=>{const tr=make('tr');const person=make('td');person.append(make('div','name',[c.firstName,c.lastName].join(' ')),make('div','sub',c.id.slice(0,8)));const contact=make('td');contact.append(make('div','mono',c.phone));if(c.lineId)contact.append(make('div','sub','LINE: '+c.lineId));const dept=make('td');dept.append(make('div','',c.department||'—'),make('div','sub',c.position||''));const status=make('td');status.append(make('span','pill '+(c.published?'ok':'pending'),c.published?'เผยแพร่แล้ว':'ยังไม่เผยแพร่'));
     const action=make('td');const buttons=make('div','btnRow');if(state.role==='admin'){if(!c.published)buttons.append(btn('✓ เผยแพร่','btnSuccess',()=>publish(c,true)));else buttons.append(btn('ซ่อน','',()=>publish(c,false)));}buttons.append(btn('แก้ไข','',()=>edit(c)));if(state.role==='admin')buttons.append(btn('ลบ','btnDanger',()=>remove(c)));action.append(buttons);tr.append(person,contact,dept,status,action);tbody.append(tr)
   });
