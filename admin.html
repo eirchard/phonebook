@@ -28,9 +28,9 @@ main{padding:34px 0 68px}.eyebrow{color:#43858a;font-size:11px;letter-spacing:.0
 </style>
 </head>
 <body>
-<header class="header"><div class="container headInner"><div class="brand"><div class="brandIcon" aria-hidden="true">☏</div><div><h1>สมุดโทรศัพท์บุคลากร</h1><p id="orgHeader">ระบบบริหารจัดการข้อมูลบุคลากร</p><span class="versionTag">FAST v12</span></div></div><nav class="switcher" aria-label="เมนูหลัก"><a href="./index.html">สมุดโทรศัพท์</a><a href="./admin.html" class="active" aria-current="page">ผู้ดูแลระบบ</a></nav></div></header>
+<header class="header"><div class="container headInner"><div class="brand"><div class="brandIcon" aria-hidden="true">☏</div><div><h1>สมุดโทรศัพท์บุคลากร</h1><p id="orgHeader">ระบบบริหารจัดการข้อมูลบุคลากร</p><span class="versionTag">v13</span></div></div><nav class="switcher" aria-label="เมนูหลัก"><a href="./index.html">สมุดโทรศัพท์</a><a href="./admin.html" class="active" aria-current="page">ผู้ดูแลระบบ</a></nav></div></header>
 <main class="container">
-<section id="loginView" class="card loginCard"><div class="loginIcon">♙</div><h2>เข้าสู่ระบบผู้ดูแล</h2><p>เข้าสู่ระบบด้วยบัญชี Admin หรือ Staff เพื่อจัดการสมุดโทรศัพท์</p><form id="loginForm"><div class="field"><label for="username">ชื่อผู้ใช้งาน</label><input id="username" name="username" autocomplete="username" value="admin" required maxlength="30" placeholder="admin หรือชื่อบัญชีเจ้าหน้าที่"></div><div class="field" style="margin-top:13px"><label for="password">รหัสผ่าน</label><input id="password" name="password" type="password" autocomplete="current-password" minlength="12" required placeholder="กรอกรหัสผ่าน Admin"></div><div id="loginMsg" class="message" hidden role="alert"></div><button id="loginButton" type="submit" class="btn btnPrimary" style="width:100%;margin-top:19px">เข้าสู่ระบบ →</button><div id="loginWait" class="loginWait" hidden><span class="spinner" aria-hidden="true"></span><span id="loginWaitText">กำลังตรวจสอบสิทธิ์...</span></div></form><p class="hint">เวอร์ชัน FAST v12 · หน้าเข้าสู่ระบบแสดงทันที และเลิกใช้ Loading บังหน้าจอ<br>เจ้าของระบบตั้งรหัสใน Apps Script ด้วยฟังก์ชัน setPhonebookAdminPassword<br>รหัสผ่านไม่ถูกบันทึกไว้ใน GitHub และจะออกจากระบบเมื่อรีเฟรชหน้า</p></section>
+<section id="loginView" class="card loginCard"><div class="loginIcon">♙</div><h2>เข้าสู่ระบบผู้ดูแล</h2><p>เข้าสู่ระบบด้วยบัญชี Admin หรือ Staff เพื่อจัดการสมุดโทรศัพท์</p><form id="loginForm"><div class="field"><label for="username">ชื่อผู้ใช้งาน</label><input id="username" name="username" autocomplete="username" value="admin" required maxlength="30" placeholder="admin หรือชื่อบัญชีเจ้าหน้าที่"></div><div class="field" style="margin-top:13px"><label for="password">รหัสผ่าน</label><input id="password" name="password" type="password" autocomplete="current-password" minlength="12" maxlength="128" required placeholder="กรอกรหัสผ่าน"></div><div id="loginMsg" class="message" hidden role="alert"></div><button id="loginButton" type="submit" class="btn btnPrimary" style="width:100%;margin-top:19px">เข้าสู่ระบบ →</button><div id="loginWait" class="loginWait" hidden><span class="spinner" aria-hidden="true"></span><span id="loginWaitText">กำลังตรวจสอบสิทธิ์...</span></div></form><p class="hint">เวอร์ชัน v13 · หน้าเข้าสู่ระบบแสดงทันที และเลิกใช้ Loading บังหน้าจอ<br>เจ้าของระบบตั้งรหัสใน Apps Script ด้วยฟังก์ชัน setPhonebookAdminPassword<br>รหัสผ่านไม่ถูกบันทึกไว้ใน GitHub และจะออกจากระบบเมื่อรีเฟรชหน้า</p></section>
 <section id="dashboardView" hidden>
 <div class="intro"><div><div class="eyebrow">PHONEBOOK MANAGEMENT</div><h2>จัดการสมุดโทรศัพท์</h2><p><span id="welcomeRole">ผู้ใช้งาน</span> · จัดการรายชื่อบุคลากร</p></div><div class="btnRow"><button id="reloadBtn" class="btn" type="button">↻ อัปเดตข้อมูล</button><button id="logoutBtn" class="btn btnDanger" type="button">ออกจากระบบ</button></div></div>
 <div id="globalMsg" class="message" hidden role="status" aria-live="polite"></div><div id="workStatus" class="workStatus" hidden><span class="spinner" aria-hidden="true"></span><span id="workStatusText">กำลังโหลดข้อมูล...</span></div>
@@ -41,7 +41,7 @@ main{padding:34px 0 68px}.eyebrow{color:#43858a;font-size:11px;letter-spacing:.0
 </section></section>
 </main>
 <div id="contactModal" class="modalOverlay" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle"><div class="modalHead"><h3 id="contactModalTitle">เพิ่มรายชื่อ</h3><button class="xbtn" id="closeModalBtn" type="button" aria-label="ปิด">×</button></div><div class="modalBody"><form id="contactForm"><div class="formGrid"><div class="field"><label for="firstName">ชื่อ <span class="req">*</span></label><input id="firstName" name="firstName" required maxlength="100"></div><div class="field"><label for="lastName">นามสกุล <span class="req">*</span></label><input id="lastName" name="lastName" required maxlength="100"></div><div class="field wide"><label for="phone">เบอร์โทรศัพท์ <span class="req">*</span></label><input id="phone" name="phone" type="tel" inputmode="tel" maxlength="32" required placeholder="0891234567"></div><div class="field"><label for="lineId">LINE ID (ไม่บังคับ)</label><input id="lineId" name="lineId" maxlength="100"></div><div class="field"><label for="department">ฝ่าย/แผนก (ไม่บังคับ)</label><input id="department" name="department" maxlength="100"></div><div class="field wide"><label for="position">ตำแหน่ง (ไม่บังคับ)</label><input id="position" name="position" maxlength="100"></div><div class="field wide"><label class="checkRow"><input type="checkbox" id="published" name="published"><span>เผยแพร่รายชื่อนี้บนเว็บไซต์</span></label></div></div><div id="formMsg" class="message" role="alert" hidden></div><div class="formActions"><button type="button" id="cancelBtn" class="btn">ยกเลิก</button><button type="submit" class="btn btnPrimary" id="submitContactBtn">บันทึกข้อมูล</button></div></form></div></section></div>
-<div id="userActionModal" class="modalOverlay" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="userActionTitle"><div class="modalHead"><h3 id="userActionTitle">จัดการบัญชีผู้ใช้</h3><button class="xbtn" id="closeUserAction" type="button" aria-label="ปิด">×</button></div><div class="modalBody"><form id="userActionForm"><p id="userActionDesc" class="muted"></p><div id="userRoleField" class="field"><label for="userRoleSelect">บทบาทใหม่</label><select id="userRoleSelect"><option value="staff">Staff — เพิ่มและแก้ไข</option><option value="admin">Admin — จัดการทั้งหมด</option></select></div><div id="userPasswordField" class="field" hidden><label for="userNewPassword">รหัสผ่านใหม่ (12 ตัวอักษรขึ้นไป)</label><input id="userNewPassword" type="password" minlength="12" maxlength="128" autocomplete="new-password" placeholder="กรอกรหัสผ่านใหม่"></div><div class="formActions"><button id="cancelUserAction" class="btn" type="button">ยกเลิก</button><button class="btn btnPrimary" type="submit">บันทึกการเปลี่ยนแปลง</button></div></form></div></section></div>
+<div id="userActionModal" class="modalOverlay" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="userActionTitle"><div class="modalHead"><h3 id="userActionTitle">จัดการบัญชีผู้ใช้</h3><button class="xbtn" id="closeUserAction" type="button" aria-label="ปิด">×</button></div><div class="modalBody"><form id="userActionForm"><div id="userActionMsg" class="message" role="alert" hidden></div><p id="userActionDesc" class="muted"></p><div id="userRoleField" class="field"><label for="userRoleSelect">บทบาทใหม่</label><select id="userRoleSelect"><option value="staff">Staff — เพิ่มและแก้ไข</option><option value="admin">Admin — จัดการทั้งหมด</option></select></div><div id="userPasswordField" class="field" hidden><label for="userNewPassword">รหัสผ่านใหม่ (12 ตัวอักษรขึ้นไป)</label><input id="userNewPassword" type="password" minlength="12" maxlength="128" autocomplete="new-password" placeholder="กรอกรหัสผ่านใหม่"></div><div class="formActions"><button id="cancelUserAction" class="btn" type="button">ยกเลิก</button><button class="btn btnPrimary" type="submit">บันทึกการเปลี่ยนแปลง</button></div></form></div></section></div>
 <script>
 'use strict';
 // ใช้ Deployment ของระบบสมุดโทรศัพท์เดียวกับหน้า index.html; ไม่มีรหัสลับในไฟล์นี้
@@ -52,6 +52,7 @@ let perPage=12;
 function msg(id,text,type='error'){const el=$(id);el.textContent=text||'';el.className='message '+type;el.hidden=!text}
 function setBusy(isBusy,title='กำลังดำเนินการ...'){
   state.busy=isBusy;
+  if(isBusy)dashboardLoadNumber++;
   document.querySelectorAll('#dashboardView button,#loginForm button,#contactModal button,#userActionModal button').forEach(b=>b.disabled=isBusy);
   // ไม่ขึ้นหน้าต่างโหลดทับหน้าล็อกอินอีกต่อไป ให้เห็นอินพุตและสถานะได้ตลอด
   // v12: intentionally no fullscreen loading overlay
@@ -61,6 +62,7 @@ function setBusy(isBusy,title='กำลังดำเนินการ...'){
   $('loginButton').textContent=isBusy&&inLogin?'กำลังตรวจสอบ...':'เข้าสู่ระบบ →';
   $('workStatus').hidden=!isBusy||inLogin;
   $('workStatusText').textContent=title;
+  if(!isBusy){const pages=Math.max(1,Math.ceil(visibleContacts().length/perPage));$('prevBtn').disabled=state.page<=1;$('nextBtn').disabled=state.page>=pages;}
 }
 function requestId(){const bytes=new Uint8Array(16);crypto.getRandomValues(bytes);return Array.from(bytes,b=>b.toString(16).padStart(2,'0')).join('')}
 function jsonp(params,timeout=6500){return new Promise((resolve,reject)=>{
@@ -72,7 +74,7 @@ function jsonp(params,timeout=6500){return new Promise((resolve,reject)=>{
 })}
 // ไม่ใช้ fetch เพราะ Google Apps Script Web App ไม่ได้เปิด CORS สำหรับคำขอจาก GitHub Pages
 // POST แบบ HTML form -> iframe ที่ซ่อน -> ตรวจคำตอบด้วย requestId แบบสุ่มผ่าน JSONP
-// FAST v12: POST ผ่าน iframe ที่ซ่อน; หาก Apps Script ส่งข้อความกลับได้โดยตรง
+// v13: POST ผ่าน iframe ที่ซ่อน; หาก Apps Script ส่งข้อความกลับได้โดยตรง
 // จะใช้ผลนั้นทันที (1 รอบการติดต่อ). หาก Google CSP บล็อก iframe ให้ fallback ไป JSONP status.
 function post(fields){
   const rid=requestId(),iframe=document.createElement('iframe');
@@ -80,7 +82,7 @@ function post(fields){
   let receive;
   const fast=new Promise(resolve=>{receive=resolve});
   const onMessage=event=>{
-    if(event.source!==iframe.contentWindow)return;
+    if(!/^https:\/\/(?:script\.google\.com|(?:[a-z0-9-]+-)?script\.googleusercontent\.com)$/.test(event.origin))return;
     const d=event.data;
     if(!d||d.source!=='phonebook-v12'||d.requestId!==rid||typeof d.payload!=='object')return;
     receive(d.payload);
@@ -89,7 +91,7 @@ function post(fields){
   document.body.appendChild(iframe);
   const form=document.createElement('form');form.method='POST';form.action=API_URL;
   form.target=iframe.name;form.acceptCharset='UTF-8';form.hidden=true;
-  Object.entries({...fields,requestId:rid,fastReply:'1'}).forEach(([key,value])=>{
+  Object.entries({...fields,requestId:rid,fastReply:'1',replyOrigin:location.origin}).forEach(([key,value])=>{
     const input=document.createElement('input');input.type='hidden';input.name=key;
     input.value=String(value??'');form.appendChild(input);
   });
@@ -97,10 +99,17 @@ function post(fields){
   return {rid,fast,cleanup:()=>{window.removeEventListener('message',onMessage);iframe.remove()}};
 }
 function sleep(ms){return new Promise(resolve=>setTimeout(resolve,ms))}
+const uncertainRequests=new Map();
 async function api(action,fields={}){
-  const data={...fields,action};if(state.token)data.token=state.token;
-  const {rid,fast,cleanup}=post(data);
-  const until=Date.now()+30000;let closed=false;
+  const data={...fields,action};if(state.token&&!Object.prototype.hasOwnProperty.call(data,'token'))data.token=state.token;
+  const signature=JSON.stringify(data),mutates=!['adminDashboard','adminAccounts','adminLogin','adminLogout'].includes(action);
+  if(mutates&&[...uncertainRequests.keys()].some(k=>k!==signature)){
+    throw new Error('มีคำสั่งก่อนหน้าที่ยังไม่ทราบผล กรุณาตรวจ Google Sheets ก่อนทำรายการใหม่ หรือส่งข้อมูลเดิมเพื่อตรวจผลอีกครั้ง');
+  }
+  const previous=uncertainRequests.get(signature);
+  const {rid,fast,cleanup}=previous?{rid:previous,fast:new Promise(()=>{}),cleanup:()=>{}}:post(data);
+  let confirmed=false;
+  const until=Date.now()+60000;let closed=false;
   // Poll หลัง 2.2 วินาทีเท่านั้น ลดการเปิด Google Apps Script ซ้อนโดยไม่จำเป็น
   const poll=(async()=>{
     let delay=2200;
@@ -115,14 +124,22 @@ async function api(action,fields={}){
       }
       delay=1600;
     }
-    throw new Error('Google Apps Script ยังไม่ยืนยันผลภายใน 30 วินาที กรุณาตรวจสอบก่อนกดซ้ำ');
+    throw new Error('Google Apps Script ยังไม่ยืนยันผลภายใน 60 วินาที กรุณาตรวจสอบก่อนกดซ้ำ');
   })();
   try{
     const result=await Promise.race([fast,poll]);
-    if(result&&result.ok===false)throw new Error(result.message||'ดำเนินการไม่สำเร็จ');
+    confirmed=!!result&&result.pending===false;
+    if(confirmed)uncertainRequests.delete(signature);
+    if(result&&result.ok===false){
+      const error=new Error(result.message||'ดำเนินการไม่สำเร็จ');
+      if(state.token&&/เซสชัน|เข้าสู่ระบบใหม่|บัญชีหรือสิทธิ์/.test(error.message)){
+        logoutLocal();msg('loginMsg',error.message);
+      }
+      throw error;
+    }
     if(!result||result.pending!==false)throw new Error('รูปแบบคำตอบของ Apps Script ไม่ถูกต้อง');
     return result;
-  }finally{closed=true;cleanup()}
+  }finally{if(!confirmed&&mutates)uncertainRequests.set(signature,rid);closed=true;cleanup()}
 }
 async function login(e){
   e.preventDefault();if(state.busy)return;
@@ -132,7 +149,7 @@ async function login(e){
     const result=await api('adminLogin',{username:$('username').value.trim(),password:$('password').value});
     state.token=result.token;state.role=result.role||'admin';state.username=result.username||'admin';
     $('password').value='';$('loginView').hidden=true;$('dashboardView').hidden=false;
-    applyPermissions();render();
+    applyPermissions();tab('all');render();
     // เข้าหน้า Admin ก่อน แล้วโหลดข้อมูลส่วนตารางต่อ ไม่รอโหลดข้อมูลทุกหน้าจึงไม่ค้างที่ login
     setBusy(false);
     setTimeout(()=>{if(state.token)loadDashboard()},0);
@@ -147,7 +164,9 @@ function applyPermissions(){
   if(!isAdmin&&['settings','users'].includes(state.tab))state.tab='all';
   $('published').disabled=!isAdmin;
 }
-function logoutLocal(){dashboardLoadNumber++;state.token=null;state.role='';state.username='';state.contacts=[];state.settings=null;state.dataLoaded=false;state.users=null;state.tab='all';$('dashboardView').hidden=true;$('loginView').hidden=false;msg('loginMsg','');$('password').value='';$('contactModal').hidden=true;setBusy(false)}
+function logoutLocal(){uncertainRequests.clear();dashboardLoadNumber++;state.token=null;state.role='';state.username='';state.contacts=[];state.settings=null;state.dataLoaded=false;state.users=null;state.tab='all';$('dashboardView').hidden=true;$('loginView').hidden=false;msg('loginMsg','');$('password').value='';$('contactModal').hidden=true;$('userActionModal').hidden=true;state.editId=null;state.userEditUsername='';state.userEditMode='';
+['changePasswordForm','createUserForm','userActionForm','contactForm'].forEach(id=>$(id).reset());
+$('search').value='';$('usersRows').replaceChildren();msg('globalMsg','');tab('all');setBusy(false)}
 async function logout(){const token=state.token;logoutLocal();if(token){try{await api('adminLogout',{token})}catch(e){/* session expires automatically */}}}
 let dashboardLoadNumber=0;
 async function loadDashboard(){
@@ -168,24 +187,23 @@ async function loadDashboard(){
   try{
     let reply=await api('adminDashboard',{offset:0});
     if(loadId!==dashboardLoadNumber||state.token!==token)return;
-    state.contacts=reply.contacts||[];state.settings=reply.settings;state.dataLoaded=true;
-    if(reply.role)state.role=reply.role;
-    applyPermissions();applySettings();render();
-    $('workStatus').hidden=true;msg('globalMsg','');
-    let offset=state.contacts.length;
+    const contacts=[...(reply.contacts||[])],settings=reply.settings,role=reply.role,revision=reply.revision;
+    let offset=contacts.length;
     while(reply.hasMore&&state.token===token&&loadId===dashboardLoadNumber){
       showProgress('กำลังเพิ่มรายชื่อ ('+offset+' / '+reply.total+')...');
-      reply=await api('adminDashboard',{offset});
-      if(loadId!==dashboardLoadNumber||state.token!==token)return;
-      state.contacts.push(...(reply.contacts||[]));offset=state.contacts.length;
+      reply=await api('adminDashboard',{offset,revision:revision||''});
+      if(loadId!==dashboardLoadNumber||state.token!==token)return false;
+      if(!Array.isArray(reply.contacts)||!reply.contacts.length)throw new Error('ระบบส่งข้อมูลหน้าเดิมหรือหน้าว่าง กรุณาโหลดใหม่');
+      contacts.push(...reply.contacts);offset=contacts.length;
       if(offset>20000)throw new Error('จำนวนรายชื่อเกินขีดจำกัด');
-      render();
     }
-    msg('globalMsg','');
+    state.contacts=contacts;state.settings=settings;state.dataLoaded=true;
+    if(role)state.role=role;
+    applyPermissions();applySettings();render();msg('globalMsg','');return true;
   }catch(err){
     if(loadId!==dashboardLoadNumber||state.token!==token)return;
     msg('globalMsg',(err.message||'โหลดข้อมูลไม่สำเร็จ')+' · สามารถกด ↻ อัปเดตข้อมูล อีกครั้ง');
-    if(/เซสชัน|เข้าสู่ระบบใหม่|บัญชีหรือสิทธิ์/.test(err.message||''))logoutLocal();
+    return false;
   }finally{
     clearTimeout(warningTimer);
     if(loadId===dashboardLoadNumber)$('workStatus').hidden=true;
@@ -199,27 +217,27 @@ function visibleContacts(){const q=$('search').value.trim().toLocaleLowerCase('t
 function make(tag,cls,txt){const el=document.createElement(tag);if(cls)el.className=cls;if(txt!==undefined)el.textContent=String(txt);return el}
 function btn(label,cls,click){const el=make('button','btn btnTiny '+cls,label);el.type='button';el.addEventListener('click',click);return el}
 function render(){const pending=state.contacts.filter(c=>!c.published).length;$('totalStat').textContent=state.contacts.length;$('activeStat').textContent=state.contacts.length-pending;$('pendingStat').textContent=pending;$('pendingTag').textContent=pending?'('+pending+')':'';
-  const rows=visibleContacts();const pages=Math.max(1,Math.ceil(rows.length/perPage));state.page=Math.min(Math.max(1,state.page),pages);$('pagesText').textContent=state.page+' / '+pages;$('prevBtn').disabled=state.page<=1;$('nextBtn').disabled=state.page>=pages;$('countText').textContent='แสดง '+rows.length+' รายการ';
+  const rows=visibleContacts();const pages=Math.max(1,Math.ceil(rows.length/perPage));state.page=Math.min(Math.max(1,state.page),pages);$('pagesText').textContent=state.page+' / '+pages;$('prevBtn').disabled=state.busy||state.page<=1;$('nextBtn').disabled=state.busy||state.page>=pages;$('countText').textContent='แสดง '+rows.length+' รายการ';
   const tbody=$('rows');tbody.replaceChildren();if(rows.length===0){const tr=make('tr');const td=make('td','empty');td.colSpan=5;td.append(make('strong','',!state.dataLoaded?'กำลังดึงรายชื่อจากระบบ...':(state.tab==='pending'?'ไม่มีรายการยังไม่เผยแพร่':'ไม่พบข้อมูลตามเงื่อนไข')));tr.append(td);tbody.append(tr);return}
   rows.slice((state.page-1)*perPage,state.page*perPage).forEach(c=>{const tr=make('tr');const person=make('td');person.append(make('div','name',[c.firstName,c.lastName].join(' ')),make('div','sub',c.id.slice(0,8)));const contact=make('td');contact.append(make('div','mono',c.phone));if(c.lineId)contact.append(make('div','sub','LINE: '+c.lineId));const dept=make('td');dept.append(make('div','',c.department||'—'),make('div','sub',c.position||''));const status=make('td');status.append(make('span','pill '+(c.published?'ok':'pending'),c.published?'เผยแพร่แล้ว':'ยังไม่เผยแพร่'));
     const action=make('td');const buttons=make('div','btnRow');if(state.role==='admin'){if(!c.published)buttons.append(btn('✓ เผยแพร่','btnSuccess',()=>publish(c,true)));else buttons.append(btn('ซ่อน','',()=>publish(c,false)));}buttons.append(btn('แก้ไข','',()=>edit(c)));if(state.role==='admin')buttons.append(btn('ลบ','btnDanger',()=>remove(c)));action.append(buttons);tr.append(person,contact,dept,status,action);tbody.append(tr)
   });
 }
 function tab(name){if(['settings','users'].includes(name)&&state.role!=='admin')return;state.tab=name;state.page=1;document.querySelectorAll('[data-tab]').forEach(b=>{const active=b.dataset.tab===name;b.classList.toggle('active',active);b.setAttribute('aria-selected',String(active))});$('recordsView').hidden=['settings','users','account'].includes(name);$('settingsView').hidden=name!=='settings';$('usersView').hidden=name!=='users';$('accountView').hidden=name!=='account';if(name==='users')loadUsers();$('recordsHeading').textContent=name==='pending'?'รายชื่อยังไม่เผยแพร่':'รายชื่อทั้งหมด';$('statusFilter').value='all';render()}
-function openModal(c){state.editId=c?c.id:null;$('contactModalTitle').textContent=c?'แก้ไขรายชื่อ':'เพิ่มรายชื่อ';$('contactForm').reset();for(const key of ['firstName','lastName','phone','lineId','department','position'])$(key).value=c?String(c[key]||''):'';$('published').checked=c?!!c.published:true;$('published').disabled=state.role!=='admin';msg('formMsg','');$('contactModal').hidden=false;$('firstName').focus()}
+function openModal(c){if(state.busy||!state.token)return;state.editId=c?c.id:null;$('contactModalTitle').textContent=c?'แก้ไขรายชื่อ':'เพิ่มรายชื่อ';$('contactForm').reset();for(const key of ['firstName','lastName','phone','lineId','department','position'])$(key).value=c?String(c[key]||''):'';$('published').checked=c?!!c.published:true;$('published').disabled=state.role!=='admin';msg('formMsg','');$('contactModal').hidden=false;$('firstName').focus()}
 function closeModal(){if(state.busy)return;$('contactModal').hidden=true;state.editId=null}
 function edit(c){openModal(c)}
 async function saveContact(e){e.preventDefault();if(state.busy||!$('contactForm').reportValidity())return;const c={};for(const k of ['firstName','lastName','phone','lineId','department','position'])c[k]=$(k).value.trim();c.published=$('published').checked;const digits=c.phone.replace(/\D/g,'');if(!/^\+?[0-9\s().-]+$/.test(c.phone)||digits.length<6||digits.length>15){msg('formMsg','กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง (6–15 หลัก)');return}
-  setBusy(true,'กำลังบันทึกรายชื่อ...');msg('formMsg','');try{const action=state.editId?'adminUpdate':'adminAdd';await api(action,{...(state.editId?{id:state.editId}:{}),payload:JSON.stringify(c)});$('contactModal').hidden=true;state.editId=null;setBusy(false);await loadDashboard();msg('globalMsg','บันทึกรายชื่อสำเร็จ','success')}catch(err){msg('formMsg',err.message)}finally{setBusy(false)}}
-async function publish(c,value){if(state.role!=='admin'||state.busy)return;setBusy(true,'กำลังเปลี่ยนสถานะเผยแพร่...');try{await api('adminPublish',{id:c.id,published:String(value)});setBusy(false);await loadDashboard();msg('globalMsg',value?'เผยแพร่รายชื่อเรียบร้อย':'ซ่อนรายชื่อเรียบร้อย','success')}catch(err){msg('globalMsg',err.message)}finally{setBusy(false)}}
-async function remove(c){if(state.role!=='admin'||state.busy)return;if(!confirm('ยืนยันลบรายชื่อ “'+c.firstName+' '+c.lastName+'” อย่างถาวร?\nการดำเนินการนี้ย้อนกลับไม่ได้'))return;setBusy(true,'กำลังลบรายชื่อ...');try{await api('adminDelete',{id:c.id});setBusy(false);await loadDashboard();msg('globalMsg','ลบรายชื่อเรียบร้อย','success')}catch(err){msg('globalMsg',err.message)}finally{setBusy(false)}}
-async function saveSettings(e){e.preventDefault();if(state.role!=='admin'||state.busy)return;const settings={organizationName:$('organizationName').value.trim(),pageSize:Number($('pageSize').value),accent:$('accent').value,allowSubmissions:$('allowSubmissions').checked};setBusy(true,'กำลังบันทึกการตั้งค่า...');try{await api('adminSettings',{payload:JSON.stringify(settings)});state.settings=settings;applySettings();render();msg('globalMsg','บันทึกการตั้งค่าระบบเรียบร้อย','success')}catch(err){msg('globalMsg',err.message)}finally{setBusy(false)}}
-async function changePassword(e){e.preventDefault();if(state.busy)return;const old=$('oldPassword').value,newPass=$('newPassword').value;if(newPass.length<12){msg('globalMsg','รหัสใหม่ต้องมีอย่างน้อย 12 ตัวอักษร');return}if(!confirm('ยืนยันเปลี่ยนรหัส Admin? ระบบจะออกจากระบบทันที'))return;setBusy(true,'กำลังเปลี่ยนรหัสผ่าน...');try{await api('adminChangePassword',{oldPassword:old,newPassword:newPass});logoutLocal();msg('loginMsg','เปลี่ยนรหัสแล้ว กรุณาเข้าสู่ระบบใหม่','success')}catch(err){msg('globalMsg',err.message)}finally{setBusy(false)}}
+  setBusy(true,'กำลังบันทึกรายชื่อ...');msg('formMsg','');try{const action=state.editId?'adminUpdate':'adminAdd';await api(action,{...(state.editId?{id:state.editId}:{}),payload:JSON.stringify(c)});$('contactModal').hidden=true;state.editId=null;setBusy(false);const reloaded=await loadDashboard();if(reloaded)msg('globalMsg','บันทึกรายชื่อสำเร็จ','success')}catch(err){msg('formMsg',err.message)}finally{setBusy(false)}}
+async function publish(c,value){if(state.role!=='admin'||state.busy)return;setBusy(true,'กำลังเปลี่ยนสถานะเผยแพร่...');try{await api('adminPublish',{id:c.id,published:String(value)});setBusy(false);const reloaded=await loadDashboard();if(reloaded)msg('globalMsg',value?'เผยแพร่รายชื่อเรียบร้อย':'ซ่อนรายชื่อเรียบร้อย','success')}catch(err){msg('globalMsg',err.message)}finally{setBusy(false)}}
+async function remove(c){if(state.role!=='admin'||state.busy)return;if(!confirm('ยืนยันลบรายชื่อ “'+c.firstName+' '+c.lastName+'” อย่างถาวร?\nการดำเนินการนี้ย้อนกลับไม่ได้'))return;setBusy(true,'กำลังลบรายชื่อ...');try{await api('adminDelete',{id:c.id});setBusy(false);const reloaded=await loadDashboard();if(reloaded)msg('globalMsg','ลบรายชื่อเรียบร้อย','success')}catch(err){msg('globalMsg',err.message)}finally{setBusy(false)}}
+async function saveSettings(e){e.preventDefault();if(state.role!=='admin'||state.busy)return;const settings={organizationName:$('organizationName').value.trim(),pageSize:Number($('pageSize').value),accent:$('accent').value,allowSubmissions:$('allowSubmissions').checked};setBusy(true,'กำลังบันทึกการตั้งค่า...');try{await api('adminSettings',{payload:JSON.stringify(settings)});state.settings=settings;applySettings();render();msg('globalMsg','บันทึกการตั้งค่าระบบเรียบร้อย','success')}catch(err){msg('globalMsg',err.message)}finally{setBusy(false);if(state.token&&!state.dataLoaded)loadDashboard();}}
+async function changePassword(e){e.preventDefault();if(state.busy)return;const old=$('oldPassword').value,newPass=$('newPassword').value;if(newPass.length<12){msg('globalMsg','รหัสใหม่ต้องมีอย่างน้อย 12 ตัวอักษร');return}if(!confirm('ยืนยันเปลี่ยนรหัสผ่านของคุณ? ระบบจะออกจากระบบทันที'))return;setBusy(true,'กำลังเปลี่ยนรหัสผ่าน...');try{await api('adminChangePassword',{oldPassword:old,newPassword:newPass});logoutLocal();msg('loginMsg','เปลี่ยนรหัสแล้ว กรุณาเข้าสู่ระบบใหม่','success')}catch(err){msg('globalMsg',err.message)}finally{setBusy(false)}}
 async function loadUsers(){
   if(state.role!=='admin'||!state.token)return;
-  msg('globalMsg','');setBusy(true,'กำลังโหลดบัญชีผู้ใช้งาน...');
-  try{const data=await api('adminAccounts');state.users=data.users||[];renderUsers()}
-  catch(e){msg('globalMsg',e.message)}finally{setBusy(false)}
+  const token=state.token;msg('globalMsg','');setBusy(true,'กำลังโหลดบัญชีผู้ใช้งาน...');
+  try{const data=await api('adminAccounts');if(state.token!==token)return false;state.users=data.users||[];renderUsers();return true}
+  catch(e){if(state.token===token)msg('globalMsg',e.message);return false}finally{if(state.token===token){setBusy(false);if(!state.dataLoaded)loadDashboard();}}
 }
 function renderUsers(){
   const tbody=$('usersRows');tbody.replaceChildren();
@@ -236,19 +254,20 @@ function renderUsers(){
 }
 async function createUser(e){e.preventDefault();if(state.busy||state.role!=='admin')return;
   const username=$('newUsername').value.trim().toLowerCase(),password=$('newUserPassword').value,role=$('newUserRole').value;
-  setBusy(true,'กำลังสร้างบัญชี...');try{await api('adminUserCreate',{payload:JSON.stringify({username,password,role})});$('createUserForm').reset();setBusy(false);await loadUsers();msg('globalMsg','สร้างบัญชี '+username+' แล้ว','success')}
+  setBusy(true,'กำลังสร้างบัญชี...');try{await api('adminUserCreate',{payload:JSON.stringify({username,password,role})});$('createUserForm').reset();setBusy(false);const reloaded=await loadUsers();if(reloaded)msg('globalMsg','สร้างบัญชี '+username+' แล้ว','success')}
   catch(err){msg('globalMsg',err.message)}finally{setBusy(false)}
 }
 async function toggleUser(user){if(state.busy||!confirm('ยืนยัน'+(user.enabled?'ระงับ':'เปิดใช้งาน')+'บัญชี '+user.username+'?'))return;
-  setBusy(true,'กำลังแก้ไขสถานะบัญชี...');try{await api('adminUserToggle',{username:user.username,enabled:String(!user.enabled)});setBusy(false);await loadUsers();msg('globalMsg','แก้ไขสถานะบัญชีสำเร็จ','success')}
+  setBusy(true,'กำลังแก้ไขสถานะบัญชี...');try{await api('adminUserToggle',{username:user.username,enabled:String(!user.enabled)});if(user.username===state.username){logoutLocal();msg('loginMsg','บัญชีถูกระงับแล้ว');return}setBusy(false);const reloaded=await loadUsers();if(reloaded)msg('globalMsg','แก้ไขสถานะบัญชีสำเร็จ','success')}
   catch(err){msg('globalMsg',err.message)}finally{setBusy(false)}
 }
 function openUserAction(user,mode){
   if(state.busy||state.role!=='admin')return;
-  state.userEditUsername=user.username;state.userEditMode=mode;
+  state.userEditUsername=user.username;state.userEditMode=mode;msg('userActionMsg','');
   $('userActionTitle').textContent=mode==='role'?'เปลี่ยนบทบาทผู้ใช้':'รีเซ็ตรหัสผ่าน';
   $('userActionDesc').textContent='บัญชี: '+user.username;
   $('userRoleField').hidden=mode!=='role';$('userPasswordField').hidden=mode!=='password';
+  $('userNewPassword').disabled=mode!=='password';$('userNewPassword').required=mode==='password';$('userRoleSelect').disabled=mode!=='role';
   $('userRoleSelect').value=user.role;$('userNewPassword').value='';
   $('userActionModal').hidden=false;
   (mode==='role'?$('userRoleSelect'):$('userNewPassword')).focus();
@@ -260,14 +279,14 @@ async function submitUserAction(e){
   const username=state.userEditUsername,mode=state.userEditMode;
   const action=mode==='role'?'adminUserRole':'adminUserReset';
   const fields=mode==='role'?{username,role:$('userRoleSelect').value}:{username,newPassword:$('userNewPassword').value};
-  if(mode==='password'&&fields.newPassword.length<12){msg('globalMsg','รหัสผ่านต้องยาวอย่างน้อย 12 ตัวอักษร');return;}
+  if(mode==='password'&&fields.newPassword.length<12){msg('userActionMsg','รหัสผ่านต้องยาวอย่างน้อย 12 ตัวอักษร');return;}
   setBusy(true,mode==='role'?'กำลังเปลี่ยนบทบาท...':'กำลังรีเซ็ตรหัสผ่าน...');
-  try{await api(action,fields);$('userActionModal').hidden=true;state.userEditUsername='';setBusy(false);await loadUsers();msg('globalMsg',mode==='role'?'เปลี่ยนบทบาทสำเร็จ':'รีเซ็ตรหัสสำเร็จ กรุณาแจ้งผู้ใช้ด้วยช่องทางที่ปลอดภัย','success')}
-  catch(err){msg('globalMsg',err.message)}finally{setBusy(false)}
+  try{await api(action,fields);if(username===state.username){logoutLocal();msg('loginMsg','ข้อมูลบัญชีเปลี่ยนแล้ว กรุณาเข้าสู่ระบบใหม่','success');return}$('userNewPassword').value='';$('userActionModal').hidden=true;state.userEditUsername='';setBusy(false);const reloaded=await loadUsers();if(reloaded)msg('globalMsg',mode==='role'?'เปลี่ยนบทบาทสำเร็จ':'รีเซ็ตรหัสสำเร็จ กรุณาแจ้งผู้ใช้ด้วยช่องทางที่ปลอดภัย','success')}
+  catch(err){msg('userActionMsg',err.message)}finally{setBusy(false)}
 }
 $('userActionForm').addEventListener('submit',submitUserAction);
-$('closeUserAction').addEventListener('click',()=>{if(!state.busy)$('userActionModal').hidden=true});
-$('cancelUserAction').addEventListener('click',()=>{if(!state.busy)$('userActionModal').hidden=true});
+$('closeUserAction').addEventListener('click',()=>{if(!state.busy){$('userActionModal').hidden=true;$('userNewPassword').value=''}});
+$('cancelUserAction').addEventListener('click',()=>{if(!state.busy){$('userActionModal').hidden=true;$('userNewPassword').value=''}});
 $('createUserForm').addEventListener('submit',createUser);
 $('reloadUsers').addEventListener('click',loadUsers);
 $('loginForm').addEventListener('submit',login);$('logoutBtn').addEventListener('click',logout);$('reloadBtn').addEventListener('click',loadDashboard);$('newContactBtn').addEventListener('click',()=>openModal(null));$('contactForm').addEventListener('submit',saveContact);$('closeModalBtn').addEventListener('click',closeModal);$('cancelBtn').addEventListener('click',closeModal);$('contactModal').addEventListener('click',e=>{if(e.target===$('contactModal'))closeModal()});
