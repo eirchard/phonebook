@@ -1,58 +1,157 @@
 <!doctype html>
 <html lang="th">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="referrer" content="strict-origin-when-cross-origin"><meta name="theme-color" content="#104b54">
-<title>ผู้ดูแลระบบ v16 | สมุดโทรศัพท์บุคลากร</title>
-<meta name="phonebook-version" content="v16">
-<link rel="preconnect" href="https://script.google.com" crossorigin>
-<link rel="dns-prefetch" href="https://script.googleusercontent.com">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root{--primary:#17636d;--dark:#104b54;--pale:#eaf5f3;--line:#dce7e8;--ink:#172d38;--muted:#6f808a;--bg:#f5f8fa;--success:#187651;--danger:#ae393a}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:400 14px/1.7 Prompt,system-ui,sans-serif}
-button,input,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.5;cursor:wait}a{color:inherit;text-decoration:none}button:focus-visible,input:focus-visible,a:focus-visible,select:focus-visible{outline:3px solid #e5ba57;outline-offset:2px}
-.container{max-width:1170px;margin:auto;padding:0 24px}.header{background:var(--dark);color:#fff;border-bottom:4px solid #dabe68;box-shadow:0 6px 24px #244d5622}.headInner{min-height:92px;display:flex;align-items:center;justify-content:space-between;gap:22px}.brand{display:flex;align-items:center;gap:13px}.brandIcon{width:50px;height:50px;border-radius:16px;background:#ffffff20;border:1px solid #ffffff2c;display:grid;place-items:center;font-size:25px}.brand h1{font-size:22px;font-weight:600;margin:0;line-height:1.4}.brand p{font-size:12px;color:#daebec;margin:1px 0 0}.switcher{display:inline-flex;align-items:center;background:white;padding:5px;border-radius:16px;gap:2px;box-shadow:0 6px 24px #0002}.switcher a{padding:9px 17px;min-height:40px;display:grid;place-items:center;border-radius:12px;white-space:nowrap;color:#476b6c;font-weight:500}.switcher a.active{background:#e8f2ec;color:#124f48;font-weight:600}.switcher a:hover:not(.active){background:#edf5f5}
-main{padding:34px 0 68px}.eyebrow{color:#43858a;font-size:11px;letter-spacing:.07em;font-weight:600}.intro{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:20px}.intro h2{font-size:26px;font-weight:600;margin:3px 0}.intro p{font-size:13px;color:var(--muted);margin:0}.btn{border:1px solid #cbdedf;background:white;border-radius:11px;padding:10px 15px;min-height:42px;color:#2e5c63;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:500}.btn:hover{background:#edf8f6}.btnPrimary{background:var(--primary);border-color:var(--primary);color:white}.btnPrimary:hover{background:var(--dark)}.btnDanger{color:var(--danger);border-color:#f0d8d8}.btnDanger:hover{background:#fff3f3}.btnTiny{padding:6px 10px;min-height:33px;font-size:12px;border-radius:9px}.btnGhost{border-color:transparent;background:transparent}.btnSuccess{color:#136a4b;background:#e9f7f0;border-color:#d4ebdf}.btnSuccess:hover{background:#daf1e5}.btnRow{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.card{background:#fff;border:1px solid var(--line);border-radius:19px;box-shadow:0 10px 30px #2755680b}.loginCard{width:min(460px,100%);margin:55px auto 0;padding:32px}.loginIcon{width:62px;height:62px;border-radius:20px;background:#e7f3f0;color:var(--primary);display:grid;place-items:center;font-size:29px;margin-bottom:15px}.loginCard h2{margin:0 0 5px;font-size:22px;font-weight:600}.loginCard p{margin:0 0 24px;color:var(--muted);font-size:12px}.field{display:flex;flex-direction:column;gap:6px;min-width:0}.field label{font-size:12px;font-weight:500}.field input,.field select{width:100%;border:1px solid #cbdbdd;background:white;color:var(--ink);border-radius:11px;min-height:44px;padding:9px 12px;outline:none}.field input:focus,.field select:focus{border-color:#60a6a4;box-shadow:0 0 0 3px #def0ed}.req{color:#b83a3a}.hint{font-size:11px;color:var(--muted);margin-top:13px}.message{font-size:12px;padding:11px 14px;border-radius:11px;margin:14px 0;white-space:pre-wrap;border:1px solid #d6e3e4;background:#eef7f8;color:#305b67}.message.error{background:#fff1ef;color:#a43a35;border-color:#edd0ca}.message.success{background:#eaf7f0;color:#1d744c;border-color:#cde8d9}.message[hidden],[hidden]{display:none!important}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:19px}.stat{padding:19px 21px;display:flex;align-items:center;gap:15px}.statIcon{width:46px;height:46px;border-radius:14px;background:#e8f4f3;color:var(--primary);display:grid;place-items:center;font-size:21px;flex:none}.statIcon.warn{background:#fff5e4;color:#a77320}.stat strong{display:block;font-size:27px;font-weight:600;line-height:1.2;color:var(--ink)}.stat span{display:block;color:var(--muted);font-size:12px;margin-top:4px}.panel{overflow:hidden}.sectionHead{padding:18px 21px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.sectionHead h3{font-weight:600;font-size:17px;margin:0}.sectionHead p{color:var(--muted);font-size:12px;margin:3px 0 0}.tabs{display:flex;gap:5px;border-bottom:1px solid var(--line);padding:0 17px;overflow-x:auto}.tab{border:0;background:transparent;color:#647983;white-space:nowrap;padding:14px 16px;min-height:53px;border-bottom:3px solid transparent;font-weight:500}.tab.active{color:var(--primary);border-color:var(--primary);font-weight:600}.tab:hover{background:#f4f8f8}.filters{padding:15px 21px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.filters input{flex:1 1 230px;min-height:43px;border-radius:11px;border:1px solid #cadde0;padding:10px 14px}.filters select{min-height:43px;border:1px solid #cadde0;border-radius:11px;padding:7px 12px;background:white}.tableScroll{overflow-x:auto}table{width:100%;border-collapse:collapse;text-align:left}thead{background:#f1f7f7;color:#42686b}thead th{font-size:12px;font-weight:500;padding:13px 18px;white-space:nowrap}tbody td{font-size:12px;border-top:1px solid #edf2f3;padding:14px 18px;vertical-align:middle}tbody tr:hover{background:#fbfdfd}.name{font-weight:600;color:#254a4e;font-size:13px}.sub{color:#80919a;font-size:11px}.mono{font-variant-numeric:tabular-nums;white-space:nowrap}.pill{display:inline-flex;padding:3px 11px;border-radius:30px;font-size:11px;font-weight:500;white-space:nowrap}.pill.ok{color:#247457;background:#e3f5eb}.pill.pending{color:#976d23;background:#fff1d6}.footer{padding:16px 21px;display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:12px;color:var(--muted)}.empty{text-align:center;padding:48px 15px;color:var(--muted);font-size:13px}.empty strong{display:block;color:var(--ink);margin-bottom:5px;font-size:16px}
-.settingsContent{padding:23px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}.wide{grid-column:1/-1}.settingsActions{grid-column:1/-1;display:flex;justify-content:flex-end;gap:8px}.settingGroup{padding:20px 22px;border-top:1px solid var(--line)}.settingGroup h4{margin:0 0 13px;font-size:15px}.settingGroup form{max-width:530px}.switchField{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid #e1ebed;border-radius:11px}.switchField input{height:18px;width:18px;accent-color:var(--primary)}.switchField label{cursor:pointer}.colorField{display:flex;gap:10px;align-items:center}.colorField input[type=color]{width:66px;min-height:44px;padding:3px;cursor:pointer}
-.modalOverlay{position:fixed;inset:0;background:#0e2938a8;display:flex;align-items:center;justify-content:center;padding:12px;z-index:20;backdrop-filter:blur(2px)}.modal{width:min(660px,100%);max-height:95dvh;overflow:hidden;display:flex;flex-direction:column;background:white;border-radius:19px;box-shadow:0 25px 70px #0003}.modalHead{padding:17px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.modalHead h3{margin:0;font-size:18px}.xbtn{font:26px/1 sans-serif;width:34px;height:34px;background:white;color:#637a83;border:1px solid var(--line);border-radius:9px}.modalBody{padding:21px 22px;overflow-y:auto}.formGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.formActions{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}.checkRow{display:flex;gap:10px;align-items:center;background:#f0f8f5;border:1px solid #d8ece4;border-radius:11px;padding:12px;font-size:12px}.checkRow input{width:18px;height:18px;accent-color:var(--primary)}.loading{display:inline-flex;align-items:center;gap:10px;color:#3f6f74}.spinner{width:18px;height:18px;border-radius:50%;border:2px solid #c7dfdd;border-top-color:var(--primary);animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.muted{color:var(--muted)}
-@media(max-width:820px){.headInner{min-height:79px}.brand h1{font-size:18px}.stats{gap:9px}.stat{padding:13px 15px}.statIcon{width:39px;height:39px;font-size:18px}.stat strong{font-size:21px}}@media(max-width:580px){.container{padding:0 14px}.headInner{flex-direction:column;align-items:stretch;gap:9px;padding-top:13px;padding-bottom:12px}.switcher{align-self:flex-end}.switcher a{padding:7px 12px;min-height:36px;font-size:12px}.brandIcon{width:43px;height:43px}.brand h1{font-size:17px}main{padding-top:22px}.intro{align-items:stretch;display:block}.intro h2{font-size:21px}.intro .btnRow{margin-top:14px}.stats{grid-template-columns:repeat(3,minmax(0,1fr))}.stat{padding:12px;display:block}.statIcon{width:35px;height:35px;margin-bottom:8px}.stat strong{font-size:21px}.stat span{font-size:10px}.tabs{padding:0 5px}.tab{font-size:12px;padding:12px 13px}.filters,.sectionHead{padding:14px}.loginCard{margin-top:25px;padding:23px}.settingsContent{grid-template-columns:1fr;padding:17px}.formGrid{grid-template-columns:1fr}.field.wide{grid-column:auto}.modalBody{padding:16px}thead th,tbody td{padding:11px 12px}}
-
-.versionTag{display:inline-block;font-size:10px;letter-spacing:.04em;margin-top:3px;padding:1px 8px;border-radius:9px;color:#d3fbe9;background:#ffffff22;border:1px solid #ffffff35}
-.loginWait{display:flex;align-items:center;gap:9px;justify-content:center;color:#4d7779;font-size:12px;margin-top:13px}
-.workStatus{display:flex;align-items:center;gap:9px;background:#eaf6f4;border:1px solid #d1e9e4;color:#326c67;padding:11px 14px;border-radius:11px;margin-bottom:15px;font-size:12px}
-@media(max-width:620px){#createUserForm{grid-template-columns:1fr}}
-#unitsView .btnRow{flex-wrap:nowrap}#unitsView th:last-child{min-width:140px}#unitsView table{min-width:850px}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#13616b">
+  <meta name="description" content="สมุดโทรศัพท์บุคลากร ค้นหาชื่อและหมายเลขโทรศัพท์ได้อย่างสะดวก">
+  <title>สมุดโทรศัพท์บุคลากร</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://script.google.com" crossorigin>
+  <link rel="preconnect" href="https://script.googleusercontent.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{color-scheme:light;--teal:#17636d;--teal2:#104b54;--tealSoft:#e8f5f4;--ink:#172a37;--muted:#677984;--line:#dce7e9;--bg:#f5f8fa;--white:#fff;--shadow:0 12px 34px rgba(19,65,78,.07);--radius:20px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.7 "Prompt",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+    button,input,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}a{color:inherit;text-decoration:none}.container{max-width:1100px;margin:auto;padding:0 22px}
+    .topbar{background:var(--teal2);color:white;border-bottom:4px solid #dabf6c;box-shadow:0 6px 22px rgba(10,54,64,.1)}.topbarInner{min-height:92px;display:flex;align-items:center;justify-content:space-between;gap:22px}.brand{display:flex;align-items:center;gap:15px}.logo{width:56px;height:56px;border-radius:17px;background:#ffffff1f;border:1px solid #ffffff39;display:grid;place-items:center;flex-shrink:0}.logo svg{width:28px;height:28px}.brand h1{margin:0;font-size:24px;font-weight:600;letter-spacing:-.4px;line-height:1.35}.brand p{margin:2px 0 0;color:#dbeded;font-size:12px;font-weight:300}.topTag{border-radius:100px;background:#ffffff17;border:1px solid #ffffff33;padding:8px 15px;font-size:12px;white-space:nowrap}
+    .main{padding-top:32px;padding-bottom:65px}.intro{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:21px}.eyebrow{font-size:12px;font-weight:600;color:#397f83;letter-spacing:.04em}.intro h2{margin:3px 0;font-size:26px;font-weight:600;line-height:1.45}.intro p{color:var(--muted);margin:0;font-size:13px}.stats{display:flex;gap:10px;align-items:stretch}.stat{min-width:112px;border:1px solid var(--line);border-radius:15px;background:white;padding:12px 17px;box-shadow:var(--shadow)}.stat b{font-size:26px;line-height:1.2;display:block;font-weight:600;color:var(--teal)}.stat span{display:block;color:var(--muted);font-size:11px;margin-top:4px}
+    .panel{background:white;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}.toolbar{padding:20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}.search{position:relative;flex:1 1 290px}.search input{padding:12px 44px 12px 16px;border-radius:12px;border:1px solid #cbdadd;background:#fbfdfd;width:100%;outline:none;transition:border .15s,box-shadow .15s}.search input:focus,select:focus{border-color:#479ea4;box-shadow:0 0 0 4px #429fa21b}.search svg{position:absolute;right:16px;top:50%;transform:translateY(-50%);color:#67858e;width:19px;height:19px;pointer-events:none}select{border:1px solid #cbdadd;background:#fff;outline:none;border-radius:12px;padding:12px 12px;min-width:174px;max-width:230px;color:var(--ink)}.btn{display:inline-flex;justify-content:center;align-items:center;gap:8px;padding:11px 13px;background:white;border:1px solid #d5e3e5;border-radius:12px;color:#345d65;font-weight:500;white-space:nowrap}.btn:hover{background:#f1f8f9}.btn svg,.smallBtn svg{width:17px;height:17px}.iconBtn{width:45px;height:45px;padding:0}.btnPrimary{background:var(--teal);border-color:var(--teal);color:#fff}.btnPrimary:hover{background:var(--teal2)}.actionbar{display:flex;gap:8px;align-items:center}.tableWrap{overflow-x:auto}table{width:100%;border-collapse:collapse;text-align:left}thead{background:var(--teal);color:#fff}thead th{font-size:14px;font-weight:500;padding:13px 26px}thead th:last-child{width:42%}tbody tr{border-bottom:1px solid #eaf0f2}tbody tr:last-child{border-bottom:0}tbody tr:hover{background:#f9fcfc}tbody td{padding:16px 26px;vertical-align:middle}.staff{display:flex;align-items:center;gap:12px}.avatar{width:43px;height:43px;flex-shrink:0;background:#e6f2f2;color:#23666a;border-radius:13px;display:grid;place-items:center;font-weight:600;font-size:15px}.staffName{font-weight:500;line-height:1.45;font-size:14px}.staffDetail{color:var(--muted);font-size:12px;font-weight:300;margin-top:3px}.phoneCell{display:flex;align-items:center;justify-content:space-between;gap:12px}.phoneText{font-size:16px;font-weight:500;letter-spacing:.3px;font-variant-numeric:tabular-nums;white-space:nowrap}.phoneActions{display:flex;align-items:center;gap:8px}.smallBtn{min-width:39px;height:37px;padding:0 9px;display:inline-flex;gap:6px;justify-content:center;align-items:center;border:1px solid #dae6e7;color:#416f77;background:white;border-radius:10px;font-size:12px}.smallBtn:hover{background:var(--tealSoft)}.callBtn{background:#e5f4ef;border-color:#cbe7dd;color:#147153;padding:0 12px}.callBtn:hover{background:#d7f0e6}
+    .footerPanel{min-height:65px;border-top:1px solid #eaf0f2;padding:15px 21px;display:flex;align-items:center;justify-content:space-between;gap:12px;color:var(--muted);font-size:12px}.pagination{display:flex;gap:7px;align-items:center}.pagination button{border-radius:9px;background:white;border:1px solid #dce7e9;min-width:35px;height:34px;padding:0 8px;color:var(--teal)}.pagination button:hover:not(:disabled){background:var(--tealSoft)}.pagination span{padding:0 7px}.empty,.loading{padding:66px 20px;text-align:center;color:var(--muted)}.empty svg{width:44px;height:44px;color:#8caaac}.empty strong{display:block;color:var(--ink);font-size:16px;margin-top:11px}.empty p{margin-top:5px;font-size:13px}.loader{width:34px;height:34px;border:3px solid #dbeceb;border-top-color:var(--teal);border-radius:50%;animation:spin .75s linear infinite;margin:0 auto 12px}@keyframes spin{to{transform:rotate(360deg)}}
+    .notice{border-radius:12px;padding:11px 16px;margin-bottom:18px;font-size:12px;border:1px solid #d4e1e4;background:#eff7f8;color:#35676f;display:flex;align-items:flex-start;gap:9px}.notice svg{flex:none;width:18px;height:18px;margin-top:2px}.notice.error{background:#fff4f1;border-color:#f1d2c8;color:#a5442e}.notice strong{font-weight:600}.notice a{text-decoration:underline}.credits{text-align:center;margin:22px 0 0;color:#8a969b;font-size:11px}.toast{position:fixed;bottom:23px;left:50%;transform:translate(-50%,24px);opacity:0;transition:.2s;z-index:10;color:white;background:#1a4249;border-radius:11px;padding:9px 16px;pointer-events:none;box-shadow:var(--shadow);font-size:13px}.toast.visible{opacity:1;transform:translate(-50%,0)}
+    @media(max-width:760px){.topbarInner{min-height:78px}.brand h1{font-size:19px}.brand p{font-size:11px}.logo{height:47px;width:47px;border-radius:13px}.topTag{display:none}.main{padding-top:22px}.intro{align-items:stretch}.intro h2{font-size:21px}.intro p{font-size:12px}.stats{gap:7px}.stat{min-width:82px;padding:10px}.stat b{font-size:20px}.stat span{font-size:10px}.toolbar{padding:14px;gap:9px}.search{flex-basis:100%}select{flex:1;min-width:0;max-width:none}.actionbar{width:100%;justify-content:flex-end}.tableWrap{overflow:visible}thead{display:none}tbody{display:block;padding:0 14px 4px}tbody tr{display:flex;flex-direction:column;padding:14px 0;gap:10px}tbody td{display:block;padding:0}tbody td:first-child{width:100%}.phoneCell{padding-left:55px}.phoneText{font-size:16px}.footerPanel{padding:13px 15px}.container{padding:0 14px}}
+    @media(max-width:480px){.intro{display:block}.stats{margin-top:16px}.stat{flex:1}.brand h1{font-size:17px}.intro h2{font-size:21px}.phoneCell{padding-left:0}.phoneActions{gap:6px}.callBtn span{display:none}.staffDetail{font-size:11px}.btn{font-size:12px}.footerPanel{flex-direction:column;gap:10px}.footerPanel .pagination{align-self:flex-end}}
+    .modalOverlay{position:fixed;inset:0;background:rgba(9,34,41,.58);z-index:50;display:flex;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(3px)}
+    .modalOverlay[hidden]{display:none!important}.modalPanel{background:white;border-radius:19px;box-shadow:0 25px 80px rgba(0,0,0,.18);width:min(680px,100%);height:min(735px,94dvh);display:flex;flex-direction:column;overflow:hidden}
+    .modalHeader{padding:17px 21px 14px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:14px;align-items:center}.modalHeader h3{margin:0;font-size:18px;font-weight:600}.modalHeader p{margin:3px 0 0;font-size:11px;color:var(--muted)}
+    .modalClose{width:37px;height:37px;border:1px solid var(--line);border-radius:10px;font:28px/1 sans-serif;color:#4c676c;background:white}.modalClose:hover{background:var(--tealSoft)}
+    .modalPanel{height:auto;max-height:min(780px,95dvh)}
+    .modalBody{padding:20px 22px 23px;overflow-y:auto;overscroll-behavior:contain}
+    .formGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .formField{min-width:0}.formField.full{grid-column:1/-1}
+    .formField label{display:block;font-size:13px;font-weight:500;margin-bottom:5px}
+    .formField label .req{color:#b3332b}
+    .formField input,.formField select{width:100%;max-width:100%;min-width:0;height:44px;border:1px solid #cbdbdf;border-radius:11px;padding:9px 12px;background:#fff;outline:0}
+    .formField input:focus,.formField select:focus{border-color:#268491;box-shadow:0 0 0 3px #e1f3f1}
+    .btn[hidden]{display:none!important}
+    .formFeedback{margin-top:15px;padding:10px 14px;border-radius:11px;font-size:12px;white-space:pre-wrap}
+    .formFeedback.error{background:#fff2f0;color:#a23b31;border:1px solid #f0d0c9}
+    .formFeedback.success{background:#eaf8f1;color:#186a4c;border:1px solid #c6e7d8}
+    .formActions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px;flex-wrap:wrap}
+    .formTip{font-size:11px;color:var(--muted);margin-top:9px}
+    body.modalOpen{overflow:hidden}
+    @media(max-width:520px){.modalOverlay{padding:8px}.modalPanel{max-height:96dvh;border-radius:14px}.modalHeader{padding:14px}.modalHeader h3{font-size:16px}.modalBody{padding:16px}.formGrid{grid-template-columns:1fr}.formField.full{grid-column:1}}
+    @media print{body{background:#fff;font-size:12px}.topbar{color:#111;background:#fff;border:0;box-shadow:none}.topbarInner{min-height:auto;padding-top:10px;padding-bottom:8px}.logo,.topTag,.toolbar,.stats,.notice,.phoneActions,.pagination,.credits,.toast,.modalOverlay{display:none!important}.main{padding-top:8px;padding-bottom:0}.intro{margin-bottom:10px}.intro h2{font-size:17px}.panel{border-radius:0;box-shadow:none;border:0}table{display:table!important}thead{display:table-header-group!important;background:#17636d!important;color:white!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}tbody{display:table-row-group!important;padding:0}tbody tr{display:table-row!important;break-inside:avoid}tbody td{display:table-cell!important;padding:7px 12px}.phoneCell{padding-left:0}.avatar{display:none}.staffName{font-size:12px}.staffDetail{font-size:10px}.footerPanel{padding:10px 0}.container{max-width:none}thead th{padding:8px 12px}.intro p{display:none}}
+  
+    /* V5: เมนูสลับด้านขวาบนตามรูปตัวอย่าง */
+    .headerSwitcher{display:inline-flex;align-items:center;gap:3px;padding:5px;background:#fff;border:1px solid rgba(255,255,255,.68);border-radius:16px;box-shadow:0 8px 24px rgba(6,36,40,.17);flex-shrink:0}
+    .switcherItem{display:inline-flex;align-items:center;justify-content:center;min-height:43px;padding:9px 17px;border:0;border-radius:12px;background:transparent;color:#45676c;font-size:13px;font-weight:500;line-height:1.3;text-align:center;white-space:nowrap;transition:background-color .16s,color .16s}
+    .switcherItem.switcherActive{background:#e8f2ec;color:#124e45;font-weight:600;cursor:default}
+    .headerSwitcher a.switcherItem:not(.switcherActive):hover{background:#eff7f5;color:#145e62}
+    .headerSwitcher button.switcherItem:focus-visible,.headerSwitcher a.switcherItem:focus-visible{outline:3px solid #edca6e;outline-offset:2px}
+    @media(max-width:760px){.headerSwitcher{gap:2px;padding:4px;border-radius:13px}.switcherItem{min-height:39px;padding:8px 12px;font-size:12px}}
+    @media(max-width:540px){.topbarInner{flex-direction:column;align-items:stretch;gap:0;padding-top:13px;padding-bottom:12px}.brand{align-self:flex-start}.headerSwitcher{align-self:flex-end;margin-top:10px}.switcherItem{min-height:36px;padding:7px 12px;font-size:12px}}
+    @media print{.headerSwitcher{display:none!important}}
+  
+    /* v10: feedback for asynchronous operations */
+    [hidden]{display:none!important}
+    .syncStatus{display:inline-flex;align-items:center;gap:9px;margin-bottom:12px;font-size:12px;color:#476b71;background:#eaf5f4;border:1px solid #d1e7e4;border-radius:100px;padding:6px 12px}
+    .syncStatus .miniSpinner,.btnWaiting .miniSpinner{width:15px;height:15px;border:2px solid #a9d3d1;border-top-color:var(--teal);border-radius:50%;display:inline-block;animation:spin .7s linear infinite}
+    .notice .noticeActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:7px}
+    .noticeAction{background:#fff;border:1px solid #e5b9ac;color:#844536;border-radius:9px;padding:4px 10px;font:inherit;cursor:pointer}
+    .noticeAction:hover{background:#fff1ec}
+    .modalPanel{position:relative}
+    .saveProgress{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(255,255,255,.96);text-align:center}
+    .saveProgressCard{width:100%;max-width:380px;display:flex;flex-direction:column;align-items:center;gap:12px}
+    .saveProgressSpinner{width:50px;height:50px;border:4px solid #d6eae9;border-top-color:var(--teal);border-radius:50%;animation:spin .7s linear infinite}
+    .saveProgressTitle{font-size:18px;font-weight:600;color:var(--ink)}
+    .saveProgressDetail{font-size:12px;color:var(--muted);line-height:1.75}
+    .progressSteps{display:flex;align-items:center;gap:8px;margin-top:6px;width:100%;justify-content:center}
+    .progressStep{display:flex;align-items:center;gap:5px;font-size:11px;color:#9aa8ab;white-space:nowrap}
+    .progressStep::before{content:'';width:9px;height:9px;border-radius:50%;background:#d8e3e3}
+    .progressStep.done{color:#22795b}.progressStep.done::before{background:#32a279}
+    .progressStep.active{color:var(--teal);font-weight:600}.progressStep.active::before{background:var(--teal);box-shadow:0 0 0 4px #cde8e5}
+    @media(max-width:480px){.progressSteps{gap:5px}.progressStep{font-size:10px}}
+    @media(prefers-reduced-motion:reduce){.saveProgressSpinner,.syncStatus .miniSpinner{animation-duration:1.8s}}
 </style>
 </head>
 <body>
-<header class="header"><div class="container headInner"><div class="brand"><div class="brandIcon" aria-hidden="true">☏</div><div><h1>สมุดโทรศัพท์บุคลากร</h1><p id="orgHeader">ระบบบริหารจัดการข้อมูลบุคลากร</p><span class="versionTag">v16</span></div></div><nav class="switcher" aria-label="เมนูหลัก"><a href="./index.html">สมุดโทรศัพท์</a><a href="./admin.html" class="active" aria-current="page">ผู้ดูแลระบบ</a></nav></div></header>
-<main class="container">
-<section id="loginView" class="card loginCard"><div class="loginIcon">♙</div><h2>เข้าสู่ระบบผู้ดูแล</h2><p>เข้าสู่ระบบด้วยบัญชี Admin หรือ Staff เพื่อจัดการสมุดโทรศัพท์</p><form id="loginForm"><div class="field"><label for="username">ชื่อผู้ใช้งาน</label><input id="username" name="username" autocomplete="username" value="admin" required maxlength="30" placeholder="admin หรือชื่อบัญชีเจ้าหน้าที่"></div><div class="field" style="margin-top:13px"><label for="password">รหัสผ่าน</label><input id="password" name="password" type="password" autocomplete="current-password" minlength="12" maxlength="128" required placeholder="กรอกรหัสผ่าน"></div><div id="loginMsg" class="message" hidden role="alert"></div><button id="loginButton" type="submit" class="btn btnPrimary" style="width:100%;margin-top:19px">เข้าสู่ระบบ →</button><div id="loginWait" class="loginWait" hidden><span class="spinner" aria-hidden="true"></span><span id="loginWaitText">กำลังตรวจสอบสิทธิ์...</span></div></form><p class="hint">เวอร์ชัน v16 · หน้าเข้าสู่ระบบแสดงทันที และเลิกใช้ Loading บังหน้าจอ<br>เจ้าของระบบตั้งรหัสใน Apps Script ด้วยฟังก์ชัน setPhonebookAdminPassword<br>คงสถานะล็อกอินเมื่อรีเฟรชในแท็บนี้ จนกว่าเซสชันจะหมดอายุหรือกดออกจากระบบ</p></section>
-<section id="dashboardView" hidden>
-<div class="intro"><div><div class="eyebrow">PHONEBOOK MANAGEMENT</div><h2>จัดการสมุดโทรศัพท์</h2><p><span id="welcomeRole">ผู้ใช้งาน</span> · จัดการรายชื่อบุคลากร</p></div><div class="btnRow"><button id="reloadBtn" class="btn" type="button">↻ อัปเดตข้อมูล</button><button id="logoutBtn" class="btn btnDanger" type="button">ออกจากระบบ</button></div></div>
-<div id="globalMsg" class="message" hidden role="status" aria-live="polite"></div><div id="workStatus" class="workStatus" hidden><span class="spinner" aria-hidden="true"></span><span id="workStatusText">กำลังโหลดข้อมูล...</span></div>
-<div class="stats"><div class="card stat"><div class="statIcon">▤</div><div><strong id="totalStat">—</strong><span>รายชื่อทั้งหมด</span></div></div><div class="card stat"><div class="statIcon">✓</div><div><strong id="activeStat">—</strong><span>เผยแพร่แล้ว</span></div></div><div class="card stat"><div class="statIcon warn">◷</div><div><strong id="pendingStat">—</strong><span>ยังไม่เผยแพร่</span></div></div></div>
-<section class="card panel"><div class="tabs" role="tablist" aria-label="หน้าจัดการ"><button class="tab active" data-tab="all" role="tab" aria-selected="true" type="button">รายชื่อทั้งหมด</button><button class="tab" data-tab="pending" role="tab" aria-selected="false" type="button">ยังไม่เผยแพร่ <span id="pendingTag"></span></button><button class="tab" id="duplicateTab" data-tab="duplicates" type="button">ตรวจรายชื่อซ้ำ <span id="duplicateTag"></span></button><button class="tab" id="unitsTab" data-tab="units" type="button">ฝ่าย / งาน / แผนกวิชา</button><button class="tab" id="settingsTab" data-tab="settings" role="tab" aria-selected="false" type="button">ตั้งค่าระบบ</button><button class="tab" id="usersTab" data-tab="users" role="tab" aria-selected="false" type="button">ผู้ใช้งานและสิทธิ์</button><button class="tab" data-tab="account" type="button">บัญชีของฉัน</button></div>
-<div id="recordsView"><div class="sectionHead"><div><h3 id="recordsHeading">รายชื่อทั้งหมด</h3><p>เพิ่ม แก้ไข ลบ และจัดการสถานะการเผยแพร่ · แท็บตรวจรายชื่อซ้ำเป็นรายการรอตรวจสอบ ไม่ลบข้อมูลอัตโนมัติ</p></div><button class="btn btnPrimary" type="button" id="newContactBtn">+ เพิ่มรายชื่อ</button></div><div class="filters"><input id="search" type="search" placeholder="ค้นหาชื่อ นามสกุล เบอร์โทร LINE ID..." aria-label="ค้นหารายชื่อ"><select id="statusFilter" aria-label="สถานะ"><option value="all">ทุกสถานะ</option><option value="published">เผยแพร่แล้ว</option><option value="pending">ยังไม่เผยแพร่</option></select></div><div class="tableScroll"><table><thead><tr><th>ชื่อ - นามสกุล</th><th>เบอร์โทรศัพท์ / LINE</th><th>ฝ่าย / ตำแหน่ง</th><th>สถานะ</th><th>จัดการ</th></tr></thead><tbody id="rows"></tbody></table></div><div class="footer"><span id="countText">กำลังโหลด...</span><div class="btnRow"><button class="btn btnTiny" id="prevBtn" type="button">‹ ก่อนหน้า</button><span id="pagesText">1 / 1</span><button class="btn btnTiny" id="nextBtn" type="button">ถัดไป ›</button></div></div></div>
-<div id="unitsView" hidden>
-  <div class="sectionHead"><div><h3>ทะเบียนฝ่าย งาน และแผนกวิชา</h3><p>แก้ไขรายการส่วนกลางได้ที่นี่ รายการในฟอร์มและตัวกรองหน้าสาธารณะจะอัปเดตจาก Google Sheets</p></div>
-    <div class="btnRow"><button class="btn" type="button" id="reloadUnits">↻ โหลดหน่วยงาน</button><button class="btn btnPrimary" type="button" id="newUnitBtn">+ เพิ่มหน่วยงาน</button></div></div>
-  <div style="padding:10px 20px;color:#607a82;font-size:12px">หน่วยงานที่ยังมีผู้ใช้อยู่จะลบไม่ได้ การเปลี่ยนชื่อหรือย้ายสังกัดจะปรับข้อมูลบุคลากรที่ตรงกันโดยอัตโนมัติ</div>
-  <div class="tableScroll"><table><thead><tr><th>ชื่อหน่วยงาน</th><th>ประเภท</th><th>สังกัด</th><th>สถานะ</th><th>จัดการ</th></tr></thead><tbody id="unitRows"><tr><td colspan="5">เลือกแท็บนี้เพื่อโหลดทะเบียนหน่วยงาน</td></tr></tbody></table></div>
-</div>
-<div id="usersView" hidden><div class="sectionHead"><div><h3>บัญชีผู้ใช้งานและสิทธิ์</h3><p>Admin สามารถสร้างบัญชีและกำหนดสิทธิ์เจ้าหน้าที่</p></div><button id="reloadUsers" class="btn" type="button">↻ โหลดบัญชี</button></div><form id="createUserForm" class="settingsContent"><div class="field"><label for="newUsername">ชื่อผู้ใช้ใหม่ (ภาษาอังกฤษ)</label><input id="newUsername" required minlength="3" maxlength="30" pattern="[a-zA-Z][a-zA-Z0-9._-]{2,29}" placeholder="เช่น officer01" autocomplete="off"></div><div class="field"><label for="newUserRole">บทบาท</label><select id="newUserRole"><option value="staff">เจ้าหน้าที่ (Staff)</option><option value="admin">ผู้ดูแลระบบ (Admin)</option></select></div><div class="field wide"><label for="newUserPassword">รหัสผ่านเริ่มต้น (อย่างน้อย 12 ตัวอักษร)</label><input id="newUserPassword" type="password" required minlength="12" maxlength="128" autocomplete="new-password" placeholder="ตั้งรหัสเริ่มต้นแล้วแจ้งเจ้าหน้าที่โดยช่องทางที่ปลอดภัย"></div><div class="settingsActions"><button class="btn btnPrimary" type="submit">+ สร้างบัญชี</button></div></form><div class="tableScroll"><table><thead><tr><th>ชื่อผู้ใช้</th><th>บทบาท</th><th>สถานะ</th><th>จัดการ</th></tr></thead><tbody id="usersRows"><tr><td colspan="4">เลือกแท็บเพื่อโหลดรายชื่อบัญชี</td></tr></tbody></table></div></div><div id="settingsView" hidden><div class="sectionHead"><div><h3>ตั้งค่าระบบ</h3><p>ปรับชื่อหน่วยงาน รูปแบบการแสดงผล และสิทธิ์การรับข้อมูล</p></div></div><form id="settingsForm" class="settingsContent"><div class="field wide"><label for="organizationName">ชื่อหน่วยงาน</label><input id="organizationName" maxlength="120" required></div><div class="field"><label for="pageSize">จำนวนรายชื่อต่อหน้า (5–100)</label><input type="number" id="pageSize" min="5" max="100" required></div><div class="field"><label for="accent">สีหลักของเว็บไซต์</label><div class="colorField"><input type="color" id="accent" value="#17636d"><span id="accentText">#17636d</span></div></div><div class="wide switchField"><input id="allowSubmissions" type="checkbox"><label for="allowSubmissions">เปิดรับรายชื่อใหม่จากผู้ใช้งานทั่วไป (บันทึกแล้วเผยแพร่ทันที)</label></div><div class="settingsActions"><button type="submit" class="btn btnPrimary" id="saveSettingsBtn">บันทึกการตั้งค่า</button></div></form></div><div id="accountView" hidden><div class="sectionHead"><div><h3>บัญชีของฉัน</h3><p>เปลี่ยนรหัสผ่านสำหรับบัญชีที่กำลังใช้งาน</p></div></div><div class="settingGroup"><h4>เปลี่ยนรหัสผ่านของฉัน</h4><form id="changePasswordForm"><div class="formGrid"><div class="field"><label for="oldPassword">รหัสผ่านปัจจุบัน</label><input id="oldPassword" type="password" autocomplete="current-password" required></div><div class="field"><label for="newPassword">รหัสผ่านใหม่ (อย่างน้อย 12 ตัวอักษร)</label><input id="newPassword" type="password" autocomplete="new-password" minlength="12" required></div></div><button type="submit" class="btn" style="margin-top:14px" id="changePasswordBtn">เปลี่ยนรหัสผ่าน</button><p class="hint">เมื่อเปลี่ยนสำเร็จ ระบบจะออกจากระบบและต้องเข้าสู่ระบบใหม่</p></form></div></div>
-</section></section>
-</main>
-<div id="contactModal" class="modalOverlay" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle"><div class="modalHead"><h3 id="contactModalTitle">เพิ่มรายชื่อ</h3><button class="xbtn" id="closeModalBtn" type="button" aria-label="ปิด">×</button></div><div class="modalBody"><form id="contactForm"><div class="formGrid"><div class="field"><label for="firstName">ชื่อ <span class="req">*</span></label><input id="firstName" name="firstName" required maxlength="100"></div><div class="field"><label for="lastName">นามสกุล <span class="req">*</span></label><input id="lastName" name="lastName" required maxlength="100"></div><div class="field wide"><label for="phone">เบอร์โทรศัพท์ <span class="req">*</span></label><input id="phone" name="phone" type="tel" inputmode="tel" maxlength="32" required placeholder="0891234567"></div><div class="field"><label for="lineId">LINE ID (ไม่บังคับ)</label><input id="lineId" name="lineId" maxlength="100"></div><div class="field"><label for="department">ฝ่าย / งาน / แผนก (ไม่บังคับ)</label><select id="department" name="department" aria-label="เลือกฝ่าย งาน หรือแผนก"><option value="">— ไม่ระบุฝ่าย / งาน / แผนก —</option></select></div><div class="field wide"><label for="position">ตำแหน่ง (ไม่บังคับ)</label><input id="position" name="position" maxlength="100"></div><div class="field wide"><label class="checkRow"><input type="checkbox" id="published" name="published"><span>เผยแพร่รายชื่อนี้บนเว็บไซต์</span></label></div></div><div id="formMsg" class="message" role="alert" hidden></div><div class="formActions"><button type="button" id="cancelBtn" class="btn">ยกเลิก</button><button type="submit" class="btn btnPrimary" id="submitContactBtn">บันทึกข้อมูล</button></div></form></div></section></div>
-<div id="unitModal" class="modalOverlay" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="unitModalTitle"><div class="modalHead"><h3 id="unitModalTitle">เพิ่มหน่วยงาน</h3><button class="xbtn" id="closeUnitModal" type="button" aria-label="ปิด">×</button></div><div class="modalBody">
-<form id="unitForm"><div class="formGrid"><div class="field wide"><label for="unitName">ชื่อฝ่าย / งาน / แผนก <span class="req">*</span></label><input id="unitName" required maxlength="120" placeholder="เช่น งานทะเบียน"></div><div class="field"><label for="unitType">ประเภท</label><select id="unitType"><option value="division">ฝ่ายหลัก</option><option value="group">หมวด / ประเภทวิชา (หัวข้อกลุ่ม)</option><option value="unit" selected>งาน / แผนก / สาขาวิชา</option></select></div><div class="field"><label for="unitParent">สังกัด</label><select id="unitParent"></select></div><div class="field"><label for="unitSort">ลำดับการแสดงผล</label><input type="number" min="0" max="99999" id="unitSort" value="100" required></div><div class="field"><label class="checkRow"><input type="checkbox" id="unitEnabled" checked><span>เปิดใช้งาน</span></label></div></div><div id="unitMessage" class="message" hidden role="alert"></div><div class="formActions"><button class="btn" type="button" id="cancelUnitModal">ยกเลิก</button><button class="btn btnPrimary" type="submit">บันทึกหน่วยงาน</button></div></form></div></section></div>
-<div id="userActionModal" class="modalOverlay" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="userActionTitle"><div class="modalHead"><h3 id="userActionTitle">จัดการบัญชีผู้ใช้</h3><button class="xbtn" id="closeUserAction" type="button" aria-label="ปิด">×</button></div><div class="modalBody"><form id="userActionForm"><div id="userActionMsg" class="message" role="alert" hidden></div><p id="userActionDesc" class="muted"></p><div id="userRoleField" class="field"><label for="userRoleSelect">บทบาทใหม่</label><select id="userRoleSelect"><option value="staff">Staff — เพิ่มและแก้ไข</option><option value="admin">Admin — จัดการทั้งหมด</option></select></div><div id="userPasswordField" class="field" hidden><label for="userNewPassword">รหัสผ่านใหม่ (12 ตัวอักษรขึ้นไป)</label><input id="userNewPassword" type="password" minlength="12" maxlength="128" autocomplete="new-password" placeholder="กรอกรหัสผ่านใหม่"></div><div class="formActions"><button id="cancelUserAction" class="btn" type="button">ยกเลิก</button><button class="btn btnPrimary" type="submit">บันทึกการเปลี่ยนแปลง</button></div></form></div></section></div>
-<script>
-'use strict';
+  <header class="topbar">
+    <div class="container topbarInner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.19 18a19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.09 3.18 2 2 0 0 1 4.08 1h3a2 2 0 0 1 2 1.72c.12.96.35 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.04 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.56 2.81.68A2 2 0 0 1 22 16.92z"/></svg></div>
+        <div><h1>สมุดโทรศัพท์บุคลากร</h1><p id="organizationText">ระบบค้นหาข้อมูลการติดต่อ</p></div>
+      </div>
+      <!-- เมนูแยกสำหรับหน้าสาธารณะและผู้ดูแลระบบ (ไม่ปะปนกับเครื่องมือค้นหา) -->
+      <nav class="headerSwitcher" aria-label="เมนูหลัก">
+        <a class="switcherItem switcherActive" href="./" aria-current="page">สมุดโทรศัพท์</a>
+        <a class="switcherItem" id="adminBtn" href="./admin.html" title="ไปหน้าผู้ดูแลระบบ">ผู้ดูแลระบบ</a>
+      </nav>
+    </div>
+  </header>
+  <main class="container main">
+    <section class="intro">
+      <div><div class="eyebrow">STAFF DIRECTORY</div><h2>ค้นหาเบอร์โทรศัพท์</h2><p>ค้นหารายชื่อและติดต่อบุคลากรได้อย่างรวดเร็ว</p></div>
+      <div class="stats"><div class="stat"><b id="totalCount">—</b><span>รายชื่อทั้งหมด</span></div><div class="stat"><b id="deptCount">—</b><span>ฝ่ายหลัก</span></div></div>
+    </section>
+    <div id="syncStatus" class="syncStatus" role="status" aria-live="polite" hidden><span class="miniSpinner" aria-hidden="true"></span><span id="syncStatusText">กำลังเชื่อมต่อข้อมูล...</span></div>
+    <div id="notice" class="notice" hidden></div>
+    <section class="panel" aria-label="รายชื่อบุคลากร">
+      <div class="toolbar">
+        <label class="search"><input type="search" id="searchInput" placeholder="ค้นหาชื่อ นามสกุล หรือเบอร์โทรศัพท์..." autocomplete="off" aria-label="ค้นหารายชื่อ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></label>
+        <select id="departmentSelect" aria-label="เลือกฝ่ายหรือแผนก"><option value="">ทุกฝ่าย / ทุกแผนก</option></select>
+        <div class="actionbar">
+          <button class="btn btnPrimary" id="addBtn" type="button" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>เพิ่มข้อมูล</button>
+          <button class="btn iconBtn" id="refreshBtn" title="อัปเดตข้อมูล" aria-label="อัปเดตข้อมูล"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15.36-6.36L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.36 6.36L3 16"/><path d="M8 16H3v5"/></svg></button>
+          <button class="btn" id="csvBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v12m0 0-4-4m4 4 4-4"/><path d="M5 17v3h14v-3"/></svg>CSV</button>
+          <button class="btn btnPrimary" id="printBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>พิมพ์ / PDF</button>
+        </div>
+      </div>
+      <div class="tableWrap">
+        <table><thead><tr><th>ชื่อ - นามสกุล</th><th>เบอร์โทรศัพท์</th></tr></thead><tbody id="directoryBody"></tbody></table>
+        <div id="statusArea" class="loading"><div class="loader" role="status"></div>กำลังโหลดรายชื่อ...</div>
+      </div>
+      <div class="footerPanel"><div id="resultText">—</div><div class="pagination"><button id="prevBtn" aria-label="หน้าก่อนหน้า">‹</button><span id="pageText">1 / 1</span><button id="nextBtn" aria-label="หน้าถัดไป">›</button></div></div>
+    </section>
+    <p class="credits">ข้อมูลในสมุดโทรศัพท์นี้เผยแพร่บนเว็บไซต์ · ผู้ดูแลสามารถแก้ไขหรือซ่อนรายชื่อได้</p>
+  </main>
+  <div id="addModal" class="modalOverlay" hidden>
+    <section class="modalPanel" role="dialog" aria-modal="true" aria-labelledby="addModalTitle">
+      <div class="modalHeader"><div><h3 id="addModalTitle">เพิ่มรายชื่อบุคลากร</h3><p>เมื่อบันทึกสำเร็จ รายชื่อจะแสดงบนเว็บไซต์ทันที</p></div>
+      <button class="modalClose" id="closeModalBtn" type="button" aria-label="ปิดหน้าต่างเพิ่มข้อมูล">×</button></div>
+      <div class="modalBody">
+        <form id="contactForm" autocomplete="off">
+          <div class="formGrid">
+            <div class="formField"><label for="contactFirst">ชื่อ <span class="req">*</span></label><input id="contactFirst" name="firstName" required maxlength="100" autocomplete="given-name" placeholder="กรอกชื่อ"></div>
+            <div class="formField"><label for="contactLast">นามสกุล <span class="req">*</span></label><input id="contactLast" name="lastName" required maxlength="100" autocomplete="family-name" placeholder="กรอกนามสกุล"></div>
+            <div class="formField full"><label for="contactPhone">เบอร์โทรศัพท์ <span class="req">*</span></label><input id="contactPhone" name="phone" required type="tel" inputmode="tel" maxlength="32" autocomplete="tel" placeholder="เช่น 0891234567"></div>
+            <div class="formField"><label for="contactLine">LINE ID (ไม่บังคับ)</label><input id="contactLine" name="lineId" maxlength="100" placeholder="LINE ID"></div>
+            <div class="formField"><label for="contactDept">ฝ่าย / งาน / แผนก (ไม่บังคับ)</label><select id="contactDept" name="department" aria-label="เลือกฝ่าย งาน หรือแผนก"><option value="">— ไม่ระบุฝ่าย / งาน / แผนก —</option></select></div>
+            <div class="formField full"><label for="contactPosition">ตำแหน่ง (ไม่บังคับ)</label><input id="contactPosition" name="position" maxlength="100" placeholder="ตำแหน่ง"></div>
+          </div>
+          <div id="formFeedback" class="formFeedback" role="status" aria-live="polite" hidden></div>
+          <div class="formActions"><button id="cancelContactBtn" class="btn" type="button">ยกเลิก</button><button id="saveContactBtn" class="btn btnPrimary" type="submit">บันทึกข้อมูล</button></div>
+          <p class="formTip">ช่องที่มี * จำเป็นต้องกรอก · การบันทึกจะเผยแพร่ชื่อ นามสกุล และเบอร์โทรศัพท์ให้ผู้เข้าชมเว็บเห็นทันที</p>
+        </form>
+      </div>
+      <div id="saveProgress" class="saveProgress" role="status" aria-live="polite" aria-atomic="true" hidden>
+        <div class="saveProgressCard">
+          <div class="saveProgressSpinner" aria-hidden="true"></div>
+          <div class="saveProgressTitle" id="saveProgressTitle">กำลังส่งข้อมูล...</div>
+          <div class="saveProgressDetail" id="saveProgressDetail">กำลังติดต่อ Google Apps Script โปรดรอสักครู่</div>
+          <div class="progressSteps" aria-hidden="true">
+            <span id="saveStep1" class="progressStep active">ส่งข้อมูล</span>
+            <span id="saveStep2" class="progressStep">ยืนยันการบันทึก</span>
+            <span id="saveStep3" class="progressStep">แสดงรายชื่อ</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script>
+  'use strict';
 
 // ทุกตัวเลือกมาจากทะเบียนหน่วยงานกลางใน Google Sheets; ไม่เก็บรายการคงที่ซ้ำในหน้าเว็บ
 let orgUnits=[];
@@ -100,371 +199,377 @@ function unitOptions(select,items,kind='edit',legacy=''){
   if(select.selectedIndex<0)select.value='';
 }
 
-const API_URL='https://script.google.com/macros/s/AKfycbzbkJsy5Qs8oVvckvRYxYNJLDDUQLHp9BOZYi6orFVODLKg33_0aHrPp5Jwuxeu8ob2/exec';
-const $=id=>document.getElementById(id);
-const state={token:null,username:'',role:'',contacts:[],settings:null,dataLoaded:false,loadError:'',tab:'all',page:1,editId:null,busy:false,users:null,userEditUsername:'',userEditMode:''};
-const SESSION_STORAGE_KEY='phonebook-admin-session-v15';
-let sessionExpiresAt=0;
-function forgetStoredSession(){
-  try{sessionStorage.removeItem(SESSION_STORAGE_KEY);}catch(_){}
-  sessionExpiresAt=0;
-}
-function persistSession(){
-  if(!state.token||!sessionExpiresAt)return;
-  try{
-    sessionStorage.setItem(SESSION_STORAGE_KEY,JSON.stringify({
-      token:state.token,username:state.username,role:state.role,
-      expiresAt:sessionExpiresAt,apiUrl:API_URL
-    }));
-  }catch(_){/* Login still works when browser storage is unavailable. */}
-}
-function restoreSession(){
-  let saved;
-  try{saved=JSON.parse(sessionStorage.getItem(SESSION_STORAGE_KEY)||'null');}catch(_){forgetStoredSession();return;}
-  if(!saved)return;
-  if(!/^[a-f0-9]{64}$/.test(saved.token||'')||
-     !['admin','staff'].includes(saved.role)||
-     typeof saved.username!=='string'||!saved.username||
-     saved.apiUrl!==API_URL||!Number.isFinite(saved.expiresAt)||saved.expiresAt<=Date.now()){
-    forgetStoredSession();return;
-  }
-  state.token=saved.token;state.username=saved.username;state.role=saved.role;
-  sessionExpiresAt=saved.expiresAt;
-  $('loginView').hidden=true;$('dashboardView').hidden=false;
-  applyPermissions();tab('all');
-  // The server checks token validity, account status and role on every load.
-  loadDashboard();
-}
-let perPage=12;
-function msg(id,text,type='error'){const el=$(id);el.textContent=text||'';el.className='message '+type;el.hidden=!text}
-function setBusy(isBusy,title='กำลังดำเนินการ...'){
-  state.busy=isBusy;
-  if(isBusy)dashboardLoadNumber++;
-  document.querySelectorAll('#dashboardView button,#loginForm button,#contactModal button,#userActionModal button,#unitModal button').forEach(b=>b.disabled=isBusy);
-  // ไม่ขึ้นหน้าต่างโหลดทับหน้าล็อกอินอีกต่อไป ให้เห็นอินพุตและสถานะได้ตลอด
-  // v12: intentionally no fullscreen loading overlay
-  const inLogin=$('dashboardView').hidden;
-  $('loginWait').hidden=!isBusy||!inLogin;
-  $('loginWaitText').textContent=title;
-  $('loginButton').textContent=isBusy&&inLogin?'กำลังตรวจสอบ...':'เข้าสู่ระบบ →';
-  $('workStatus').hidden=!isBusy||inLogin;
-  $('workStatusText').textContent=title;
-  if(!isBusy){const pages=Math.max(1,Math.ceil(visibleContacts().length/perPage));$('prevBtn').disabled=state.page<=1;$('nextBtn').disabled=state.page>=pages;}
-}
-function requestId(){const bytes=new Uint8Array(16);crypto.getRandomValues(bytes);return Array.from(bytes,b=>b.toString(16).padStart(2,'0')).join('')}
-function jsonp(params,timeout=6500){return new Promise((resolve,reject)=>{
-  const name='phonebookAdmin_'+requestId();const script=document.createElement('script');let done=false;
-  const finish=(err,data)=>{if(done)return;done=true;clearTimeout(timer);delete window[name];script.remove();err?reject(err):resolve(data)};
-  window[name]=data=>finish(null,data);script.onerror=()=>finish(new Error('ไม่สามารถเชื่อมต่อ Apps Script ได้ กรุณาตรวจสอบ Deployment'));
-  const timer=setTimeout(()=>finish(new Error('การติดต่อ Apps Script ใช้เวลานานเกินไป')),timeout);
-  const u=new URL(API_URL);Object.entries(params).forEach(([k,v])=>u.searchParams.set(k,v));u.searchParams.set('callback',name);u.searchParams.set('_',Date.now());script.src=u.href;document.head.appendChild(script);
-})}
-// ไม่ใช้ fetch เพราะ Google Apps Script Web App ไม่ได้เปิด CORS สำหรับคำขอจาก GitHub Pages
-// POST แบบ HTML form -> iframe ที่ซ่อน -> ตรวจคำตอบด้วย requestId แบบสุ่มผ่าน JSONP
-// v13: POST ผ่าน iframe ที่ซ่อน; หาก Apps Script ส่งข้อความกลับได้โดยตรง
-// จะใช้ผลนั้นทันที (1 รอบการติดต่อ). หาก Google CSP บล็อก iframe ให้ fallback ไป JSONP status.
-function post(fields){
-  const rid=requestId(),iframe=document.createElement('iframe');
-  iframe.name='phonebook_admin_'+rid;iframe.title='ส่งคำขอระบบ';iframe.hidden=true;iframe.style.display='none';
-  let receive;
-  const fast=new Promise(resolve=>{receive=resolve});
-  const onMessage=event=>{
-    if(!/^https:\/\/(?:script\.google\.com|(?:[a-z0-9-]+-)?script\.googleusercontent\.com)$/.test(event.origin))return;
-    const d=event.data;
-    if(!d||d.source!=='phonebook-v12'||d.requestId!==rid||typeof d.payload!=='object')return;
-    receive(d.payload);
+  /* ==============================================================
+   * ตั้งค่าเพียง 2 จุด: apiUrl และ organizationName
+   * URL ต้องเป็น Web App ที่ Deploy จากไฟล์ Code.gs ในชุดนี้เท่านั้น
+   * อย่านำลิงก์จากระบบ Google Apps Script อื่นมาใส่
+   * ============================================================= */
+  const CONFIG = {
+    apiUrl: 'https://script.google.com/macros/s/AKfycbzbkJsy5Qs8oVvckvRYxYNJLDDUQLHp9BOZYi6orFVODLKg33_0aHrPp5Jwuxeu8ob2/exec',
+    organizationName: 'วิทยาลัยการอาชีพนครยะลา',
+    pageSize: 12,
+    timeoutMs: 16000
   };
-  window.addEventListener('message',onMessage);
-  document.body.appendChild(iframe);
-  const form=document.createElement('form');form.method='POST';form.action=API_URL;
-  form.target=iframe.name;form.acceptCharset='UTF-8';form.hidden=true;
-  Object.entries({...fields,requestId:rid,fastReply:'1',replyOrigin:location.origin}).forEach(([key,value])=>{
-    const input=document.createElement('input');input.type='hidden';input.name=key;
-    input.value=String(value??'');form.appendChild(input);
+
+  const SAMPLE = [
+    {id:'demo-1',firstName:'สมชาย',lastName:'ตัวอย่าง',phone:'08X-XXX-XXXX',department:'ฝ่ายบริหาร',position:'บุคลากร'},
+    {id:'demo-2',firstName:'สมหญิง',lastName:'ตัวอย่าง',phone:'09X-XXX-XXXX',department:'งานทะเบียน',position:'เจ้าหน้าที่'},
+    {id:'demo-3',firstName:'กมล',lastName:'ตัวอย่าง',phone:'02-XXX-XXXX',department:'งานวิชาการ',position:'บุคลากร'},
+    {id:'demo-4',firstName:'นภา',lastName:'ตัวอย่าง',phone:'08X-XXX-XXXX',department:'งานทะเบียน',position:'เจ้าหน้าที่'}
+  ];
+  const $ = (id) => document.getElementById(id);
+  // แสดงรายชื่อสาธารณะที่เคยโหลดไว้ทันที แล้วค่อยตรวจข้อมูลใหม่เมื่อครบระยะเวลา
+  // ไม่เก็บข้อมูลของ Admin ไว้ในแคชนี้
+  const PUBLIC_CACHE_KEY = 'phonebook-public-v8';
+  const CACHE_FRESH_MS = 0;
+  const CACHE_MAX_MS = 5 * 60 * 1000;
+  const state = {contacts:[], filtered:[], page:1, loading:false, requestNumber:0, hasData:false,settings:{}};
+  const icons = {
+    call:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9V20a2 2 0 0 1-2.18 2A19.8 19.8 0 0 1 11.2 18a19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.8A2 2 0 0 1 4.1 1h3A2 2 0 0 1 9 2.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 8.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.5 2.8.6A2 2 0 0 1 22 16.9z"/></svg>',
+    copy:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg>',
+    info:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/></svg>'
+  };
+  function showNotice(message, type='info') {
+    const el=$('notice'); el.replaceChildren();
+    if (!message){el.hidden=true;return;}
+    const ico=document.createElement('span');ico.innerHTML=icons.info;
+    const txt=document.createElement('div');txt.textContent=message;
+    if(type==='error'){
+      const buttons=document.createElement('div');buttons.className='noticeActions';
+      const retry=document.createElement('button');retry.type='button';retry.className='noticeAction';retry.textContent='↻ ลองโหลดใหม่';
+      retry.addEventListener('click',()=>loadContacts({force:true}));buttons.appendChild(retry);
+      if(CONFIG.apiUrl.trim()){
+        const test=document.createElement('a');test.className='noticeAction';test.target='_blank';test.rel='noopener noreferrer';
+        const u=new URL(CONFIG.apiUrl);u.searchParams.set('action','health');test.href=u.href;
+        test.textContent='ทดสอบการเชื่อมต่อ';buttons.appendChild(test);
+      }
+      txt.appendChild(buttons);
+    }
+    el.append(ico,txt);el.className='notice'+(type==='error'?' error':'');el.hidden=false;
+  }
+  let toastTimer;
+  function toast(message){const el=$('toast');el.textContent=message;el.classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('visible'),2400)}
+  function normalizeContact(c){return {
+    id:String(c.id ?? ''),firstName:String(c.firstName ?? '').trim(),lastName:String(c.lastName ?? '').trim(),
+    phone:String(c.phone ?? '').trim(),department:String(c.department ?? '').trim(),position:String(c.position ?? '').trim(),lineId:String(c.lineId ?? '').trim()
+  }}
+  function canCall(phone){const value=phone.replace(/[\s\-().]/g,'');return /^\+?\d{6,15}$/.test(value)}
+  function normalizeDigits(text){return text.replace(/[\s\-().]/g,'')}
+  function setData(contacts){
+    if(printState){setTimeout(()=>setData(contacts),250);return;}
+    const seen=new Map();
+    const canonical=new Set(Array.from($('contactDept').options).map(x=>x.value).filter(Boolean));
+    const rank=c=>(canonical.has(c.department)?10:0)+(c.department?2:0)+(c.position?1:0)+(c.lineId?1:0);
+    contacts.map(normalizeContact).forEach(c=>{
+      if(!c.firstName&&!c.lastName)return;
+      // แสดงรายการที่ข้อมูลสมบูรณ์กว่า เมื่อพบชื่อ+เบอร์เดียวกันหลายแถว โดยไม่แตะชีตต้นฉบับ
+      const key=[c.firstName,c.lastName].map(x=>x.replace(/\s+/g,'').toLocaleLowerCase('th')).join('|')+'|'+c.phone.replace(/\D/g,'');
+      const old=seen.get(key);if(!old||rank(c)>rank(old))seen.set(key,c);
+    });
+    state.contacts=[...seen.values()];
+    state.hasData=true;
+    state.contacts.sort((a,b)=>`${a.firstName} ${a.lastName}`.localeCompare(`${b.firstName} ${b.lastName}`,'th'));
+    unitOptions($('departmentSelect'),orgUnits,'filter');
+    $('totalCount').textContent=state.contacts.length.toLocaleString('th-TH');
+    $('deptCount').textContent=orgUnits.filter(x=>x.type==='division'&&x.enabled).length.toLocaleString('th-TH');
+    state.page=1;applyFilters();
+  }
+  function applyFilters(){
+    const q=$('searchInput').value.trim().toLocaleLowerCase('th').replace(/\s+/g,' '),dept=$('departmentSelect').value;
+    state.filtered=state.contacts.filter(c=>{
+      const fields=[c.firstName,c.lastName,`${c.firstName} ${c.lastName}`,c.phone,c.department,c.position,c.lineId];
+      return (!dept||c.department===dept||(dept.startsWith('__division__')&&(()=>{const u=orgUnits.find(x=>x.id===dept.slice(12));return !!u&&(c.department===u.name||c.department.startsWith(u.name+' / '))})()))&&(!q||fields.some(x=>x.toLocaleLowerCase('th').includes(q))||(normalizeDigits(q)!==''&&normalizeDigits(c.phone).includes(normalizeDigits(q))));
+    });
+    state.page=Math.min(state.page,Math.max(1,Math.ceil(state.filtered.length/CONFIG.pageSize)));
+    render();
+  }
+  function createContactRow(c){
+    const row=document.createElement('tr');
+    const person=document.createElement('td');const staff=document.createElement('div');staff.className='staff';
+    const av=document.createElement('div');av.className='avatar';av.textContent=(c.firstName[0]||c.lastName[0]||'?');
+    const info=document.createElement('div');const nm=document.createElement('div');nm.className='staffName';nm.textContent=[c.firstName,c.lastName].filter(Boolean).join(' ');
+    const details=document.createElement('div');details.className='staffDetail';details.textContent=[c.department,c.position].filter(Boolean).join(' • ')||'บุคลากร';
+    info.append(nm,details);
+    if(c.lineId){const line=document.createElement('div');line.className='staffDetail';line.textContent='LINE ID: '+c.lineId;info.append(line)}
+    staff.append(av,info);person.append(staff);
+    const phoneTd=document.createElement('td');const wrapper=document.createElement('div');wrapper.className='phoneCell';
+    const phoneText=document.createElement('span');phoneText.className='phoneText';phoneText.textContent=c.phone||'—';
+    const actions=document.createElement('div');actions.className='phoneActions';
+    if(c.phone){
+      const copy=document.createElement('button');copy.className='smallBtn';copy.title='คัดลอกเบอร์โทรศัพท์';copy.setAttribute('aria-label','คัดลอกเบอร์ของ '+nm.textContent);copy.innerHTML=icons.copy;
+      copy.addEventListener('click',()=>copyText(c.phone));actions.append(copy);
+      if(canCall(c.phone)){
+        const dial=document.createElement('a');dial.className='smallBtn callBtn';dial.href='tel:'+normalizeDigits(c.phone);dial.setAttribute('aria-label','โทรหา '+nm.textContent);dial.innerHTML=icons.call+'<span>โทรออก</span>';actions.append(dial);
+      }
+    }
+    wrapper.append(phoneText,actions);phoneTd.append(wrapper);row.append(person,phoneTd);return row;
+  }
+  function render(){
+    const body=$('directoryBody');body.replaceChildren();const area=$('statusArea');
+    const pages=Math.max(1,Math.ceil(state.filtered.length/CONFIG.pageSize));state.page=Math.min(state.page,pages);
+    const start=(state.page-1)*CONFIG.pageSize,items=state.filtered.slice(start,start+CONFIG.pageSize);
+    items.forEach(c=>body.append(createContactRow(c)));
+    area.hidden=state.filtered.length!==0;
+    if(!area.hidden){area.className='empty';area.replaceChildren();const h=document.createElement('strong');h.textContent='ไม่พบรายชื่อ';const p=document.createElement('p');p.textContent='ลองใช้คำค้นหาใหม่ หรือเปลี่ยนฝ่าย/แผนก';area.append(h,p)}
+    $('resultText').textContent=`แสดง ${state.filtered.length ? start+1 : 0}–${Math.min(start+CONFIG.pageSize,state.filtered.length)} จาก ${state.filtered.length} รายชื่อ`;
+    $('pageText').textContent=`${state.page} / ${pages}`;
+    $('prevBtn').disabled=state.page===1;$('nextBtn').disabled=state.page>=pages;
+    $('csvBtn').disabled=state.filtered.length===0;$('printBtn').disabled=state.filtered.length===0;
+  }
+  function showSyncStatus(text){
+    $('syncStatusText').textContent=text;
+    $('syncStatus').hidden=false;
+  }
+  function hideSyncStatus(){$('syncStatus').hidden=true}
+  function showLoading(){
+    state.loading=true;$('refreshBtn').disabled=true;
+    showSyncStatus(state.hasData?'กำลังตรวจสอบรายชื่อใหม่...':'กำลังเชื่อมต่อ Google Sheets...');
+    // มีข้อมูลจากแคชแล้ว: ให้ค้นหาและโทรได้โดยไม่ล้างรายการ
+    if(state.hasData)return;
+    $('directoryBody').replaceChildren();
+    const area=$('statusArea');area.hidden=false;area.className='loading';
+    area.innerHTML='<div class="loader" role="status"></div>กำลังโหลดรายชื่อจาก Google Sheets...';
+  }
+  function finishLoading(){state.loading=false;$('refreshBtn').disabled=false;hideSyncStatus()}
+  function showSaveProgress(step,title,detail){
+    const overlay=$('saveProgress');overlay.hidden=false;
+    $('saveProgressTitle').textContent=title;$('saveProgressDetail').textContent=detail;
+    [1,2,3].forEach(i=>{$('saveStep'+i).className='progressStep'+(i<step?' done':i===step?' active':'')});
+  }
+  function hideSaveProgress(){$('saveProgress').hidden=true}
+  function getCachedDirectory(){
+    if(!CONFIG.apiUrl.trim())return null;
+    try{
+      const x=JSON.parse(localStorage.getItem(PUBLIC_CACHE_KEY)||'null');
+      if(!x||x.version!==1||x.apiUrl!==CONFIG.apiUrl.trim()||!Array.isArray(x.contacts) ||
+        !Number.isFinite(x.savedAt)||x.savedAt>Date.now()+60000||Date.now()-x.savedAt>CACHE_MAX_MS)return null;
+      return x;
+    }catch(_){return null;}
+  }
+  function saveCachedDirectory(result){
+    try{
+      // JSONP ตอบกลับเฉพาะข้อมูลที่ถูกตั้งให้เผยแพร่ในชีต
+      localStorage.setItem(PUBLIC_CACHE_KEY,JSON.stringify({version:1,apiUrl:CONFIG.apiUrl.trim(),savedAt:Date.now(),contacts:result.contacts,settings:result.settings||{},units:result.units||[]}));
+    }catch(_){/* บางเครื่องปิด storage หรือพื้นที่เต็ม: ยังใช้งานเว็บออนไลน์ได้ตามปกติ */}
+  }
+  function applyDirectorySettings(x){
+    if(!x||typeof x!=='object')return;
+    state.settings={...state.settings,...x};
+    if(typeof x.organizationName==='string'&&x.organizationName)CONFIG.organizationName=x.organizationName;
+    const count=Number(x.pageSize);if(Number.isInteger(count)&&count>=5&&count<=100)CONFIG.pageSize=count;
+    if(/^#[0-9a-fA-F]{6}$/.test(String(x.accent||'')))document.documentElement.style.setProperty('--teal',x.accent);
+    $('organizationText').textContent=CONFIG.organizationName;
+    $('addBtn').hidden=x.allowSubmissions===false;
+  }
+  function loadJSONP(url,timeoutMs,query={}){
+    return new Promise((resolve,reject)=>{
+      const callbackName='phonebookCallback_'+Date.now()+'_'+Math.random().toString(36).slice(2);
+      const script=document.createElement('script');let settled=false;
+      const cleanup=()=>{delete window[callbackName];script.remove();clearTimeout(timer)};
+      const ok=data=>{if(settled)return;settled=true;cleanup();resolve(data)};
+      const fail=err=>{if(settled)return;settled=true;cleanup();reject(err)};
+      const timer=setTimeout(()=>fail(new Error('ใช้เวลาโหลดข้อมูลนานเกินไป กรุณาลองใหม่')),timeoutMs);
+      window[callbackName]=ok;script.onerror=()=>fail(new Error('ไม่สามารถติดต่อ Google Apps Script ได้ กรุณาตรวจสอบ URL และการเผยแพร่ Web App'));
+      const u=new URL(url);u.searchParams.set('action',query.action||'list');if(query.requestId)u.searchParams.set('requestId',query.requestId);u.searchParams.set('callback',callbackName);u.searchParams.set('_',Date.now());
+      script.src=u.href;document.head.appendChild(script);
+    });
+  }
+  async function loadContacts(options={}){
+    if(state.loading)return;
+    const force=options&&options.force===true;
+    const request=++state.requestNumber;
+    const cached=getCachedDirectory();
+    if(cached&&!state.hasData){
+      applyDirectorySettings(cached.settings);
+      orgUnits=Array.isArray(cached.units)?cached.units:[];unitOptions($('contactDept'),orgUnits,'edit');setData(cached.contacts);
+    }
+    if(cached&&!force&&Date.now()-cached.savedAt<CACHE_FRESH_MS){
+      showNotice('');finishLoading();
+      return; // เปิดหน้าเดิมภายใน 1 นาทีโดยไม่เรียก API ซ้ำ
+    }
+    showLoading();
+    if(!state.hasData)showNotice('');
+    try{
+      if(!CONFIG.apiUrl.trim()){
+        setData(SAMPLE);showNotice('กำลังแสดงรายชื่อจำลองเพื่อทดลองหน้าตาเว็บ กรุณาใส่ URL ของ Apps Script ใน CONFIG.apiUrl เพื่อใช้ข้อมูลจริง');
+      }else{
+        const result=await loadJSONP(CONFIG.apiUrl.trim(),CONFIG.timeoutMs);
+        if(request!==state.requestNumber)return;
+        if(!result||result.ok!==true||!Array.isArray(result.contacts))throw new Error(result?.message||'ข้อมูลที่ได้รับไม่ถูกต้อง');
+        applyDirectorySettings(result.settings);
+        orgUnits=Array.isArray(result.units)?result.units:[];unitOptions($('contactDept'),orgUnits,'edit');setData(result.contacts);
+        saveCachedDirectory(result);
+        showNotice('');
+      }
+    }catch(err){
+      if(request!==state.requestNumber)return;
+      if(state.hasData){
+        showNotice('ยังแสดงข้อมูลที่โหลดไว้ก่อนหน้าอยู่ แต่ตรวจสอบรายการล่าสุดไม่ได้: '+(err.message||'การเชื่อมต่อขัดข้อง'),'error');
+      }else{
+        const area=$('statusArea');area.hidden=false;area.className='empty';
+        area.textContent='ยังโหลดรายชื่อไม่ได้ กดลองโหลดใหม่ด้านบน';
+        showNotice(err.message||'โหลดข้อมูลไม่สำเร็จ','error');
+      }
+    }finally{if(request===state.requestNumber)finishLoading()}
+  }
+  async function copyText(text){
+    try{
+      if(navigator.clipboard?.writeText&&window.isSecureContext){await navigator.clipboard.writeText(text)}
+      else{const input=document.createElement('textarea');input.value=text;input.style.position='fixed';input.style.opacity='0';document.body.append(input);input.select();const successful=document.execCommand('copy');input.remove();if(!successful)throw new Error('copy failed')}
+      toast('คัดลอกเบอร์โทรศัพท์แล้ว');
+    }catch{toast('ไม่สามารถคัดลอกอัตโนมัติได้')}
+  }
+  function downloadCSV(){
+    const cells=[['ชื่อ','นามสกุล','เบอร์โทรศัพท์','ฝ่าย/แผนก','ตำแหน่ง','LINE ID'],...state.filtered.map(c=>[c.firstName,c.lastName,c.phone,c.department,c.position,c.lineId])];
+    const protect=x=>{let s=String(x??'');if(/^[=+@\-\t\r]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"'};
+    const csv='\ufeff'+cells.map(row=>row.map(protect).join(',')).join('\r\n');
+    const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'}),url=URL.createObjectURL(blob);
+    const a=document.createElement('a');a.href=url;a.download='phonebook_'+new Date().toISOString().slice(0,10)+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+    toast('สร้างไฟล์ CSV เรียบร้อย');
+  }
+  let printState=null;
+  window.addEventListener('beforeprint',()=>{
+    if(printState)return;
+    printState={page:state.page,pageSize:CONFIG.pageSize};
+    CONFIG.pageSize=Math.max(1,state.filtered.length);state.page=1;render();
   });
-  document.body.appendChild(form);form.submit();form.remove();
-  return {rid,fast,cleanup:()=>{window.removeEventListener('message',onMessage);iframe.remove()}};
-}
-function sleep(ms){return new Promise(resolve=>setTimeout(resolve,ms))}
-function normalizeAdminReply(reply,action){
-  // Compatibility with old deployments: dashboard.pending used to contain a count.
-  // Restrict conversion to a complete dashboard response; never coerce pending:true.
-  if(action==='adminDashboard'&&reply&&reply.ok===true&&
-     Number.isSafeInteger(reply.pending)&&reply.pending>=0&&
-     Array.isArray(reply.contacts)&&typeof reply.hasMore==='boolean'&&
-     Number.isSafeInteger(reply.total)&&reply.total>=0){
-    return {...reply,pendingCount:reply.pending,pending:false};
+  window.addEventListener('afterprint',()=>{
+    if(!printState)return;
+    CONFIG.pageSize=printState.pageSize;state.page=printState.page;printState=null;render();
+  });
+  function printAllFiltered(){toast('กำลังเตรียมหน้าเอกสารสำหรับพิมพ์ / PDF...');requestAnimationFrame(()=>window.print())}
+  // แบบฟอร์มอยู่บน GitHub Pages โดยตรง (ไม่ฝัง iframe ของ Apps Script)
+  // ส่ง POST ผ่าน iframe ที่ซ่อนไว้ และใช้ JSONP สอบถามสถานะด้วยรหัสสุ่ม
+  // แบบฟอร์มสาธารณะไม่มีรหัสผ่าน บันทึกแล้วเผยแพร่ทันที
+  let modalReturnFocus=null;
+  let formBusy=false;
+  let pendingSubmission=null;
+  function setFormMessage(text,type='error'){
+    const el=$('formFeedback');el.textContent=text;el.className='formFeedback '+type;el.hidden=!text;
   }
-  return reply;
-}
-const uncertainRequests=new Map();
-async function api(action,fields={}){
-  const data={...fields,action};if(state.token&&!Object.prototype.hasOwnProperty.call(data,'token'))data.token=state.token;
-  const signature=JSON.stringify(data),mutates=!['adminDashboard','adminAccounts','adminLogin','adminLogout'].includes(action);
-  if(mutates&&[...uncertainRequests.keys()].some(k=>k!==signature)){
-    throw new Error('มีคำสั่งก่อนหน้าที่ยังไม่ทราบผล กรุณาตรวจ Google Sheets ก่อนทำรายการใหม่ หรือส่งข้อมูลเดิมเพื่อตรวจผลอีกครั้ง');
+  function openAddModal(){
+    if(!CONFIG.apiUrl.trim()){showNotice('โปรดใส่ URL ของ Google Apps Script ก่อนเพิ่มข้อมูล','error');return;}
+    if(state.settings.allowSubmissions===false){showNotice('ผู้ดูแลปิดรับการเพิ่มรายชื่อชั่วคราว','error');return;}
+    modalReturnFocus=document.activeElement;
+    $('addModal').hidden=false;document.body.classList.add('modalOpen');
+    setFormMessage('');$('contactFirst').focus();
   }
-  const previous=uncertainRequests.get(signature);
-  const {rid,fast,cleanup}=previous?{rid:previous,fast:new Promise(()=>{}),cleanup:()=>{}}:post(data);
-  let confirmed=false;
-  const until=Date.now()+60000;let closed=false;
-  // Poll หลัง 2.2 วินาทีเท่านั้น ลดการเปิด Google Apps Script ซ้อนโดยไม่จำเป็น
-  const poll=(async()=>{
-    let delay=2200;
-    while(!closed&&Date.now()<until){
-      await sleep(delay);if(closed)break;
+  function closeAddModal(){
+    if(formBusy){setFormMessage('กำลังตรวจสอบผลการบันทึก กรุณารอให้เสร็จก่อน','error');return;}
+    $('addModal').hidden=true;document.body.classList.remove('modalOpen');
+    setFormMessage('');
+    if(modalReturnFocus?.focus)modalReturnFocus.focus();
+  }
+  function newRequestId(){
+    const bytes=new Uint8Array(16);crypto.getRandomValues(bytes);
+    return Array.from(bytes,b=>b.toString(16).padStart(2,'0')).join('');
+  }
+  // POST มาตรฐานของเบราว์เซอร์ ไม่ใช้ fetch/CORS และไม่ต้องฝังหน้าฟอร์มของ Google
+  function sendPostInBackground(fields){
+    const frame=document.createElement('iframe');
+    frame.name='phonebook_save_'+fields.requestId;
+    frame.title='ส่งข้อมูลสมุดโทรศัพท์';frame.hidden=true;frame.tabIndex=-1;
+    frame.style.display='none';document.body.append(frame);
+    const submission=document.createElement('form');
+    submission.method='POST';submission.action=CONFIG.apiUrl.trim();
+    submission.target=frame.name;submission.acceptCharset='UTF-8';submission.style.display='none';
+    Object.entries(fields).forEach(([key,value])=>{
+      const input=document.createElement('input');input.type='hidden';input.name=key;input.value=String(value);submission.append(input);
+    });
+    document.body.append(submission);submission.submit();submission.remove();
+    // ซ่อนปลายทางตอบกลับ เพราะ Google อาจไม่ให้ฝังหน้าเว็บข้ามโดเมน
+    return ()=>frame.remove();
+  }
+  async function waitForSave(requestId){
+    const deadline=Date.now()+60000;
+    let attempts=0;
+    while(Date.now()<deadline){
+      await new Promise(resolve=>setTimeout(resolve,attempts===0?650:1100));
+      attempts++;
       try{
-        const reply=normalizeAdminReply(await jsonp({action:'status',requestId:rid},Math.min(6500,Math.max(1000,until-Date.now()))),action);
-        if(closed)break;
-        if(reply&&reply.pending===false)return reply;
-      }catch(error){
-        if(!/เชื่อมต่อ|ใช้เวลานาน/.test(error.message||''))throw error;
+        const remaining=Math.max(1000,Math.min(4000,deadline-Date.now()));
+        const result=await loadJSONP(CONFIG.apiUrl.trim(),remaining,{action:'status',requestId});
+        if(result && result.pending===false)return result;
+      }catch(err){
+        // อาจมีปัญหาข้ามบัญชี Google หรือเครือข่าย: ห้ามถือว่า POST ล้มเหลวหรือส่งซ้ำ
       }
-      delay=1600;
+      if(attempts===3)showSaveProgress(2,'กำลังตรวจสอบผลการบันทึก...',
+        'Google Apps Script ยังประมวลผลอยู่ ระบบจะตรวจสอบต่อโดยอัตโนมัติ ไม่ต้องกดบันทึกซ้ำ');
     }
-    throw new Error('Google Apps Script ยังไม่ยืนยันผลภายใน 60 วินาที กรุณาตรวจสอบก่อนกดซ้ำ');
-  })();
-  try{
-    const result=normalizeAdminReply(await Promise.race([fast,poll]),action);
-    confirmed=!!result&&result.pending===false;
-    if(confirmed)uncertainRequests.delete(signature);
-    if(result&&result.ok===false){
-      const error=new Error(result.message||'ดำเนินการไม่สำเร็จ');
-      if(state.token&&/เซสชัน|เข้าสู่ระบบใหม่|บัญชีหรือสิทธิ์/.test(error.message)){
-        logoutLocal();msg('loginMsg',error.message);
-      }
-      throw error;
-    }
-    if(!result||result.pending!==false)throw new Error('รูปแบบคำตอบของ Apps Script ไม่ถูกต้อง');
-    return result;
-  }finally{if(!confirmed&&mutates)uncertainRequests.set(signature,rid);closed=true;cleanup()}
-}
-async function login(e){
-  e.preventDefault();if(state.busy)return;
-  msg('loginMsg','');setBusy(true,'กำลังตรวจสอบชื่อผู้ใช้และรหัสผ่าน...');
-  let waitTimer=setTimeout(()=>{if(!state.busy)return;$('loginWait').hidden=true;msg('loginMsg','เกินเป้าหมาย 5 วินาทีแล้ว: Google Apps Script ยังไม่ตอบกลับ ระบบกำลังตรวจสอบต่อโดยไม่บังหน้าจอ กรุณาอย่ากดซ้ำ','error')},4800);
-  try {
-    const result=await api('adminLogin',{username:$('username').value.trim(),password:$('password').value});
-    if(!/^[a-f0-9]{64}$/.test(result.token||'')||!['admin','staff'].includes(result.role)){
-      throw new Error('ข้อมูลเซสชันไม่ถูกต้อง กรุณาตรวจสอบ Apps Script');
-    }
-    state.token=result.token;state.role=result.role;state.username=result.username||'admin';
-    sessionExpiresAt=Date.now()+Math.min(30,Math.max(1,Number(result.expiresInMinutes)||30))*60000;
-    persistSession();
-    $('password').value='';$('loginView').hidden=true;$('dashboardView').hidden=false;
-    applyPermissions();tab('all');render();
-    // เข้าหน้า Admin ก่อน แล้วโหลดข้อมูลส่วนตารางต่อ ไม่รอโหลดข้อมูลทุกหน้าจึงไม่ค้างที่ login
-    setBusy(false);
-    setTimeout(()=>{if(state.token)loadDashboard()},0);
-  }catch(err){msg('loginMsg',err.message||'ไม่สามารถเข้าสู่ระบบได้');state.token=null;$('loginView').hidden=false;$('dashboardView').hidden=true;}
-  finally{clearTimeout(waitTimer);setBusy(false)}
-}
-function applyPermissions(){
-  const isAdmin=state.role==='admin';
-  $('welcomeRole').textContent=(state.username||'')+' · '+(isAdmin?'ผู้ดูแลระบบ':'เจ้าหน้าที่');
-  $('settingsTab').hidden=!isAdmin;$('usersTab').hidden=!isAdmin;$('unitsTab').hidden=!isAdmin;$('duplicateTab').hidden=!isAdmin;
-  // เจ้าหน้าที่เห็นเฉพาะเพิ่ม/แก้ไข ไม่เห็นลบ/เผยแพร่/ตั้งค่า
-  if(!isAdmin&&['settings','users','units','duplicates'].includes(state.tab))state.tab='all';
-  $('published').disabled=!isAdmin;
-}
-function logoutLocal(){forgetStoredSession();uncertainRequests.clear();dashboardLoadNumber++;state.token=null;state.role='';state.username='';state.contacts=[];state.settings=null;state.dataLoaded=false;state.loadError='';state.users=null;unitRecords=[];orgUnits=[];state.tab='all';$('dashboardView').hidden=true;$('loginView').hidden=false;msg('loginMsg','');$('password').value='';$('contactModal').hidden=true;$('userActionModal').hidden=true;$('unitModal').hidden=true;state.editId=null;state.userEditUsername='';state.userEditMode='';
-['changePasswordForm','createUserForm','userActionForm','contactForm'].forEach(id=>$(id).reset());
-$('search').value='';$('usersRows').replaceChildren();msg('globalMsg','');tab('all');setBusy(false)}
-async function logout(){const token=state.token;logoutLocal();if(token){try{await api('adminLogout',{token})}catch(e){/* session expires automatically */}}}
-let dashboardLoadNumber=0;
-async function loadDashboard(){
-  if(!state.token)return;
-  const loadId=++dashboardLoadNumber, token=state.token;
-  state.loadError='';render();
-  let warningTimer;
-  const showProgress=(text)=>{
-    clearTimeout(warningTimer);
-    $('workStatus').hidden=false;
-    $('workStatusText').textContent=text;
-    warningTimer=setTimeout(()=>{
-      if(loadId!==dashboardLoadNumber||state.token!==token)return;
-      $('workStatus').hidden=true;
-      msg('globalMsg','Google Apps Script ตอบกลับเกิน 5 วินาที ระบบจะโหลดข้อมูลต่อเบื้องหลังโดยไม่บังหน้าจอ');
-    },4800);
-  };
-  showProgress('กำลังอัปเดตรายชื่อเบื้องหลัง...');
-  try{
-    let reply=await api('adminDashboard',{offset:0});
-    if(loadId!==dashboardLoadNumber||state.token!==token)return;
-    const contacts=[...(reply.contacts||[])],settings=reply.settings,role=reply.role,revision=reply.revision;orgUnits=Array.isArray(reply.units)?reply.units:[];unitOptions($('department'),orgUnits,'edit');
-    let offset=contacts.length;
-    while(reply.hasMore&&state.token===token&&loadId===dashboardLoadNumber){
-      showProgress('กำลังเพิ่มรายชื่อ ('+offset+' / '+reply.total+')...');
-      reply=await api('adminDashboard',{offset,revision:revision||''});
-      if(loadId!==dashboardLoadNumber||state.token!==token)return false;
-      if(!Array.isArray(reply.contacts)||!reply.contacts.length)throw new Error('ระบบส่งข้อมูลหน้าเดิมหรือหน้าว่าง กรุณาโหลดใหม่');
-      contacts.push(...reply.contacts);offset=contacts.length;
-      if(offset>20000)throw new Error('จำนวนรายชื่อเกินขีดจำกัด');
-    }
-    state.contacts=contacts;state.settings=settings;state.dataLoaded=true;state.loadError='';
-    if(role)state.role=role;persistSession();
-    applyPermissions();applySettings();render();msg('globalMsg','');return true;
-  }catch(err){
-    if(loadId!==dashboardLoadNumber||state.token!==token)return;
-    state.loadError=err.message||'โหลดข้อมูลไม่สำเร็จ';render();
-    msg('globalMsg',(err.message||'โหลดข้อมูลไม่สำเร็จ')+' · สามารถกด ↻ อัปเดตข้อมูล อีกครั้ง');
-    return false;
-  }finally{
-    clearTimeout(warningTimer);
-    if(loadId===dashboardLoadNumber)$('workStatus').hidden=true;
+    throw new Error('ยังยืนยันผลการบันทึกไม่ได้ (อาจบันทึกไปแล้ว) กรุณาตรวจ Google Sheets ก่อนกดอีกครั้ง และตรวจสิทธิ์/Deployment ของ Apps Script');
   }
-}
-function applySettings(){const s=state.settings||{};$('organizationName').value=s.organizationName||'วิทยาลัยการอาชีพนครยะลา';$('orgHeader').textContent=s.organizationName||'ระบบบริหารจัดการข้อมูลบุคลากร';$('pageSize').value=s.pageSize||12;perPage=Math.max(5,Math.min(100,Number(s.pageSize)||12));$('accent').value=/^#[a-fA-F0-9]{6}$/.test(s.accent||'')?s.accent:'#17636d';$('accentText').textContent=$('accent').value;$('allowSubmissions').checked=s.allowSubmissions!==false;document.documentElement.style.setProperty('--primary',$('accent').value)}
-function normalizedDuplicateKey(c){return [c.firstName,c.lastName].map(s=>String(s||'').replace(/\s+/g,'').toLocaleLowerCase('th')).join('|')+'|'+String(c.phone||'').replace(/\D/g,'')}
-function duplicateKeys(){const counts=new Map();state.contacts.forEach(c=>{const k=normalizedDuplicateKey(c);counts.set(k,(counts.get(k)||0)+1)});return new Set([...counts].filter(([key,n])=>n>1).map(([key])=>key))}
-function visibleContacts(){const duplicates=state.tab==='duplicates'?duplicateKeys():null;const q=$('search').value.trim().toLocaleLowerCase('th');const filter=$('statusFilter').value;
-  return state.contacts.filter(c=>{if(state.tab==='pending'&&c.published)return false;if(duplicates&&!duplicates.has(normalizedDuplicateKey(c)))return false;if(filter==='pending'&&c.published)return false;if(filter==='published'&&!c.published)return false;
-    return !q||[c.firstName,c.lastName,c.firstName+' '+c.lastName,c.phone,c.department,c.position,c.lineId].some(v=>String(v||'').toLocaleLowerCase('th').includes(q));});
-}
-function make(tag,cls,txt){const el=document.createElement(tag);if(cls)el.className=cls;if(txt!==undefined)el.textContent=String(txt);return el}
-function btn(label,cls,click){const el=make('button','btn btnTiny '+cls,label);el.type='button';el.addEventListener('click',click);return el}
-function render(){const pending=state.contacts.filter(c=>!c.published).length;$('totalStat').textContent=state.dataLoaded?state.contacts.length:'—';$('activeStat').textContent=state.dataLoaded?state.contacts.length-pending:'—';$('pendingStat').textContent=state.dataLoaded?pending:'—';$('pendingTag').textContent=pending?'('+pending+')':'';
-  const suspected=duplicateKeys().size;$('duplicateTag').textContent=suspected?'('+suspected+' กลุ่ม)':'';const rows=visibleContacts();const pages=Math.max(1,Math.ceil(rows.length/perPage));state.page=Math.min(Math.max(1,state.page),pages);$('pagesText').textContent=state.page+' / '+pages;$('prevBtn').disabled=state.busy||state.page<=1;$('nextBtn').disabled=state.busy||state.page>=pages;$('countText').textContent=state.dataLoaded?'แสดง '+rows.length+' รายการ':(state.loadError?'ยังโหลดข้อมูลไม่สำเร็จ':'กำลังโหลด...');
-  const tbody=$('rows');tbody.replaceChildren();if(rows.length===0){const tr=make('tr');const td=make('td','empty');td.colSpan=5;td.append(make('strong','',!state.dataLoaded?(state.loadError?'โหลดรายชื่อไม่สำเร็จ กรุณากดอัปเดตข้อมูลอีกครั้ง':'กำลังดึงรายชื่อจากระบบ...'):(state.tab==='pending'?'ไม่มีรายการยังไม่เผยแพร่':'ไม่พบข้อมูลตามเงื่อนไข')));tr.append(td);tbody.append(tr);return}
-  rows.slice((state.page-1)*perPage,state.page*perPage).forEach(c=>{const tr=make('tr');const person=make('td');person.append(make('div','name',[c.firstName,c.lastName].join(' ')),make('div','sub',c.id.slice(0,8)));const contact=make('td');contact.append(make('div','mono',c.phone));if(c.lineId)contact.append(make('div','sub','LINE: '+c.lineId));const dept=make('td');dept.append(make('div','',c.department||'—'),make('div','sub',c.position||''));const status=make('td');status.append(make('span','pill '+(c.published?'ok':'pending'),c.published?'เผยแพร่แล้ว':'ยังไม่เผยแพร่'));
-    const action=make('td');const buttons=make('div','btnRow');if(state.role==='admin'){if(!c.published)buttons.append(btn('✓ เผยแพร่','btnSuccess',()=>publish(c,true)));else buttons.append(btn('ซ่อน','',()=>publish(c,false)));}buttons.append(btn('แก้ไข','',()=>edit(c)));if(state.role==='admin')buttons.append(btn('ลบ','btnDanger',()=>remove(c)));action.append(buttons);tr.append(person,contact,dept,status,action);tbody.append(tr)
+  async function submitContact(event){
+    event.preventDefault();
+    if(formBusy||!$('contactForm').reportValidity())return;
+    const fields=Object.fromEntries(new FormData($('contactForm')).entries());
+    for(const key of ['firstName','lastName','phone'])fields[key]=String(fields[key]||'').trim();
+    if(!fields.firstName||!fields.lastName||!fields.phone){setFormMessage('กรุณากรอกชื่อ นามสกุล และเบอร์โทรศัพท์');return;}
+    const digits=fields.phone.replace(/\D/g,'');
+    if(!/^\+?[0-9\s().-]+$/.test(fields.phone)||digits.length<6||digits.length>15){setFormMessage('กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง (6–15 หลัก)');return;}
+    fields.action='submit';fields.website='';
+    const signature=JSON.stringify(fields);
+    const retry=pendingSubmission&&pendingSubmission.signature===signature;
+    fields.requestId=retry?pendingSubmission.requestId:newRequestId();
+    if(pendingSubmission&&!retry){setFormMessage('ยังมีคำขอก่อนหน้าที่ไม่ทราบผล กรุณาตรวจ Google Sheets หรือส่งข้อมูลเดิมเพื่อตรวจผลอีกครั้ง');return;}
+    pendingSubmission={signature,requestId:fields.requestId};
+    formBusy=true;$('saveContactBtn').disabled=true;$('saveContactBtn').textContent='กำลังบันทึก...';
+    showSaveProgress(1,'กำลังส่งข้อมูล...','ระบบกำลังส่งข้อมูลไป Google Apps Script อย่างปลอดภัย');
+    $('cancelContactBtn').disabled=true;$('closeModalBtn').disabled=true;
+    setFormMessage('กำลังส่งข้อมูลและตรวจสอบผล โปรดรอสักครู่','success');
+    let cleanup=()=>{};
+    let resultSaved=false;
+    try{
+      if(!retry)cleanup=sendPostInBackground(fields);
+      showSaveProgress(2,'กำลังยืนยันการบันทึก...','กำลังรอ Google Sheets ยืนยันข้อมูล โปรดอย่ากดปุ่มซ้ำ');
+      const result=await waitForSave(fields.requestId);
+      pendingSubmission=null;
+      if(!result.ok)throw new Error(result.message||'บันทึกไม่สำเร็จ');
+      // ป้องกันการอัปเดตเฉพาะ GitHub แต่ลืม Deploy Code.gs: v8 ยังบันทึกแบบรออนุมัติ
+      if(result.published!==true || !result.id)throw new Error('บันทึกลง Google Sheets แล้ว แต่ Apps Script ยังใช้โค้ดเวอร์ชันเดิม จึงอาจยังไม่เผยแพร่ กรุณา Deploy Code.gs v9 ก่อน (ไม่ต้องกดบันทึกซ้ำ)');
+      showSaveProgress(3,'บันทึกสำเร็จ!','กำลังแสดงรายชื่อที่เพิ่มใหม่...');
+      // แสดงรายชื่อใหม่บนหน้าจอทันทีโดยไม่รอ Apps Script โหลดรายชื่อทั้งชุดซ้ำ
+      state.requestNumber++;
+      finishLoading(); // หากมีการโหลดเดิมค้างอยู่ ให้คำขอใหม่เริ่มได้เสมอ
+      $('searchInput').value='';
+      $('departmentSelect').value='';
+      const added=normalizeContact({...fields,id:result.id});
+      setData([added,...state.contacts.filter(c=>c.id!==added.id)]);
+      saveCachedDirectory({contacts:state.contacts,settings:state.settings});
+      $('contactForm').reset();
+      setFormMessage(result.message||'บันทึกสำเร็จแล้ว','success');
+      toast('เพิ่มรายชื่อและเผยแพร่เรียบร้อยแล้ว');
+      resultSaved=true;
+      // ซิงก์ Google Sheets เบื้องหลัง; ไม่ปล่อยให้ผู้ใช้รออยู่ในหน้าต่างเพิ่มข้อมูล
+      setTimeout(()=>loadContacts({force:true}),200);
+    }catch(err){setFormMessage(err.message||'ไม่สามารถบันทึกข้อมูลได้','error');}
+    finally{
+      cleanup();hideSaveProgress();formBusy=false;$('saveContactBtn').disabled=false;
+      $('saveContactBtn').textContent='บันทึกข้อมูล';$('cancelContactBtn').disabled=false;
+      $('closeModalBtn').disabled=false;
+      if(resultSaved)closeAddModal();
+    }
+  }
+  unitOptions($('contactDept'),orgUnits,'edit');
+  $('addBtn').addEventListener('click',openAddModal);
+  // v7: หน้า Admin อยู่ที่ GitHub Pages โดยตรง
+  $('adminBtn').href='./admin.html';
+  $('contactForm').addEventListener('submit',submitContact);
+  $('cancelContactBtn').addEventListener('click',closeAddModal);
+  $('closeModalBtn').addEventListener('click',closeAddModal);
+  $('addModal').addEventListener('click',e=>{if(e.target===$('addModal'))closeAddModal()});
+  $('organizationText').textContent=CONFIG.organizationName;
+  $('searchInput').addEventListener('input',()=>{state.page=1;applyFilters()});
+  $('departmentSelect').addEventListener('change',()=>{state.page=1;applyFilters()});
+  $('refreshBtn').addEventListener('click',()=>loadContacts({force:true}));
+  $('prevBtn').addEventListener('click',()=>{state.page--;render()});
+  $('nextBtn').addEventListener('click',()=>{state.page++;render()});
+  $('csvBtn').addEventListener('click',downloadCSV);
+  $('printBtn').addEventListener('click',printAllFiltered);
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'&&!$('addModal').hidden){e.preventDefault();closeAddModal();return;}
+    if(e.key==='/'&&$('addModal').hidden&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)){e.preventDefault();$('searchInput').focus();}
   });
-}
-function tab(name){if(['settings','users','units','duplicates'].includes(name)&&state.role!=='admin')return;state.tab=name;state.page=1;document.querySelectorAll('[data-tab]').forEach(b=>{const active=b.dataset.tab===name;b.classList.toggle('active',active);b.setAttribute('aria-selected',String(active))});$('recordsView').hidden=['settings','users','units','account'].includes(name);$('unitsView').hidden=name!=='units';$('settingsView').hidden=name!=='settings';$('usersView').hidden=name!=='users';$('accountView').hidden=name!=='account';if(name==='users')loadUsers();if(name==='units')loadUnits();$('recordsHeading').textContent=name==='pending'?'รายชื่อยังไม่เผยแพร่':name==='duplicates'?'ตรวจสอบรายชื่อที่อาจซ้ำ':'รายชื่อทั้งหมด';$('statusFilter').value='all';render()}
-function openModal(c){if(state.busy||!state.token)return;state.editId=c?c.id:null;$('contactModalTitle').textContent=c?'แก้ไขรายชื่อ':'เพิ่มรายชื่อ';$('contactForm').reset();for(const key of ['firstName','lastName','phone','lineId','position'])$(key).value=c?String(c[key]||''):'';unitOptions($('department'),orgUnits,'edit',c?c.department:'');$('published').checked=c?!!c.published:true;$('published').disabled=state.role!=='admin';msg('formMsg','');$('contactModal').hidden=false;$('firstName').focus()}
-function closeModal(){if(state.busy)return;$('contactModal').hidden=true;state.editId=null}
-function edit(c){openModal(c)}
-async function saveContact(e){e.preventDefault();if(state.busy||!$('contactForm').reportValidity())return;const c={};for(const k of ['firstName','lastName','phone','lineId','department','position'])c[k]=$(k).value.trim();c.published=$('published').checked;const digits=c.phone.replace(/\D/g,'');if(!/^\+?[0-9\s().-]+$/.test(c.phone)||digits.length<6||digits.length>15){msg('formMsg','กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง (6–15 หลัก)');return}
-  setBusy(true,'กำลังบันทึกรายชื่อ...');msg('formMsg','');try{const action=state.editId?'adminUpdate':'adminAdd';await api(action,{...(state.editId?{id:state.editId}:{}),payload:JSON.stringify(c)});$('contactModal').hidden=true;state.editId=null;setBusy(false);const reloaded=await loadDashboard();if(reloaded)msg('globalMsg','บันทึกรายชื่อสำเร็จ','success')}catch(err){msg('formMsg',err.message)}finally{setBusy(false)}}
-async function publish(c,value){if(state.role!=='admin'||state.busy)return;setBusy(true,'กำลังเปลี่ยนสถานะเผยแพร่...');try{await api('adminPublish',{id:c.id,published:String(value)});setBusy(false);const reloaded=await loadDashboard();if(reloaded)msg('globalMsg',value?'เผยแพร่รายชื่อเรียบร้อย':'ซ่อนรายชื่อเรียบร้อย','success')}catch(err){msg('globalMsg',err.message)}finally{setBusy(false)}}
-async function remove(c){if(state.role!=='admin'||state.busy)return;if(!confirm('ยืนยันลบรายชื่อ “'+c.firstName+' '+c.lastName+'” อย่างถาวร?\nการดำเนินการนี้ย้อนกลับไม่ได้'))return;setBusy(true,'กำลังลบรายชื่อ...');try{await api('adminDelete',{id:c.id});setBusy(false);const reloaded=await loadDashboard();if(reloaded)msg('globalMsg','ลบรายชื่อเรียบร้อย','success')}catch(err){msg('globalMsg',err.message)}finally{setBusy(false)}}
-async function saveSettings(e){e.preventDefault();if(state.role!=='admin'||state.busy)return;const settings={organizationName:$('organizationName').value.trim(),pageSize:Number($('pageSize').value),accent:$('accent').value,allowSubmissions:$('allowSubmissions').checked};setBusy(true,'กำลังบันทึกการตั้งค่า...');try{await api('adminSettings',{payload:JSON.stringify(settings)});state.settings=settings;applySettings();render();msg('globalMsg','บันทึกการตั้งค่าระบบเรียบร้อย','success')}catch(err){msg('globalMsg',err.message)}finally{setBusy(false);if(state.token&&!state.dataLoaded)loadDashboard();}}
-async function changePassword(e){e.preventDefault();if(state.busy)return;const old=$('oldPassword').value,newPass=$('newPassword').value;if(newPass.length<12){msg('globalMsg','รหัสใหม่ต้องมีอย่างน้อย 12 ตัวอักษร');return}if(!confirm('ยืนยันเปลี่ยนรหัสผ่านของคุณ? ระบบจะออกจากระบบทันที'))return;setBusy(true,'กำลังเปลี่ยนรหัสผ่าน...');try{await api('adminChangePassword',{oldPassword:old,newPassword:newPass});logoutLocal();msg('loginMsg','เปลี่ยนรหัสแล้ว กรุณาเข้าสู่ระบบใหม่','success')}catch(err){msg('globalMsg',err.message)}finally{setBusy(false)}}
-async function loadUsers(){
-  if(state.role!=='admin'||!state.token)return;
-  const token=state.token;msg('globalMsg','');setBusy(true,'กำลังโหลดบัญชีผู้ใช้งาน...');
-  try{const data=await api('adminAccounts');if(state.token!==token)return false;state.users=data.users||[];renderUsers();return true}
-  catch(e){if(state.token===token)msg('globalMsg',e.message);return false}finally{if(state.token===token){setBusy(false);if(!state.dataLoaded)loadDashboard();}}
-}
-function renderUsers(){
-  const tbody=$('usersRows');tbody.replaceChildren();
-  for(const user of state.users||[]){
-    const tr=make('tr'),name=make('td','name',user.username),role=make('td','',user.role==='admin'?'Admin · ผู้ดูแลระบบ':'Staff · เจ้าหน้าที่'),status=make('td','',user.enabled?'ใช้งานได้':'ปิดใช้งาน'),actions=make('td');
-    const buttons=make('div','btnRow');
-    if(!user.owner){
-      buttons.append(btn(user.enabled?'ระงับ':'เปิดใช้งาน',user.enabled?'btnDanger':'btnSuccess',()=>toggleUser(user)));
-      buttons.append(btn('เปลี่ยนสิทธิ์','',()=>changeRole(user)));
-      buttons.append(btn('รีเซ็ตรหัส','',()=>resetUser(user)));
-    }else{buttons.append(make('span','muted','บัญชีหลัก'))}
-    actions.append(buttons);tr.append(name,role,status,actions);tbody.append(tr);
-  }
-}
-async function createUser(e){e.preventDefault();if(state.busy||state.role!=='admin')return;
-  const username=$('newUsername').value.trim().toLowerCase(),password=$('newUserPassword').value,role=$('newUserRole').value;
-  setBusy(true,'กำลังสร้างบัญชี...');try{await api('adminUserCreate',{payload:JSON.stringify({username,password,role})});$('createUserForm').reset();setBusy(false);const reloaded=await loadUsers();if(reloaded)msg('globalMsg','สร้างบัญชี '+username+' แล้ว','success')}
-  catch(err){msg('globalMsg',err.message)}finally{setBusy(false)}
-}
-async function toggleUser(user){if(state.busy||!confirm('ยืนยัน'+(user.enabled?'ระงับ':'เปิดใช้งาน')+'บัญชี '+user.username+'?'))return;
-  setBusy(true,'กำลังแก้ไขสถานะบัญชี...');try{await api('adminUserToggle',{username:user.username,enabled:String(!user.enabled)});if(user.username===state.username){logoutLocal();msg('loginMsg','บัญชีถูกระงับแล้ว');return}setBusy(false);const reloaded=await loadUsers();if(reloaded)msg('globalMsg','แก้ไขสถานะบัญชีสำเร็จ','success')}
-  catch(err){msg('globalMsg',err.message)}finally{setBusy(false)}
-}
-function openUserAction(user,mode){
-  if(state.busy||state.role!=='admin')return;
-  state.userEditUsername=user.username;state.userEditMode=mode;msg('userActionMsg','');
-  $('userActionTitle').textContent=mode==='role'?'เปลี่ยนบทบาทผู้ใช้':'รีเซ็ตรหัสผ่าน';
-  $('userActionDesc').textContent='บัญชี: '+user.username;
-  $('userRoleField').hidden=mode!=='role';$('userPasswordField').hidden=mode!=='password';
-  $('userNewPassword').disabled=mode!=='password';$('userNewPassword').required=mode==='password';$('userRoleSelect').disabled=mode!=='role';
-  $('userRoleSelect').value=user.role;$('userNewPassword').value='';
-  $('userActionModal').hidden=false;
-  (mode==='role'?$('userRoleSelect'):$('userNewPassword')).focus();
-}
-function changeRole(user){openUserAction(user,'role')}
-function resetUser(user){openUserAction(user,'password')}
-async function submitUserAction(e){
-  e.preventDefault();if(state.busy||!state.userEditUsername)return;
-  const username=state.userEditUsername,mode=state.userEditMode;
-  const action=mode==='role'?'adminUserRole':'adminUserReset';
-  const fields=mode==='role'?{username,role:$('userRoleSelect').value}:{username,newPassword:$('userNewPassword').value};
-  if(mode==='password'&&fields.newPassword.length<12){msg('userActionMsg','รหัสผ่านต้องยาวอย่างน้อย 12 ตัวอักษร');return;}
-  setBusy(true,mode==='role'?'กำลังเปลี่ยนบทบาท...':'กำลังรีเซ็ตรหัสผ่าน...');
-  try{await api(action,fields);if(username===state.username){logoutLocal();msg('loginMsg','ข้อมูลบัญชีเปลี่ยนแล้ว กรุณาเข้าสู่ระบบใหม่','success');return}$('userNewPassword').value='';$('userActionModal').hidden=true;state.userEditUsername='';setBusy(false);const reloaded=await loadUsers();if(reloaded)msg('globalMsg',mode==='role'?'เปลี่ยนบทบาทสำเร็จ':'รีเซ็ตรหัสสำเร็จ กรุณาแจ้งผู้ใช้ด้วยช่องทางที่ปลอดภัย','success')}
-  catch(err){msg('userActionMsg',err.message)}finally{setBusy(false)}
-}
-
-let unitRecords=[];let activeUnitId='';
-async function loadUnits(){
-  if(state.role!=='admin'||!state.token)return;
-  const token=state.token;setBusy(true,'กำลังโหลดทะเบียนหน่วยงาน...');
-  try{const reply=await api('adminUnits');if(state.token!==token)return;
-    unitRecords=reply.units||[];orgUnits=unitRecords;unitOptions($('department'),orgUnits,'edit');renderUnits();
-  }catch(err){msg('globalMsg',err.message)}finally{setBusy(false)}
-}
-function renderUnits(){
-  const body=$('unitRows');body.replaceChildren();
-  if(!unitRecords.length){const tr=make('tr'),td=make('td','empty','ยังไม่มีทะเบียนหน่วยงาน');td.colSpan=5;tr.append(td);body.append(tr);return;}
-  const lookup=new Map(unitRecords.map(x=>[x.id,x]));
-  const depth=u=>{let n=0,p=u.parentId;while(p&&lookup.has(p)&&n<4){n++;p=lookup.get(p).parentId}return n};
-  const walk=(parent)=>{
-    for(const u of unitRecords.filter(x=>x.parentId===parent).sort((a,b)=>a.sort-b.sort||a.name.localeCompare(b.name,'th'))){
-      const tr=make('tr'),name=make('td'),title=make('div','name',u.name),type=make('td','',u.type==='division'?'ฝ่ายหลัก':u.type==='group'?'หมวด / ประเภทวิชา':'งาน / สาขาวิชา'),parentName=make('td','sub',lookup.get(u.parentId)?.name||'—'),status=make('td'),act=make('td');
-      title.style.paddingLeft=(depth(u)*18)+'px';name.append(title);status.append(make('span','pill '+(u.enabled?'ok':'pending'),u.enabled?'เปิดใช้งาน':'ปิดใช้งาน'));
-      const controls=make('div','btnRow');controls.append(btn('แก้ไข','',()=>openUnitModal(u)),btn('ลบ','btnDanger',()=>deleteUnit(u)));act.append(controls);
-      tr.append(name,type,parentName,status,act);body.append(tr);walk(u.id);
-    }
-  };walk('');
-}
-function updateUnitParents(){
-  const type=$('unitType').value,selected=$('unitParent').value;
-  const choices=unitRecords.filter(u=>u.enabled&&u.id!==activeUnitId&&(
-     type==='unit'?['division','group','unit'].includes(u.type):type==='group'?u.type==='division':false));
-  const select=$('unitParent');select.replaceChildren(new Option(type==='division'?'ไม่ต้องระบุสังกัด':'— เลือกสังกัด —',''));
-  for(const u of choices)select.append(new Option((u.type==='division'?'':u.type==='group'?'↳ ':'    ')+u.name,u.id));
-  if([...select.options].some(x=>x.value===selected))select.value=selected;
-  select.disabled=type==='division';select.required=type!=='division';
-}
-function openUnitModal(u){
-  if(state.role!=='admin'||state.busy)return;
-  activeUnitId=u?.id||'';
-  $('unitForm').reset();$('unitModalTitle').textContent=u?'แก้ไขหน่วยงาน':'เพิ่มหน่วยงาน';
-  $('unitName').value=u?.name||'';$('unitType').value=u?.type||'unit';$('unitType').disabled=!!u;
-  $('unitSort').value=u?.sort??100;$('unitEnabled').checked=u?!!u.enabled:true;
-  updateUnitParents();$('unitParent').value=u?.parentId||'';msg('unitMessage','');
-  $('unitModal').hidden=false;$('unitName').focus();
-}
-function closeUnitModal(){if(!state.busy)$('unitModal').hidden=true}
-async function saveUnit(e){
-  e.preventDefault();if(state.role!=='admin'||state.busy)return;
-  const p={id:activeUnitId,name:$('unitName').value.trim(),type:$('unitType').value,parentId:$('unitParent').value,
-    sort:Number($('unitSort').value),enabled:$('unitEnabled').checked};
-  if(p.type!=='division'&&!p.parentId){msg('unitMessage','กรุณาเลือกสังกัด');return}
-  setBusy(true,'กำลังบันทึกหน่วยงาน...');try{
-    const reply=await api('adminUnitSave',{payload:JSON.stringify(p)});$('unitModal').hidden=true;
-    setBusy(false);await loadUnits();await loadDashboard();msg('globalMsg',reply.message||'บันทึกเรียบร้อย','success');
-  }catch(err){msg('unitMessage',err.message)}finally{setBusy(false)}
-}
-async function deleteUnit(u){
-  if(state.role!=='admin'||state.busy)return;
-  if(!confirm('ลบหน่วยงาน “'+u.name+'” ?\nหากมีหน่วยงานย่อยหรือมีบุคลากรใช้รายการนี้ ระบบจะไม่อนุญาตให้ลบ'))return;
-  setBusy(true,'กำลังตรวจสอบและลบหน่วยงาน...');try{await api('adminUnitDelete',{id:u.id});setBusy(false);await loadUnits();msg('globalMsg','ลบหน่วยงานเรียบร้อย','success')}
-  catch(err){msg('globalMsg',err.message)}finally{setBusy(false)}
-}
-$('newUnitBtn').addEventListener('click',()=>openUnitModal(null));
-$('reloadUnits').addEventListener('click',loadUnits);
-$('unitType').addEventListener('change',updateUnitParents);
-$('unitForm').addEventListener('submit',saveUnit);
-$('closeUnitModal').addEventListener('click',closeUnitModal);
-$('cancelUnitModal').addEventListener('click',closeUnitModal);
-$('unitModal').addEventListener('click',e=>{if(e.target===$('unitModal'))closeUnitModal()});
-
-unitOptions($('department'),orgUnits,'edit');
-$('userActionForm').addEventListener('submit',submitUserAction);
-$('closeUserAction').addEventListener('click',()=>{if(!state.busy){$('userActionModal').hidden=true;$('userNewPassword').value=''}});
-$('cancelUserAction').addEventListener('click',()=>{if(!state.busy){$('userActionModal').hidden=true;$('userNewPassword').value=''}});
-$('createUserForm').addEventListener('submit',createUser);
-$('reloadUsers').addEventListener('click',loadUsers);
-$('loginForm').addEventListener('submit',login);$('logoutBtn').addEventListener('click',logout);$('reloadBtn').addEventListener('click',loadDashboard);$('newContactBtn').addEventListener('click',()=>openModal(null));$('contactForm').addEventListener('submit',saveContact);$('closeModalBtn').addEventListener('click',closeModal);$('cancelBtn').addEventListener('click',closeModal);$('contactModal').addEventListener('click',e=>{if(e.target===$('contactModal'))closeModal()});
-$('settingsForm').addEventListener('submit',saveSettings);$('changePasswordForm').addEventListener('submit',changePassword);$('accent').addEventListener('input',()=>$('accentText').textContent=$('accent').value);$('search').addEventListener('input',()=>{state.page=1;render()});$('statusFilter').addEventListener('change',()=>{state.page=1;render()});$('prevBtn').addEventListener('click',()=>{state.page--;render()});$('nextBtn').addEventListener('click',()=>{state.page++;render()});document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>tab(b.dataset.tab)));document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('contactModal').hidden)closeModal()});
-restoreSession();
-</script>
-</body></html>
+  loadContacts();
+  </script>
+</body>
+</html>
