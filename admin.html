@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="referrer" content="strict-origin-when-cross-origin"><meta name="theme-color" content="#104b54">
-<title>ผู้ดูแลระบบ v12 | สมุดโทรศัพท์บุคลากร</title>
-<meta name="phonebook-version" content="v12">
+<title>ผู้ดูแลระบบ v16 | สมุดโทรศัพท์บุคลากร</title>
+<meta name="phonebook-version" content="v16">
 <link rel="preconnect" href="https://script.google.com" crossorigin>
 <link rel="dns-prefetch" href="https://script.googleusercontent.com">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,26 +25,81 @@ main{padding:34px 0 68px}.eyebrow{color:#43858a;font-size:11px;letter-spacing:.0
 .loginWait{display:flex;align-items:center;gap:9px;justify-content:center;color:#4d7779;font-size:12px;margin-top:13px}
 .workStatus{display:flex;align-items:center;gap:9px;background:#eaf6f4;border:1px solid #d1e9e4;color:#326c67;padding:11px 14px;border-radius:11px;margin-bottom:15px;font-size:12px}
 @media(max-width:620px){#createUserForm{grid-template-columns:1fr}}
+#unitsView .btnRow{flex-wrap:nowrap}#unitsView th:last-child{min-width:140px}#unitsView table{min-width:850px}
 </style>
 </head>
 <body>
-<header class="header"><div class="container headInner"><div class="brand"><div class="brandIcon" aria-hidden="true">☏</div><div><h1>สมุดโทรศัพท์บุคลากร</h1><p id="orgHeader">ระบบบริหารจัดการข้อมูลบุคลากร</p><span class="versionTag">v15</span></div></div><nav class="switcher" aria-label="เมนูหลัก"><a href="./index.html">สมุดโทรศัพท์</a><a href="./admin.html" class="active" aria-current="page">ผู้ดูแลระบบ</a></nav></div></header>
+<header class="header"><div class="container headInner"><div class="brand"><div class="brandIcon" aria-hidden="true">☏</div><div><h1>สมุดโทรศัพท์บุคลากร</h1><p id="orgHeader">ระบบบริหารจัดการข้อมูลบุคลากร</p><span class="versionTag">v16</span></div></div><nav class="switcher" aria-label="เมนูหลัก"><a href="./index.html">สมุดโทรศัพท์</a><a href="./admin.html" class="active" aria-current="page">ผู้ดูแลระบบ</a></nav></div></header>
 <main class="container">
-<section id="loginView" class="card loginCard"><div class="loginIcon">♙</div><h2>เข้าสู่ระบบผู้ดูแล</h2><p>เข้าสู่ระบบด้วยบัญชี Admin หรือ Staff เพื่อจัดการสมุดโทรศัพท์</p><form id="loginForm"><div class="field"><label for="username">ชื่อผู้ใช้งาน</label><input id="username" name="username" autocomplete="username" value="admin" required maxlength="30" placeholder="admin หรือชื่อบัญชีเจ้าหน้าที่"></div><div class="field" style="margin-top:13px"><label for="password">รหัสผ่าน</label><input id="password" name="password" type="password" autocomplete="current-password" minlength="12" maxlength="128" required placeholder="กรอกรหัสผ่าน"></div><div id="loginMsg" class="message" hidden role="alert"></div><button id="loginButton" type="submit" class="btn btnPrimary" style="width:100%;margin-top:19px">เข้าสู่ระบบ →</button><div id="loginWait" class="loginWait" hidden><span class="spinner" aria-hidden="true"></span><span id="loginWaitText">กำลังตรวจสอบสิทธิ์...</span></div></form><p class="hint">เวอร์ชัน v15 · หน้าเข้าสู่ระบบแสดงทันที และเลิกใช้ Loading บังหน้าจอ<br>เจ้าของระบบตั้งรหัสใน Apps Script ด้วยฟังก์ชัน setPhonebookAdminPassword<br>คงสถานะล็อกอินเมื่อรีเฟรชในแท็บนี้ จนกว่าเซสชันจะหมดอายุหรือกดออกจากระบบ</p></section>
+<section id="loginView" class="card loginCard"><div class="loginIcon">♙</div><h2>เข้าสู่ระบบผู้ดูแล</h2><p>เข้าสู่ระบบด้วยบัญชี Admin หรือ Staff เพื่อจัดการสมุดโทรศัพท์</p><form id="loginForm"><div class="field"><label for="username">ชื่อผู้ใช้งาน</label><input id="username" name="username" autocomplete="username" value="admin" required maxlength="30" placeholder="admin หรือชื่อบัญชีเจ้าหน้าที่"></div><div class="field" style="margin-top:13px"><label for="password">รหัสผ่าน</label><input id="password" name="password" type="password" autocomplete="current-password" minlength="12" maxlength="128" required placeholder="กรอกรหัสผ่าน"></div><div id="loginMsg" class="message" hidden role="alert"></div><button id="loginButton" type="submit" class="btn btnPrimary" style="width:100%;margin-top:19px">เข้าสู่ระบบ →</button><div id="loginWait" class="loginWait" hidden><span class="spinner" aria-hidden="true"></span><span id="loginWaitText">กำลังตรวจสอบสิทธิ์...</span></div></form><p class="hint">เวอร์ชัน v16 · หน้าเข้าสู่ระบบแสดงทันที และเลิกใช้ Loading บังหน้าจอ<br>เจ้าของระบบตั้งรหัสใน Apps Script ด้วยฟังก์ชัน setPhonebookAdminPassword<br>คงสถานะล็อกอินเมื่อรีเฟรชในแท็บนี้ จนกว่าเซสชันจะหมดอายุหรือกดออกจากระบบ</p></section>
 <section id="dashboardView" hidden>
 <div class="intro"><div><div class="eyebrow">PHONEBOOK MANAGEMENT</div><h2>จัดการสมุดโทรศัพท์</h2><p><span id="welcomeRole">ผู้ใช้งาน</span> · จัดการรายชื่อบุคลากร</p></div><div class="btnRow"><button id="reloadBtn" class="btn" type="button">↻ อัปเดตข้อมูล</button><button id="logoutBtn" class="btn btnDanger" type="button">ออกจากระบบ</button></div></div>
 <div id="globalMsg" class="message" hidden role="status" aria-live="polite"></div><div id="workStatus" class="workStatus" hidden><span class="spinner" aria-hidden="true"></span><span id="workStatusText">กำลังโหลดข้อมูล...</span></div>
 <div class="stats"><div class="card stat"><div class="statIcon">▤</div><div><strong id="totalStat">—</strong><span>รายชื่อทั้งหมด</span></div></div><div class="card stat"><div class="statIcon">✓</div><div><strong id="activeStat">—</strong><span>เผยแพร่แล้ว</span></div></div><div class="card stat"><div class="statIcon warn">◷</div><div><strong id="pendingStat">—</strong><span>ยังไม่เผยแพร่</span></div></div></div>
-<section class="card panel"><div class="tabs" role="tablist" aria-label="หน้าจัดการ"><button class="tab active" data-tab="all" role="tab" aria-selected="true" type="button">รายชื่อทั้งหมด</button><button class="tab" data-tab="pending" role="tab" aria-selected="false" type="button">ยังไม่เผยแพร่ <span id="pendingTag"></span></button><button class="tab" id="settingsTab" data-tab="settings" role="tab" aria-selected="false" type="button">ตั้งค่าระบบ</button><button class="tab" id="usersTab" data-tab="users" role="tab" aria-selected="false" type="button">ผู้ใช้งานและสิทธิ์</button><button class="tab" data-tab="account" type="button">บัญชีของฉัน</button></div>
-<div id="recordsView"><div class="sectionHead"><div><h3 id="recordsHeading">รายชื่อทั้งหมด</h3><p>เพิ่ม แก้ไข ลบ และจัดการสถานะการเผยแพร่</p></div><button class="btn btnPrimary" type="button" id="newContactBtn">+ เพิ่มรายชื่อ</button></div><div class="filters"><input id="search" type="search" placeholder="ค้นหาชื่อ นามสกุล เบอร์โทร LINE ID..." aria-label="ค้นหารายชื่อ"><select id="statusFilter" aria-label="สถานะ"><option value="all">ทุกสถานะ</option><option value="published">เผยแพร่แล้ว</option><option value="pending">ยังไม่เผยแพร่</option></select></div><div class="tableScroll"><table><thead><tr><th>ชื่อ - นามสกุล</th><th>เบอร์โทรศัพท์ / LINE</th><th>ฝ่าย / ตำแหน่ง</th><th>สถานะ</th><th>จัดการ</th></tr></thead><tbody id="rows"></tbody></table></div><div class="footer"><span id="countText">กำลังโหลด...</span><div class="btnRow"><button class="btn btnTiny" id="prevBtn" type="button">‹ ก่อนหน้า</button><span id="pagesText">1 / 1</span><button class="btn btnTiny" id="nextBtn" type="button">ถัดไป ›</button></div></div></div>
+<section class="card panel"><div class="tabs" role="tablist" aria-label="หน้าจัดการ"><button class="tab active" data-tab="all" role="tab" aria-selected="true" type="button">รายชื่อทั้งหมด</button><button class="tab" data-tab="pending" role="tab" aria-selected="false" type="button">ยังไม่เผยแพร่ <span id="pendingTag"></span></button><button class="tab" id="duplicateTab" data-tab="duplicates" type="button">ตรวจรายชื่อซ้ำ <span id="duplicateTag"></span></button><button class="tab" id="unitsTab" data-tab="units" type="button">ฝ่าย / งาน / แผนกวิชา</button><button class="tab" id="settingsTab" data-tab="settings" role="tab" aria-selected="false" type="button">ตั้งค่าระบบ</button><button class="tab" id="usersTab" data-tab="users" role="tab" aria-selected="false" type="button">ผู้ใช้งานและสิทธิ์</button><button class="tab" data-tab="account" type="button">บัญชีของฉัน</button></div>
+<div id="recordsView"><div class="sectionHead"><div><h3 id="recordsHeading">รายชื่อทั้งหมด</h3><p>เพิ่ม แก้ไข ลบ และจัดการสถานะการเผยแพร่ · แท็บตรวจรายชื่อซ้ำเป็นรายการรอตรวจสอบ ไม่ลบข้อมูลอัตโนมัติ</p></div><button class="btn btnPrimary" type="button" id="newContactBtn">+ เพิ่มรายชื่อ</button></div><div class="filters"><input id="search" type="search" placeholder="ค้นหาชื่อ นามสกุล เบอร์โทร LINE ID..." aria-label="ค้นหารายชื่อ"><select id="statusFilter" aria-label="สถานะ"><option value="all">ทุกสถานะ</option><option value="published">เผยแพร่แล้ว</option><option value="pending">ยังไม่เผยแพร่</option></select></div><div class="tableScroll"><table><thead><tr><th>ชื่อ - นามสกุล</th><th>เบอร์โทรศัพท์ / LINE</th><th>ฝ่าย / ตำแหน่ง</th><th>สถานะ</th><th>จัดการ</th></tr></thead><tbody id="rows"></tbody></table></div><div class="footer"><span id="countText">กำลังโหลด...</span><div class="btnRow"><button class="btn btnTiny" id="prevBtn" type="button">‹ ก่อนหน้า</button><span id="pagesText">1 / 1</span><button class="btn btnTiny" id="nextBtn" type="button">ถัดไป ›</button></div></div></div>
+<div id="unitsView" hidden>
+  <div class="sectionHead"><div><h3>ทะเบียนฝ่าย งาน และแผนกวิชา</h3><p>แก้ไขรายการส่วนกลางได้ที่นี่ รายการในฟอร์มและตัวกรองหน้าสาธารณะจะอัปเดตจาก Google Sheets</p></div>
+    <div class="btnRow"><button class="btn" type="button" id="reloadUnits">↻ โหลดหน่วยงาน</button><button class="btn btnPrimary" type="button" id="newUnitBtn">+ เพิ่มหน่วยงาน</button></div></div>
+  <div style="padding:10px 20px;color:#607a82;font-size:12px">หน่วยงานที่ยังมีผู้ใช้อยู่จะลบไม่ได้ การเปลี่ยนชื่อหรือย้ายสังกัดจะปรับข้อมูลบุคลากรที่ตรงกันโดยอัตโนมัติ</div>
+  <div class="tableScroll"><table><thead><tr><th>ชื่อหน่วยงาน</th><th>ประเภท</th><th>สังกัด</th><th>สถานะ</th><th>จัดการ</th></tr></thead><tbody id="unitRows"><tr><td colspan="5">เลือกแท็บนี้เพื่อโหลดทะเบียนหน่วยงาน</td></tr></tbody></table></div>
+</div>
 <div id="usersView" hidden><div class="sectionHead"><div><h3>บัญชีผู้ใช้งานและสิทธิ์</h3><p>Admin สามารถสร้างบัญชีและกำหนดสิทธิ์เจ้าหน้าที่</p></div><button id="reloadUsers" class="btn" type="button">↻ โหลดบัญชี</button></div><form id="createUserForm" class="settingsContent"><div class="field"><label for="newUsername">ชื่อผู้ใช้ใหม่ (ภาษาอังกฤษ)</label><input id="newUsername" required minlength="3" maxlength="30" pattern="[a-zA-Z][a-zA-Z0-9._-]{2,29}" placeholder="เช่น officer01" autocomplete="off"></div><div class="field"><label for="newUserRole">บทบาท</label><select id="newUserRole"><option value="staff">เจ้าหน้าที่ (Staff)</option><option value="admin">ผู้ดูแลระบบ (Admin)</option></select></div><div class="field wide"><label for="newUserPassword">รหัสผ่านเริ่มต้น (อย่างน้อย 12 ตัวอักษร)</label><input id="newUserPassword" type="password" required minlength="12" maxlength="128" autocomplete="new-password" placeholder="ตั้งรหัสเริ่มต้นแล้วแจ้งเจ้าหน้าที่โดยช่องทางที่ปลอดภัย"></div><div class="settingsActions"><button class="btn btnPrimary" type="submit">+ สร้างบัญชี</button></div></form><div class="tableScroll"><table><thead><tr><th>ชื่อผู้ใช้</th><th>บทบาท</th><th>สถานะ</th><th>จัดการ</th></tr></thead><tbody id="usersRows"><tr><td colspan="4">เลือกแท็บเพื่อโหลดรายชื่อบัญชี</td></tr></tbody></table></div></div><div id="settingsView" hidden><div class="sectionHead"><div><h3>ตั้งค่าระบบ</h3><p>ปรับชื่อหน่วยงาน รูปแบบการแสดงผล และสิทธิ์การรับข้อมูล</p></div></div><form id="settingsForm" class="settingsContent"><div class="field wide"><label for="organizationName">ชื่อหน่วยงาน</label><input id="organizationName" maxlength="120" required></div><div class="field"><label for="pageSize">จำนวนรายชื่อต่อหน้า (5–100)</label><input type="number" id="pageSize" min="5" max="100" required></div><div class="field"><label for="accent">สีหลักของเว็บไซต์</label><div class="colorField"><input type="color" id="accent" value="#17636d"><span id="accentText">#17636d</span></div></div><div class="wide switchField"><input id="allowSubmissions" type="checkbox"><label for="allowSubmissions">เปิดรับรายชื่อใหม่จากผู้ใช้งานทั่วไป (บันทึกแล้วเผยแพร่ทันที)</label></div><div class="settingsActions"><button type="submit" class="btn btnPrimary" id="saveSettingsBtn">บันทึกการตั้งค่า</button></div></form></div><div id="accountView" hidden><div class="sectionHead"><div><h3>บัญชีของฉัน</h3><p>เปลี่ยนรหัสผ่านสำหรับบัญชีที่กำลังใช้งาน</p></div></div><div class="settingGroup"><h4>เปลี่ยนรหัสผ่านของฉัน</h4><form id="changePasswordForm"><div class="formGrid"><div class="field"><label for="oldPassword">รหัสผ่านปัจจุบัน</label><input id="oldPassword" type="password" autocomplete="current-password" required></div><div class="field"><label for="newPassword">รหัสผ่านใหม่ (อย่างน้อย 12 ตัวอักษร)</label><input id="newPassword" type="password" autocomplete="new-password" minlength="12" required></div></div><button type="submit" class="btn" style="margin-top:14px" id="changePasswordBtn">เปลี่ยนรหัสผ่าน</button><p class="hint">เมื่อเปลี่ยนสำเร็จ ระบบจะออกจากระบบและต้องเข้าสู่ระบบใหม่</p></form></div></div>
 </section></section>
 </main>
-<div id="contactModal" class="modalOverlay" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle"><div class="modalHead"><h3 id="contactModalTitle">เพิ่มรายชื่อ</h3><button class="xbtn" id="closeModalBtn" type="button" aria-label="ปิด">×</button></div><div class="modalBody"><form id="contactForm"><div class="formGrid"><div class="field"><label for="firstName">ชื่อ <span class="req">*</span></label><input id="firstName" name="firstName" required maxlength="100"></div><div class="field"><label for="lastName">นามสกุล <span class="req">*</span></label><input id="lastName" name="lastName" required maxlength="100"></div><div class="field wide"><label for="phone">เบอร์โทรศัพท์ <span class="req">*</span></label><input id="phone" name="phone" type="tel" inputmode="tel" maxlength="32" required placeholder="0891234567"></div><div class="field"><label for="lineId">LINE ID (ไม่บังคับ)</label><input id="lineId" name="lineId" maxlength="100"></div><div class="field"><label for="department">ฝ่าย/แผนก (ไม่บังคับ)</label><input id="department" name="department" maxlength="100"></div><div class="field wide"><label for="position">ตำแหน่ง (ไม่บังคับ)</label><input id="position" name="position" maxlength="100"></div><div class="field wide"><label class="checkRow"><input type="checkbox" id="published" name="published"><span>เผยแพร่รายชื่อนี้บนเว็บไซต์</span></label></div></div><div id="formMsg" class="message" role="alert" hidden></div><div class="formActions"><button type="button" id="cancelBtn" class="btn">ยกเลิก</button><button type="submit" class="btn btnPrimary" id="submitContactBtn">บันทึกข้อมูล</button></div></form></div></section></div>
+<div id="contactModal" class="modalOverlay" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle"><div class="modalHead"><h3 id="contactModalTitle">เพิ่มรายชื่อ</h3><button class="xbtn" id="closeModalBtn" type="button" aria-label="ปิด">×</button></div><div class="modalBody"><form id="contactForm"><div class="formGrid"><div class="field"><label for="firstName">ชื่อ <span class="req">*</span></label><input id="firstName" name="firstName" required maxlength="100"></div><div class="field"><label for="lastName">นามสกุล <span class="req">*</span></label><input id="lastName" name="lastName" required maxlength="100"></div><div class="field wide"><label for="phone">เบอร์โทรศัพท์ <span class="req">*</span></label><input id="phone" name="phone" type="tel" inputmode="tel" maxlength="32" required placeholder="0891234567"></div><div class="field"><label for="lineId">LINE ID (ไม่บังคับ)</label><input id="lineId" name="lineId" maxlength="100"></div><div class="field"><label for="department">ฝ่าย / งาน / แผนก (ไม่บังคับ)</label><select id="department" name="department" aria-label="เลือกฝ่าย งาน หรือแผนก"><option value="">— ไม่ระบุฝ่าย / งาน / แผนก —</option></select></div><div class="field wide"><label for="position">ตำแหน่ง (ไม่บังคับ)</label><input id="position" name="position" maxlength="100"></div><div class="field wide"><label class="checkRow"><input type="checkbox" id="published" name="published"><span>เผยแพร่รายชื่อนี้บนเว็บไซต์</span></label></div></div><div id="formMsg" class="message" role="alert" hidden></div><div class="formActions"><button type="button" id="cancelBtn" class="btn">ยกเลิก</button><button type="submit" class="btn btnPrimary" id="submitContactBtn">บันทึกข้อมูล</button></div></form></div></section></div>
+<div id="unitModal" class="modalOverlay" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="unitModalTitle"><div class="modalHead"><h3 id="unitModalTitle">เพิ่มหน่วยงาน</h3><button class="xbtn" id="closeUnitModal" type="button" aria-label="ปิด">×</button></div><div class="modalBody">
+<form id="unitForm"><div class="formGrid"><div class="field wide"><label for="unitName">ชื่อฝ่าย / งาน / แผนก <span class="req">*</span></label><input id="unitName" required maxlength="120" placeholder="เช่น งานทะเบียน"></div><div class="field"><label for="unitType">ประเภท</label><select id="unitType"><option value="division">ฝ่ายหลัก</option><option value="group">หมวด / ประเภทวิชา (หัวข้อกลุ่ม)</option><option value="unit" selected>งาน / แผนก / สาขาวิชา</option></select></div><div class="field"><label for="unitParent">สังกัด</label><select id="unitParent"></select></div><div class="field"><label for="unitSort">ลำดับการแสดงผล</label><input type="number" min="0" max="99999" id="unitSort" value="100" required></div><div class="field"><label class="checkRow"><input type="checkbox" id="unitEnabled" checked><span>เปิดใช้งาน</span></label></div></div><div id="unitMessage" class="message" hidden role="alert"></div><div class="formActions"><button class="btn" type="button" id="cancelUnitModal">ยกเลิก</button><button class="btn btnPrimary" type="submit">บันทึกหน่วยงาน</button></div></form></div></section></div>
 <div id="userActionModal" class="modalOverlay" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="userActionTitle"><div class="modalHead"><h3 id="userActionTitle">จัดการบัญชีผู้ใช้</h3><button class="xbtn" id="closeUserAction" type="button" aria-label="ปิด">×</button></div><div class="modalBody"><form id="userActionForm"><div id="userActionMsg" class="message" role="alert" hidden></div><p id="userActionDesc" class="muted"></p><div id="userRoleField" class="field"><label for="userRoleSelect">บทบาทใหม่</label><select id="userRoleSelect"><option value="staff">Staff — เพิ่มและแก้ไข</option><option value="admin">Admin — จัดการทั้งหมด</option></select></div><div id="userPasswordField" class="field" hidden><label for="userNewPassword">รหัสผ่านใหม่ (12 ตัวอักษรขึ้นไป)</label><input id="userNewPassword" type="password" minlength="12" maxlength="128" autocomplete="new-password" placeholder="กรอกรหัสผ่านใหม่"></div><div class="formActions"><button id="cancelUserAction" class="btn" type="button">ยกเลิก</button><button class="btn btnPrimary" type="submit">บันทึกการเปลี่ยนแปลง</button></div></form></div></section></div>
 <script>
 'use strict';
-// ใช้ Deployment ของระบบสมุดโทรศัพท์เดียวกับหน้า index.html; ไม่มีรหัสลับในไฟล์นี้
+
+// ทุกตัวเลือกมาจากทะเบียนหน่วยงานกลางใน Google Sheets; ไม่เก็บรายการคงที่ซ้ำในหน้าเว็บ
+let orgUnits=[];
+function orgPath(unit,byId){
+  if(!unit)return '';
+  const seen=new Set(),chain=[];let cur=unit;
+  while(cur&& !seen.has(cur.id)){seen.add(cur.id);if(cur.type!=='group')chain.unshift(cur.name);cur=byId.get(cur.parentId)}
+  return chain.join(' / ');
+}
+function unitOptions(select,items,kind='edit',legacy=''){
+  const old=select.value;
+  select.replaceChildren(new Option(kind==='filter'?'ทุกฝ่าย / ทุกแผนก':'— ไม่ระบุ —',''));
+  const ordered=[...(items||[])].filter(u=>u&&u.enabled!==false).sort((a,b)=>Number(a.sort||0)-Number(b.sort||0)||String(a.name).localeCompare(String(b.name),'th'));
+  const byId=new Map(ordered.map(u=>[u.id,u]));
+  const divisions=ordered.filter(u=>u.type==='division');
+  for(const division of divisions){
+    const head=document.createElement('optgroup');head.label=division.name;
+    const divValue=orgPath(division,byId);
+    head.append(new Option(kind==='filter'?'ทุกงานในฝ่ายนี้':'เลือกเฉพาะฝ่าย (ไม่ระบุงาน)',kind==='filter'?'__division__'+division.id:divValue));
+    for(const u of ordered.filter(x=>x.parentId===division.id&&x.type==='unit'))
+      head.append(new Option(u.name,orgPath(u,byId)));
+    select.append(head);
+    for(const group of ordered.filter(x=>x.parentId===division.id&&x.type==='group')){
+      const sub=document.createElement('optgroup');sub.label=division.name+' · '+group.name;
+      for(const u of ordered.filter(x=>x.parentId===group.id&&x.type==='unit'))
+        sub.append(new Option(u.name,orgPath(u,byId)));
+      select.append(sub);
+    }
+    // หน่วยงานย่อยเฉพาะกรณีพิเศษ (เช่น ยานพาหนะภายใต้งานพัสดุ)
+    for(const parent of ordered.filter(x=>x.parentId===division.id&&x.type==='unit')){
+      const children=ordered.filter(x=>x.parentId===parent.id&&x.type==='unit');
+      if(children.length){
+        const sub=document.createElement('optgroup');sub.label=division.name+' · '+parent.name;
+        for(const u of children)sub.append(new Option(u.name,orgPath(u,byId)));
+        select.append(sub);
+      }
+    }
+  }
+  // รายชื่อเดิมที่ไม่ได้อยู่ในทะเบียนยังคงบันทึกได้ โดยไม่เพิ่มลงเมนูถาวร
+  const value=String(legacy||'').trim();
+  if(value&&!Array.from(select.options).some(x=>x.value===value)){
+    const group=document.createElement('optgroup');group.label='ข้อมูลเดิม (ยังไม่จัดหมวดหมู่)';group.append(new Option(value,value));select.append(group);
+  }
+  select.value=value||old;
+  if(select.selectedIndex<0)select.value='';
+}
+
 const API_URL='https://script.google.com/macros/s/AKfycbzbkJsy5Qs8oVvckvRYxYNJLDDUQLHp9BOZYi6orFVODLKg33_0aHrPp5Jwuxeu8ob2/exec';
 const $=id=>document.getElementById(id);
 const state={token:null,username:'',role:'',contacts:[],settings:null,dataLoaded:false,loadError:'',tab:'all',page:1,editId:null,busy:false,users:null,userEditUsername:'',userEditMode:''};
@@ -85,7 +140,7 @@ function msg(id,text,type='error'){const el=$(id);el.textContent=text||'';el.cla
 function setBusy(isBusy,title='กำลังดำเนินการ...'){
   state.busy=isBusy;
   if(isBusy)dashboardLoadNumber++;
-  document.querySelectorAll('#dashboardView button,#loginForm button,#contactModal button,#userActionModal button').forEach(b=>b.disabled=isBusy);
+  document.querySelectorAll('#dashboardView button,#loginForm button,#contactModal button,#userActionModal button,#unitModal button').forEach(b=>b.disabled=isBusy);
   // ไม่ขึ้นหน้าต่างโหลดทับหน้าล็อกอินอีกต่อไป ให้เห็นอินพุตและสถานะได้ตลอด
   // v12: intentionally no fullscreen loading overlay
   const inLogin=$('dashboardView').hidden;
@@ -207,12 +262,12 @@ async function login(e){
 function applyPermissions(){
   const isAdmin=state.role==='admin';
   $('welcomeRole').textContent=(state.username||'')+' · '+(isAdmin?'ผู้ดูแลระบบ':'เจ้าหน้าที่');
-  $('settingsTab').hidden=!isAdmin;$('usersTab').hidden=!isAdmin;
+  $('settingsTab').hidden=!isAdmin;$('usersTab').hidden=!isAdmin;$('unitsTab').hidden=!isAdmin;$('duplicateTab').hidden=!isAdmin;
   // เจ้าหน้าที่เห็นเฉพาะเพิ่ม/แก้ไข ไม่เห็นลบ/เผยแพร่/ตั้งค่า
-  if(!isAdmin&&['settings','users'].includes(state.tab))state.tab='all';
+  if(!isAdmin&&['settings','users','units','duplicates'].includes(state.tab))state.tab='all';
   $('published').disabled=!isAdmin;
 }
-function logoutLocal(){forgetStoredSession();uncertainRequests.clear();dashboardLoadNumber++;state.token=null;state.role='';state.username='';state.contacts=[];state.settings=null;state.dataLoaded=false;state.loadError='';state.users=null;state.tab='all';$('dashboardView').hidden=true;$('loginView').hidden=false;msg('loginMsg','');$('password').value='';$('contactModal').hidden=true;$('userActionModal').hidden=true;state.editId=null;state.userEditUsername='';state.userEditMode='';
+function logoutLocal(){forgetStoredSession();uncertainRequests.clear();dashboardLoadNumber++;state.token=null;state.role='';state.username='';state.contacts=[];state.settings=null;state.dataLoaded=false;state.loadError='';state.users=null;unitRecords=[];orgUnits=[];state.tab='all';$('dashboardView').hidden=true;$('loginView').hidden=false;msg('loginMsg','');$('password').value='';$('contactModal').hidden=true;$('userActionModal').hidden=true;$('unitModal').hidden=true;state.editId=null;state.userEditUsername='';state.userEditMode='';
 ['changePasswordForm','createUserForm','userActionForm','contactForm'].forEach(id=>$(id).reset());
 $('search').value='';$('usersRows').replaceChildren();msg('globalMsg','');tab('all');setBusy(false)}
 async function logout(){const token=state.token;logoutLocal();if(token){try{await api('adminLogout',{token})}catch(e){/* session expires automatically */}}}
@@ -236,7 +291,7 @@ async function loadDashboard(){
   try{
     let reply=await api('adminDashboard',{offset:0});
     if(loadId!==dashboardLoadNumber||state.token!==token)return;
-    const contacts=[...(reply.contacts||[])],settings=reply.settings,role=reply.role,revision=reply.revision;
+    const contacts=[...(reply.contacts||[])],settings=reply.settings,role=reply.role,revision=reply.revision;orgUnits=Array.isArray(reply.units)?reply.units:[];unitOptions($('department'),orgUnits,'edit');
     let offset=contacts.length;
     while(reply.hasMore&&state.token===token&&loadId===dashboardLoadNumber){
       showProgress('กำลังเพิ่มรายชื่อ ('+offset+' / '+reply.total+')...');
@@ -260,21 +315,23 @@ async function loadDashboard(){
   }
 }
 function applySettings(){const s=state.settings||{};$('organizationName').value=s.organizationName||'วิทยาลัยการอาชีพนครยะลา';$('orgHeader').textContent=s.organizationName||'ระบบบริหารจัดการข้อมูลบุคลากร';$('pageSize').value=s.pageSize||12;perPage=Math.max(5,Math.min(100,Number(s.pageSize)||12));$('accent').value=/^#[a-fA-F0-9]{6}$/.test(s.accent||'')?s.accent:'#17636d';$('accentText').textContent=$('accent').value;$('allowSubmissions').checked=s.allowSubmissions!==false;document.documentElement.style.setProperty('--primary',$('accent').value)}
-function visibleContacts(){const q=$('search').value.trim().toLocaleLowerCase('th');const filter=$('statusFilter').value;
-  return state.contacts.filter(c=>{if(state.tab==='pending'&&c.published)return false;if(filter==='pending'&&c.published)return false;if(filter==='published'&&!c.published)return false;
+function normalizedDuplicateKey(c){return [c.firstName,c.lastName].map(s=>String(s||'').replace(/\s+/g,'').toLocaleLowerCase('th')).join('|')+'|'+String(c.phone||'').replace(/\D/g,'')}
+function duplicateKeys(){const counts=new Map();state.contacts.forEach(c=>{const k=normalizedDuplicateKey(c);counts.set(k,(counts.get(k)||0)+1)});return new Set([...counts].filter(([key,n])=>n>1).map(([key])=>key))}
+function visibleContacts(){const duplicates=state.tab==='duplicates'?duplicateKeys():null;const q=$('search').value.trim().toLocaleLowerCase('th');const filter=$('statusFilter').value;
+  return state.contacts.filter(c=>{if(state.tab==='pending'&&c.published)return false;if(duplicates&&!duplicates.has(normalizedDuplicateKey(c)))return false;if(filter==='pending'&&c.published)return false;if(filter==='published'&&!c.published)return false;
     return !q||[c.firstName,c.lastName,c.firstName+' '+c.lastName,c.phone,c.department,c.position,c.lineId].some(v=>String(v||'').toLocaleLowerCase('th').includes(q));});
 }
 function make(tag,cls,txt){const el=document.createElement(tag);if(cls)el.className=cls;if(txt!==undefined)el.textContent=String(txt);return el}
 function btn(label,cls,click){const el=make('button','btn btnTiny '+cls,label);el.type='button';el.addEventListener('click',click);return el}
 function render(){const pending=state.contacts.filter(c=>!c.published).length;$('totalStat').textContent=state.dataLoaded?state.contacts.length:'—';$('activeStat').textContent=state.dataLoaded?state.contacts.length-pending:'—';$('pendingStat').textContent=state.dataLoaded?pending:'—';$('pendingTag').textContent=pending?'('+pending+')':'';
-  const rows=visibleContacts();const pages=Math.max(1,Math.ceil(rows.length/perPage));state.page=Math.min(Math.max(1,state.page),pages);$('pagesText').textContent=state.page+' / '+pages;$('prevBtn').disabled=state.busy||state.page<=1;$('nextBtn').disabled=state.busy||state.page>=pages;$('countText').textContent=state.dataLoaded?'แสดง '+rows.length+' รายการ':(state.loadError?'ยังโหลดข้อมูลไม่สำเร็จ':'กำลังโหลด...');
+  const suspected=duplicateKeys().size;$('duplicateTag').textContent=suspected?'('+suspected+' กลุ่ม)':'';const rows=visibleContacts();const pages=Math.max(1,Math.ceil(rows.length/perPage));state.page=Math.min(Math.max(1,state.page),pages);$('pagesText').textContent=state.page+' / '+pages;$('prevBtn').disabled=state.busy||state.page<=1;$('nextBtn').disabled=state.busy||state.page>=pages;$('countText').textContent=state.dataLoaded?'แสดง '+rows.length+' รายการ':(state.loadError?'ยังโหลดข้อมูลไม่สำเร็จ':'กำลังโหลด...');
   const tbody=$('rows');tbody.replaceChildren();if(rows.length===0){const tr=make('tr');const td=make('td','empty');td.colSpan=5;td.append(make('strong','',!state.dataLoaded?(state.loadError?'โหลดรายชื่อไม่สำเร็จ กรุณากดอัปเดตข้อมูลอีกครั้ง':'กำลังดึงรายชื่อจากระบบ...'):(state.tab==='pending'?'ไม่มีรายการยังไม่เผยแพร่':'ไม่พบข้อมูลตามเงื่อนไข')));tr.append(td);tbody.append(tr);return}
   rows.slice((state.page-1)*perPage,state.page*perPage).forEach(c=>{const tr=make('tr');const person=make('td');person.append(make('div','name',[c.firstName,c.lastName].join(' ')),make('div','sub',c.id.slice(0,8)));const contact=make('td');contact.append(make('div','mono',c.phone));if(c.lineId)contact.append(make('div','sub','LINE: '+c.lineId));const dept=make('td');dept.append(make('div','',c.department||'—'),make('div','sub',c.position||''));const status=make('td');status.append(make('span','pill '+(c.published?'ok':'pending'),c.published?'เผยแพร่แล้ว':'ยังไม่เผยแพร่'));
     const action=make('td');const buttons=make('div','btnRow');if(state.role==='admin'){if(!c.published)buttons.append(btn('✓ เผยแพร่','btnSuccess',()=>publish(c,true)));else buttons.append(btn('ซ่อน','',()=>publish(c,false)));}buttons.append(btn('แก้ไข','',()=>edit(c)));if(state.role==='admin')buttons.append(btn('ลบ','btnDanger',()=>remove(c)));action.append(buttons);tr.append(person,contact,dept,status,action);tbody.append(tr)
   });
 }
-function tab(name){if(['settings','users'].includes(name)&&state.role!=='admin')return;state.tab=name;state.page=1;document.querySelectorAll('[data-tab]').forEach(b=>{const active=b.dataset.tab===name;b.classList.toggle('active',active);b.setAttribute('aria-selected',String(active))});$('recordsView').hidden=['settings','users','account'].includes(name);$('settingsView').hidden=name!=='settings';$('usersView').hidden=name!=='users';$('accountView').hidden=name!=='account';if(name==='users')loadUsers();$('recordsHeading').textContent=name==='pending'?'รายชื่อยังไม่เผยแพร่':'รายชื่อทั้งหมด';$('statusFilter').value='all';render()}
-function openModal(c){if(state.busy||!state.token)return;state.editId=c?c.id:null;$('contactModalTitle').textContent=c?'แก้ไขรายชื่อ':'เพิ่มรายชื่อ';$('contactForm').reset();for(const key of ['firstName','lastName','phone','lineId','department','position'])$(key).value=c?String(c[key]||''):'';$('published').checked=c?!!c.published:true;$('published').disabled=state.role!=='admin';msg('formMsg','');$('contactModal').hidden=false;$('firstName').focus()}
+function tab(name){if(['settings','users','units','duplicates'].includes(name)&&state.role!=='admin')return;state.tab=name;state.page=1;document.querySelectorAll('[data-tab]').forEach(b=>{const active=b.dataset.tab===name;b.classList.toggle('active',active);b.setAttribute('aria-selected',String(active))});$('recordsView').hidden=['settings','users','units','account'].includes(name);$('unitsView').hidden=name!=='units';$('settingsView').hidden=name!=='settings';$('usersView').hidden=name!=='users';$('accountView').hidden=name!=='account';if(name==='users')loadUsers();if(name==='units')loadUnits();$('recordsHeading').textContent=name==='pending'?'รายชื่อยังไม่เผยแพร่':name==='duplicates'?'ตรวจสอบรายชื่อที่อาจซ้ำ':'รายชื่อทั้งหมด';$('statusFilter').value='all';render()}
+function openModal(c){if(state.busy||!state.token)return;state.editId=c?c.id:null;$('contactModalTitle').textContent=c?'แก้ไขรายชื่อ':'เพิ่มรายชื่อ';$('contactForm').reset();for(const key of ['firstName','lastName','phone','lineId','position'])$(key).value=c?String(c[key]||''):'';unitOptions($('department'),orgUnits,'edit',c?c.department:'');$('published').checked=c?!!c.published:true;$('published').disabled=state.role!=='admin';msg('formMsg','');$('contactModal').hidden=false;$('firstName').focus()}
 function closeModal(){if(state.busy)return;$('contactModal').hidden=true;state.editId=null}
 function edit(c){openModal(c)}
 async function saveContact(e){e.preventDefault();if(state.busy||!$('contactForm').reportValidity())return;const c={};for(const k of ['firstName','lastName','phone','lineId','department','position'])c[k]=$(k).value.trim();c.published=$('published').checked;const digits=c.phone.replace(/\D/g,'');if(!/^\+?[0-9\s().-]+$/.test(c.phone)||digits.length<6||digits.length>15){msg('formMsg','กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง (6–15 หลัก)');return}
@@ -334,6 +391,73 @@ async function submitUserAction(e){
   try{await api(action,fields);if(username===state.username){logoutLocal();msg('loginMsg','ข้อมูลบัญชีเปลี่ยนแล้ว กรุณาเข้าสู่ระบบใหม่','success');return}$('userNewPassword').value='';$('userActionModal').hidden=true;state.userEditUsername='';setBusy(false);const reloaded=await loadUsers();if(reloaded)msg('globalMsg',mode==='role'?'เปลี่ยนบทบาทสำเร็จ':'รีเซ็ตรหัสสำเร็จ กรุณาแจ้งผู้ใช้ด้วยช่องทางที่ปลอดภัย','success')}
   catch(err){msg('userActionMsg',err.message)}finally{setBusy(false)}
 }
+
+let unitRecords=[];let activeUnitId='';
+async function loadUnits(){
+  if(state.role!=='admin'||!state.token)return;
+  const token=state.token;setBusy(true,'กำลังโหลดทะเบียนหน่วยงาน...');
+  try{const reply=await api('adminUnits');if(state.token!==token)return;
+    unitRecords=reply.units||[];orgUnits=unitRecords;unitOptions($('department'),orgUnits,'edit');renderUnits();
+  }catch(err){msg('globalMsg',err.message)}finally{setBusy(false)}
+}
+function renderUnits(){
+  const body=$('unitRows');body.replaceChildren();
+  if(!unitRecords.length){const tr=make('tr'),td=make('td','empty','ยังไม่มีทะเบียนหน่วยงาน');td.colSpan=5;tr.append(td);body.append(tr);return;}
+  const lookup=new Map(unitRecords.map(x=>[x.id,x]));
+  const depth=u=>{let n=0,p=u.parentId;while(p&&lookup.has(p)&&n<4){n++;p=lookup.get(p).parentId}return n};
+  const walk=(parent)=>{
+    for(const u of unitRecords.filter(x=>x.parentId===parent).sort((a,b)=>a.sort-b.sort||a.name.localeCompare(b.name,'th'))){
+      const tr=make('tr'),name=make('td'),title=make('div','name',u.name),type=make('td','',u.type==='division'?'ฝ่ายหลัก':u.type==='group'?'หมวด / ประเภทวิชา':'งาน / สาขาวิชา'),parentName=make('td','sub',lookup.get(u.parentId)?.name||'—'),status=make('td'),act=make('td');
+      title.style.paddingLeft=(depth(u)*18)+'px';name.append(title);status.append(make('span','pill '+(u.enabled?'ok':'pending'),u.enabled?'เปิดใช้งาน':'ปิดใช้งาน'));
+      const controls=make('div','btnRow');controls.append(btn('แก้ไข','',()=>openUnitModal(u)),btn('ลบ','btnDanger',()=>deleteUnit(u)));act.append(controls);
+      tr.append(name,type,parentName,status,act);body.append(tr);walk(u.id);
+    }
+  };walk('');
+}
+function updateUnitParents(){
+  const type=$('unitType').value,selected=$('unitParent').value;
+  const choices=unitRecords.filter(u=>u.enabled&&u.id!==activeUnitId&&(
+     type==='unit'?['division','group','unit'].includes(u.type):type==='group'?u.type==='division':false));
+  const select=$('unitParent');select.replaceChildren(new Option(type==='division'?'ไม่ต้องระบุสังกัด':'— เลือกสังกัด —',''));
+  for(const u of choices)select.append(new Option((u.type==='division'?'':u.type==='group'?'↳ ':'    ')+u.name,u.id));
+  if([...select.options].some(x=>x.value===selected))select.value=selected;
+  select.disabled=type==='division';select.required=type!=='division';
+}
+function openUnitModal(u){
+  if(state.role!=='admin'||state.busy)return;
+  activeUnitId=u?.id||'';
+  $('unitForm').reset();$('unitModalTitle').textContent=u?'แก้ไขหน่วยงาน':'เพิ่มหน่วยงาน';
+  $('unitName').value=u?.name||'';$('unitType').value=u?.type||'unit';$('unitType').disabled=!!u;
+  $('unitSort').value=u?.sort??100;$('unitEnabled').checked=u?!!u.enabled:true;
+  updateUnitParents();$('unitParent').value=u?.parentId||'';msg('unitMessage','');
+  $('unitModal').hidden=false;$('unitName').focus();
+}
+function closeUnitModal(){if(!state.busy)$('unitModal').hidden=true}
+async function saveUnit(e){
+  e.preventDefault();if(state.role!=='admin'||state.busy)return;
+  const p={id:activeUnitId,name:$('unitName').value.trim(),type:$('unitType').value,parentId:$('unitParent').value,
+    sort:Number($('unitSort').value),enabled:$('unitEnabled').checked};
+  if(p.type!=='division'&&!p.parentId){msg('unitMessage','กรุณาเลือกสังกัด');return}
+  setBusy(true,'กำลังบันทึกหน่วยงาน...');try{
+    const reply=await api('adminUnitSave',{payload:JSON.stringify(p)});$('unitModal').hidden=true;
+    setBusy(false);await loadUnits();await loadDashboard();msg('globalMsg',reply.message||'บันทึกเรียบร้อย','success');
+  }catch(err){msg('unitMessage',err.message)}finally{setBusy(false)}
+}
+async function deleteUnit(u){
+  if(state.role!=='admin'||state.busy)return;
+  if(!confirm('ลบหน่วยงาน “'+u.name+'” ?\nหากมีหน่วยงานย่อยหรือมีบุคลากรใช้รายการนี้ ระบบจะไม่อนุญาตให้ลบ'))return;
+  setBusy(true,'กำลังตรวจสอบและลบหน่วยงาน...');try{await api('adminUnitDelete',{id:u.id});setBusy(false);await loadUnits();msg('globalMsg','ลบหน่วยงานเรียบร้อย','success')}
+  catch(err){msg('globalMsg',err.message)}finally{setBusy(false)}
+}
+$('newUnitBtn').addEventListener('click',()=>openUnitModal(null));
+$('reloadUnits').addEventListener('click',loadUnits);
+$('unitType').addEventListener('change',updateUnitParents);
+$('unitForm').addEventListener('submit',saveUnit);
+$('closeUnitModal').addEventListener('click',closeUnitModal);
+$('cancelUnitModal').addEventListener('click',closeUnitModal);
+$('unitModal').addEventListener('click',e=>{if(e.target===$('unitModal'))closeUnitModal()});
+
+unitOptions($('department'),orgUnits,'edit');
 $('userActionForm').addEventListener('submit',submitUserAction);
 $('closeUserAction').addEventListener('click',()=>{if(!state.busy){$('userActionModal').hidden=true;$('userNewPassword').value=''}});
 $('cancelUserAction').addEventListener('click',()=>{if(!state.busy){$('userActionModal').hidden=true;$('userNewPassword').value=''}});
