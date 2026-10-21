@@ -27,6 +27,7 @@ main{padding:34px 0 68px}.eyebrow{color:#43858a;font-size:11px;letter-spacing:.0
 @media(max-width:620px){#createUserForm{grid-template-columns:1fr}}
 #unitsView .btnRow{flex-wrap:nowrap}#unitsView th:last-child{min-width:140px}#unitsView table{min-width:850px}
 </style>
+<script src="./config.js"></script>
 </head>
 <body>
 <header class="header"><div class="container headInner"><div class="brand"><div class="brandIcon" aria-hidden="true">☏</div><div><h1>สมุดโทรศัพท์บุคลากร</h1><p id="orgHeader">ระบบบริหารจัดการข้อมูลบุคลากร</p><span class="versionTag">v16</span></div></div><nav class="switcher" aria-label="เมนูหลัก"><a href="./index.html">สมุดโทรศัพท์</a><a href="./admin.html" class="active" aria-current="page">ผู้ดูแลระบบ</a></nav></div></header>
@@ -100,7 +101,7 @@ function unitOptions(select,items,kind='edit',legacy=''){
   if(select.selectedIndex<0)select.value='';
 }
 
-const API_URL='https://script.google.com/macros/s/AKfycbzbkJsy5Qs8oVvckvRYxYNJLDDUQLHp9BOZYi6orFVODLKg33_0aHrPp5Jwuxeu8ob2/exec';
+const API_URL=(window.PHONEBOOK_CONFIG?.apiUrl || 'https://script.google.com/macros/s/AKfycbzbkJsy5Qs8oVvckvRYxYNJLDDUQLHp9BOZYi6orFVODLKg33_0aHrPp5Jwuxeu8ob2/exec');
 const $=id=>document.getElementById(id);
 const state={token:null,username:'',role:'',contacts:[],settings:null,dataLoaded:false,loadError:'',tab:'all',page:1,editId:null,busy:false,users:null,userEditUsername:'',userEditMode:''};
 const SESSION_STORAGE_KEY='phonebook-admin-session-v15';
