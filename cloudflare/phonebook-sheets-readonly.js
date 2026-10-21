@@ -61,8 +61,23 @@ async function sheetRead(env,range){
   const endpoint=`https://sheets.googleapis.com/v4/spreadsheets/${encodeURIComponent(SPREADSHEET_ID)}/values/${encodeURIComponent(range)}?valueRenderOption=FORMATTED_VALUE`;
   const result=await fetch(endpoint,{headers:{Authorization:`Bearer ${token}`}});
   if(!result.ok){
-    if(result.status===403||result.status===404)throw new Error('Google Sheets ไม่อนุญาตให้ Service Account อ่านไฟล์ กรุณาแชร์ชีตให้ Service Account เป็น Viewer');
-    throw new Error(`Google Sheets API ตอบกลับผิดพลาด (${result.status})`);
+    // Keep the public diagnostic free of private credentials, tokens, and raw Google errors.
+    const googleError=await result.json().catch(()=>({}));
+    const status=String(googleError?.error?.status||'').slice(0,60);
+    const reason=String(googleError?.error?.errors?.[0]?.reason||'').slice(0,60);
+    const disabled=/SERVICE_DISABLED|accessNotConfigured|API_DISABLED/i.test(status+' '+reason);
+    const code=disabled?'SHEETS_API_DISABLED':
+      result.status===403?'SHEETS_PERMISSION_DENIED':
+      result.status===404?'SHEETS_NOT_FOUND':'SHEETS_API_ERROR';
+    const message=disabled?'โปรเจกต์ Google Cloud ของ Service Account ยังไม่ได้เปิด Google Sheets API':
+      result.status===403?'Google Sheets ตอบ HTTP 403: ตรวจการแชร์ให้ client_email ใน Secret และนโยบายการเข้าถึง':
+      result.status===404?'Google Sheets ตอบ HTTP 404: ตรวจ Spreadsheet ID และสิทธิ์ของ Service Account':
+      `Google Sheets API ตอบ HTTP ${result.status}`;
+    const error=new Error(message);
+    error.code=code;
+    error.googleHttpStatus=result.status;
+    error.googleStatus=/^[A-Z_]{2,60}$/.test(status)?status:undefined;
+    throw error;
   }
   const obj=await result.json();return Array.isArray(obj.values)?obj.values:[];
 }
@@ -96,6 +111,10 @@ export default {
     const action=url.pathname==='/health'?'health':url.searchParams.get('action')||'list';
     if(!['list','health'].includes(action))return respond({ok:false,pending:false,message:'Worker อ่านอย่างเดียว ไม่รองรับคำสั่งนี้'},503,origin,callback);
     try {return respond(action==='health'?await schemaHealth(env):await publicList(env),200,origin,callback);}
-    catch(err){return respond({ok:false,sheetAccessible:false,message:err.message||'ระบบติดต่อ Google Sheets ไม่สำเร็จ'},503,origin,callback);}
+    catch(err){return respond({ok:false,sheetAccessible:false,readOnly:true,
+      errorCode:err.code||'SHEETS_DIAGNOSTIC_ERROR',
+      ...(err.googleHttpStatus?{googleHttpStatus:err.googleHttpStatus}:{}),
+      ...(err.googleStatus?{googleStatus:err.googleStatus}:{}),
+      message:err.message||'ระบบติดต่อ Google Sheets ไม่สำเร็จ'},503,origin,callback);}
   }
 };
