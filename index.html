@@ -75,6 +75,7 @@
     @media(max-width:480px){.progressSteps{gap:5px}.progressStep{font-size:10px}}
     @media(prefers-reduced-motion:reduce){.saveProgressSpinner,.syncStatus .miniSpinner{animation-duration:1.8s}}
 </style>
+<script src="./config.js"></script>
 </head>
 <body>
   <header class="topbar">
@@ -205,7 +206,7 @@ function unitOptions(select,items,kind='edit',legacy=''){
    * อย่านำลิงก์จากระบบ Google Apps Script อื่นมาใส่
    * ============================================================= */
   const CONFIG = {
-    apiUrl: 'https://script.google.com/macros/s/AKfycbzbkJsy5Qs8oVvckvRYxYNJLDDUQLHp9BOZYi6orFVODLKg33_0aHrPp5Jwuxeu8ob2/exec',
+    apiUrl: (window.PHONEBOOK_CONFIG?.apiUrl || 'https://script.google.com/macros/s/AKfycbzbkJsy5Qs8oVvckvRYxYNJLDDUQLHp9BOZYi6orFVODLKg33_0aHrPp5Jwuxeu8ob2/exec'),
     organizationName: 'วิทยาลัยการอาชีพนครยะลา',
     pageSize: 12,
     timeoutMs: 16000
