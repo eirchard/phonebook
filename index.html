@@ -220,7 +220,7 @@ function unitOptions(select,items,kind='edit',legacy=''){
   const $ = (id) => document.getElementById(id);
   // แสดงรายชื่อสาธารณะที่เคยโหลดไว้ทันที แล้วค่อยตรวจข้อมูลใหม่เมื่อครบระยะเวลา
   // ไม่เก็บข้อมูลของ Admin ไว้ในแคชนี้
-  const PUBLIC_CACHE_KEY = 'phonebook-public-v8';
+  const PUBLIC_CACHE_KEY = 'phonebook-public-v17';
   const CACHE_FRESH_MS = 0;
   const CACHE_MAX_MS = 5 * 60 * 1000;
   const state = {contacts:[], filtered:[], page:1, loading:false, requestNumber:0, hasData:false,settings:{}};
@@ -525,7 +525,7 @@ function unitOptions(select,items,kind='edit',legacy=''){
       pendingSubmission=null;
       if(!result.ok)throw new Error(result.message||'บันทึกไม่สำเร็จ');
       // ป้องกันการอัปเดตเฉพาะ GitHub แต่ลืม Deploy Code.gs: v8 ยังบันทึกแบบรออนุมัติ
-      if(result.published!==true || !result.id)throw new Error('บันทึกลง Google Sheets แล้ว แต่ Apps Script ยังใช้โค้ดเวอร์ชันเดิม จึงอาจยังไม่เผยแพร่ กรุณา Deploy Code.gs v9 ก่อน (ไม่ต้องกดบันทึกซ้ำ)');
+      if(result.published!==true || !result.id)throw new Error('บันทึกลง Google Sheets แล้ว แต่ Apps Script ยังใช้โค้ดเวอร์ชันเดิม จึงอาจยังไม่เผยแพร่ กรุณา Deploy Code.gs v17 ก่อน (ไม่ต้องกดบันทึกซ้ำ)');
       showSaveProgress(3,'บันทึกสำเร็จ!','กำลังแสดงรายชื่อที่เพิ่มใหม่...');
       // แสดงรายชื่อใหม่บนหน้าจอทันทีโดยไม่รอ Apps Script โหลดรายชื่อทั้งชุดซ้ำ
       state.requestNumber++;
